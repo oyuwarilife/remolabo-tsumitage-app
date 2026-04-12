@@ -175,33 +175,38 @@ main {
 }
 
 .task-btn {
-    background: linear-gradient(135deg, #fff9c4 0%, #ffe082 100%);
+    background: linear-gradient(135deg, #fff9c4 0%, #ffd54f 50%, #ffb300 100%);
     color: #5d4037;
-    border: none;
-    border-radius: 30px;
-    padding: 20px 50px;
-    font-size: 1.3em;
+    border: 4px solid #fff;
+    border-radius: 40px;
+    padding: 25px 60px;
+    font-size: 1.5em;
     font-weight: 800;
     cursor: pointer;
     box-shadow:
-        0 8px 0 #ffd54f,
-        0 12px 25px rgba(255, 193, 7, 0.4);
+        0 0 0 2px #ffb300,
+        0 10px 0 #ff8f00,
+        0 15px 35px rgba(255, 143, 0, 0.5);
     transition: all 0.1s ease;
     position: relative;
+    text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
+    letter-spacing: 0.05em;
 }
 
 .task-btn:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px);
     box-shadow:
-        0 10px 0 #ffd54f,
-        0 14px 30px rgba(255, 193, 7, 0.5);
+        0 0 0 2px #ffb300,
+        0 13px 0 #ff8f00,
+        0 18px 40px rgba(255, 143, 0, 0.6);
 }
 
 .task-btn:active {
-    transform: translateY(6px);
+    transform: translateY(8px);
     box-shadow:
-        0 2px 0 #ffd54f,
-        0 4px 10px rgba(255, 193, 7, 0.3);
+        0 0 0 2px #ffb300,
+        0 2px 0 #ff8f00,
+        0 5px 15px rgba(255, 143, 0, 0.4);
 }
 
 .task-count {
