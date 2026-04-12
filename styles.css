@@ -327,9 +327,9 @@ main {
     border-radius: 50%;
 }
 
-/* ものさしパネル */
-.monasashi-panel {
-    width: 150px;
+/* リモにゃん成長パネル */
+.remonyan-panel {
+    width: 200px;
     background: white;
     border: 2px solid #ffe082;
     border-radius: 15px;
@@ -337,82 +337,46 @@ main {
     text-align: center;
 }
 
-.monasashi-panel h3 {
+.remonyan-panel h3 {
     color: #5d4037;
     margin-bottom: 15px;
     font-size: 1.1em;
 }
 
-.monasashi-bar {
-    height: 400px;
-    width: 60px;
-    margin: 0 auto;
-    border: 2px solid #bdbdbd;
-    border-radius: 10px;
-    overflow: hidden;
-    position: relative;
-    background: #f5f5f5;
-    display: flex;
-    flex-direction: column-reverse;
+.remonyan-container {
+    margin: 20px 0;
 }
 
-.monasashi-block {
-    height: 5%;
-    transition: all 0.3s;
+.remonyan-growth {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    animation: remonyan-bounce 3s ease-in-out infinite;
 }
 
-.monasashi-current {
-    position: absolute;
-    left: 70px;
-    height: auto;
-    background: transparent;
-    z-index: 10;
-    transform: translateY(-50%);
-}
-
-.current-label {
-    display: inline-block;
-    background: linear-gradient(135deg, #ffd54f 0%, #ffb300 100%);
-    color: #5d4037;
-    padding: 8px 15px;
-    border-radius: 20px;
-    font-size: 0.85em;
-    font-weight: bold;
-    white-space: nowrap;
-    box-shadow: 0 3px 10px rgba(255, 152, 0, 0.4);
-    position: relative;
-    animation: current-float 2s ease-in-out infinite;
-}
-
-.current-label::before {
-    content: '';
-    position: absolute;
-    left: -8px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 0;
-    height: 0;
-    border-top: 8px solid transparent;
-    border-bottom: 8px solid transparent;
-    border-right: 10px solid #ffd54f;
-}
-
-@keyframes current-float {
+@keyframes remonyan-bounce {
     0%, 100% {
         transform: translateY(0);
-        box-shadow: 0 3px 10px rgba(255, 152, 0, 0.4);
     }
     50% {
-        transform: translateY(-5px);
-        box-shadow: 0 5px 15px rgba(255, 152, 0, 0.5);
+        transform: translateY(-10px);
     }
 }
 
-.monasashi-label {
-    margin-top: 15px;
-    font-size: 1.2em;
+.remonyan-count {
+    font-size: 2em;
     font-weight: bold;
     color: #ff6f00;
+    margin: 15px 0;
+}
+
+.remonyan-next {
+    font-size: 0.9em;
+    color: #5d4037;
+    background: #fff9c4;
+    padding: 8px 12px;
+    border-radius: 10px;
+    margin-top: 10px;
 }
 
 /* 今週の目標 */

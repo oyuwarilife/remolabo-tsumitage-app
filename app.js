@@ -373,41 +373,49 @@ function initMonasashi() {
 }
 
 function updateMonasashi() {
-    const barEl = document.getElementById('monasashiBar');
-    const countEl = document.getElementById('monasashiCount');
+    const imageEl = document.getElementById('remonyanImage');
+    const countEl = document.getElementById('remonyanTotalCount');
+    const nextEl = document.getElementById('remonyanNext');
 
     // 100個単位での余り（0-100）
     const current = data.totalTasks % 100;
 
+    // 累計タスク数を表示
     countEl.textContent = current;
 
-    // 100ブロック生成
-    let html = '';
-    for (let i = 0; i < 100; i++) {
-        const color = getMonasashiColor(i + 1);
-        const filled = i < current;
-        html += `<div class="monasashi-block" style="background: ${filled ? color : '#f5f5f5'}"></div>`;
+    // リモにゃんの画像を切り替え（20個ごと）
+    let imageNumber = 1;
+    if (current >= 80) {
+        imageNumber = 5;
+    } else if (current >= 60) {
+        imageNumber = 4;
+    } else if (current >= 40) {
+        imageNumber = 3;
+    } else if (current >= 20) {
+        imageNumber = 2;
     }
 
-    // 現在地ライン（吹き出し風）
-    if (current > 0) {
-        const percentage = current / 100;
-        html += `
-            <div class="monasashi-current" style="bottom: ${percentage * 100}%">
-                <span class="current-label">今ここ 🎯</span>
-            </div>
-        `;
+    imageEl.src = `assets/remonyan-${imageNumber}.png`;
+
+    // 次の成長までの残り個数を表示
+    let nextMilestone = 20;
+    if (current >= 80) {
+        nextMilestone = 100;
+    } else if (current >= 60) {
+        nextMilestone = 80;
+    } else if (current >= 40) {
+        nextMilestone = 60;
+    } else if (current >= 20) {
+        nextMilestone = 40;
     }
 
-    barEl.innerHTML = html;
-}
+    const remaining = nextMilestone - current;
 
-function getMonasashiColor(count) {
-    if (count <= 20) return '#fff9c4'; // 薄い黄色
-    if (count <= 40) return '#ffe0b2'; // パステルオレンジ
-    if (count <= 60) return '#f8bbd0'; // パステルピンク
-    if (count <= 80) return '#e1bee7'; // ラベンダー
-    return '#d1c4e9'; // パステルパープル
+    if (current >= 100 || remaining === 0) {
+        nextEl.textContent = '最大レベル達成！';
+    } else {
+        nextEl.textContent = `次の成長まであと${remaining}個`;
+    }
 }
 
 // ========================================
