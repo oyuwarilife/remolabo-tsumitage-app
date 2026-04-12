@@ -415,10 +415,10 @@ function updateWeekLog() {
             <div class="week-row ${isToday ? 'today' : ''}">
                 <div>${formatWeekDate(date)}</div>
                 <div class="week-stamps">
-                    <span class="mini-stamp ${stamps.morning ? 'active' : ''}">☀️</span>
-                    <span class="mini-stamp ${stamps.lunch ? 'active' : ''}">🍙</span>
-                    <span class="mini-stamp ${stamps.night ? 'active' : ''}">⭐</span>
-                    <span class="mini-stamp ${stamps.tsumitage ? 'active' : ''}">💪</span>
+                    <img src="assets/morning.png" alt="朝活" class="mini-stamp ${stamps.morning ? 'active' : ''}">
+                    <img src="assets/lunch.png" alt="昼活" class="mini-stamp ${stamps.lunch ? 'active' : ''}">
+                    <img src="assets/night.png" alt="夜活" class="mini-stamp ${stamps.night ? 'active' : ''}">
+                    <img src="assets/tsumitage.png" alt="積み上げ" class="mini-stamp ${stamps.tsumitage ? 'active' : ''}">
                 </div>
                 <div>${tasks}</div>
             </div>

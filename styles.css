@@ -335,7 +335,9 @@ main {
 }
 
 .mini-stamp {
-    font-size: 1.2em;
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
     opacity: 0.3;
     position: relative;
 }
