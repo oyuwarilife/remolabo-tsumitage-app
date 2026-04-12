@@ -137,7 +137,7 @@ main {
     height: 90px;
     opacity: 0;
     pointer-events: none;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M 50,10 C 65,12 80,20 88,35 C 92,45 93,58 88,68 C 82,80 70,88 55,92 C 42,94 28,92 18,85 C 10,78 5,68 4,55 C 3,42 6,28 15,18 C 24,9 37,8 50,10 Z" fill="none" stroke="%23ff5252" stroke-width="4" stroke-linecap="round"/></svg>');
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><g fill="none" stroke="%23ff5252" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="60" cy="20" r="10"/><circle cx="95" cy="40" r="10"/><circle cx="100" cy="75" r="10"/><circle cx="70" cy="100" r="10"/><circle cx="30" cy="95" r="10"/><circle cx="15" cy="55" r="10"/><path d="M 60,35 Q 55,45 52,50 Q 48,55 50,60 Q 52,65 58,65 Q 62,65 65,60 Q 68,55 65,50 Q 62,45 60,35" transform="rotate(-10 60 60)"/></g></svg>');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
