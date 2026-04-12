@@ -101,7 +101,6 @@
                             <div>日付</div>
                             <div>参加記録</div>
                             <div>タスク</div>
-                            <div>メモ</div>
                         </div>
                         <div id="weekRows" class="week-body">
                             <!-- JavaScriptで生成 -->
@@ -150,6 +149,7 @@
     <!-- フッター -->
     <footer>
         <div class="footer-links">
+            <a href="about.html">積み上げアプリについて</a>
             <a href="https://remolabo.commmune.com/view/home" target="_blank">リモシティ</a>
             <a href="https://twitter.com/intent/tweet?text=リモラボ積み上げアプリで記録中🎉" target="_blank">Xに投稿する</a>
             <a href="https://threads.net/intent/post?text=リモラボ積み上げアプリで記録中🎉" target="_blank">Threadsに投稿する</a>
@@ -158,29 +158,6 @@
             制作：remolabo
         </div>
     </footer>
-
-    <!-- メモモーダル -->
-    <div id="memoModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>📝 メモ</h2>
-                <button class="close-btn">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p id="memoDate"></p>
-                <textarea
-                    id="memoTextarea"
-                    placeholder="今日の一言メモを入力..."
-                    maxlength="200"
-                    rows="5"
-                ></textarea>
-                <div class="memo-buttons">
-                    <button id="saveMemoBtn" class="btn-primary">保存</button>
-                    <button id="deleteMemoBtn" class="btn-danger">削除</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- お祝い画面 -->
     <div id="celebrationModal" class="modal celebration">

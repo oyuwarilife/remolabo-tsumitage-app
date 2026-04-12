@@ -272,7 +272,7 @@ main {
 
 .week-header {
     display: grid;
-    grid-template-columns: 120px 1fr 80px 60px;
+    grid-template-columns: 120px 1fr 80px;
     background: #fff8e1;
     font-weight: bold;
     padding: 10px;
@@ -286,7 +286,7 @@ main {
 
 .week-row {
     display: grid;
-    grid-template-columns: 120px 1fr 80px 60px;
+    grid-template-columns: 120px 1fr 80px;
     padding: 10px;
     border-bottom: 1px solid #f0f0f0;
     align-items: center;
@@ -444,65 +444,6 @@ main {
 .weekly-goal input:focus {
     outline: none;
     border-color: #ffb300;
-}
-
-/* メモボタン */
-.memo-btn {
-    background: #e0e0e0;
-    border: none;
-    border-radius: 50%;
-    width: 35px;
-    height: 35px;
-    font-size: 1.2em;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.memo-btn:hover {
-    background: #ffd54f;
-    transform: scale(1.1);
-}
-
-.memo-btn.has-memo {
-    background: #ffd54f;
-    box-shadow: 0 2px 8px rgba(255, 193, 7, 0.4);
-}
-
-/* メモモーダル */
-#memoModal .modal-body {
-    padding: 20px 0;
-}
-
-#memoDate {
-    font-weight: bold;
-    color: #5d4037;
-    margin-bottom: 15px;
-}
-
-#memoTextarea {
-    width: 100%;
-    padding: 12px;
-    border: 2px solid #e0e0e0;
-    border-radius: 10px;
-    font-size: 1em;
-    font-family: 'M PLUS Rounded 1c', sans-serif;
-    resize: vertical;
-    transition: border-color 0.2s;
-}
-
-#memoTextarea:focus {
-    outline: none;
-    border-color: #ffd54f;
-}
-
-.memo-buttons {
-    display: flex;
-    gap: 10px;
-    margin-top: 15px;
-}
-
-.memo-buttons button {
-    flex: 1;
 }
 
 /* 注意書き */

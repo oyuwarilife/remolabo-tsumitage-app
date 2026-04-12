@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>リモラボ_積み上げアプリについて</title>
+
+    <!-- PWA設定 -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="assets/remonyan.png">
+    <meta name="theme-color" content="#ffd54f">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="積み上げ">
+    <link rel="apple-touch-icon" href="assets/remonyan.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .about-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .about-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .about-section h2 {
+            color: #ff6f00;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #ffd54f;
+            padding-bottom: 10px;
+        }
+
+        .about-section h3 {
+            color: #5d4037;
+            font-size: 1.3em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        .about-section p {
+            line-height: 1.8;
+            color: #5d4037;
+            margin-bottom: 15px;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            padding: 15px;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #fff9c4 0%, #fffde7 100%);
+            border-radius: 10px;
+            border-left: 5px solid #ffd54f;
+        }
+
+        .feature-list li strong {
+            color: #ff6f00;
+            font-size: 1.1em;
+        }
+
+        .warning-box {
+            background: #ffebee;
+            border: 3px solid #ef5350;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .warning-box h3 {
+            color: #c62828;
+            margin-top: 0;
+        }
+
+        .backup-steps {
+            background: #e8f5e9;
+            border: 3px solid #66bb6a;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .backup-steps h3 {
+            color: #2e7d32;
+            margin-top: 0;
+        }
+
+        .backup-steps ol {
+            line-height: 2;
+        }
+
+        .backup-steps strong {
+            color: #2e7d32;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin: 20px 0;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #ffd54f 0%, #ffb300 100%);
+            color: #5d4037;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(255, 179, 0, 0.3);
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 179, 0, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- ヘッダー -->
+        <header>
+            <div class="header-content">
+                <img src="assets/remonyan.png" alt="リモにゃん" class="header-logo">
+                <h1>積み上げアプリについて</h1>
+            </div>
+        </header>
+
+        <div class="about-container">
+            <a href="index.html" class="back-link">← アプリに戻る</a>
+
+            <!-- アプリについて -->
+            <div class="about-section">
+                <h2>📱 リモラボ積み上げアプリとは？</h2>
+                <p>
+                    リモラボの朝活・昼活・夜活・積み上げタイムの参加記録と、タスク完了数を蓄積できるWebアプリです。
+                    スマホのホーム画面に追加すれば、アプリのように使えます！
+                </p>
+            </div>
+
+            <!-- 主な機能 -->
+            <div class="about-section">
+                <h2>✨ できること</h2>
+                <ul class="feature-list">
+                    <li>
+                        <strong>☀️ 🍙 ⭐ 💪 参加スタンプ</strong><br>
+                        朝活・昼活・夜活・積み上げタイムに参加したら、スタンプをタップ！花丸エフェクトが出ます。
+                    </li>
+                    <li>
+                        <strong>📊 タスク完了記録</strong><br>
+                        「タスク完了！」ボタンを押すたびにカウント増加。今日のタスク数と累計タスク数が記録されます。
+                    </li>
+                    <li>
+                        <strong>📅 週ログ表示</strong><br>
+                        月〜日の7日間の記録を一覧表示。過去4週間まで遡れます。
+                    </li>
+                    <li>
+                        <strong>📝 今週の目標設定</strong><br>
+                        週ごとに目標を記入できます（例：朝活3回、タスク20個完了）。
+                    </li>
+                    <li>
+                        <strong>📝 日別メモ機能</strong><br>
+                        各日に一言メモを追加できます（最大200文字）。
+                    </li>
+                    <li>
+                        <strong>📏 ものさしパネル</strong><br>
+                        累計タスク100個を上限とした縦型バー。達成済み部分がパステルグラデーションで表示され、「今ここ 🎯」マークで現在地がわかります。
+                    </li>
+                    <li>
+                        <strong>🎉 100個達成のお祝い画面</strong><br>
+                        100回・200回・300回達成時に、カラフルな円形プログレスバーとリモにゃんのお祝い画面が表示されます。画像保存やSNS共有もできます。
+                    </li>
+                    <li>
+                        <strong>🔥 連続記録の褒め言葉</strong><br>
+                        3日・7日・14日・30日連続でタスクを完了すると、特別なメッセージが表示されます。
+                    </li>
+                    <li>
+                        <strong>📱 PWA対応</strong><br>
+                        スマホのホーム画面に追加すれば、アプリのように使えます。オフラインでも動作します。
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 使い方 -->
+            <div class="about-section">
+                <h2>📖 使い方</h2>
+
+                <h3>1. 参加スタンプを押す</h3>
+                <p>
+                    朝活・昼活・夜活・積み上げタイムに参加したら、該当するスタンプボタンをタップ。花丸エフェクトが表示され、記録されます。
+                </p>
+
+                <h3>2. タスク完了ボタンを押す</h3>
+                <p>
+                    タスクを1つ完了したら「タスク完了！」ボタンを押します。今日のカウントと累計カウントが増えます。
+                </p>
+
+                <h3>3. 週ログで振り返る</h3>
+                <p>
+                    週ログで、今週の記録を確認できます。「← 前の週」「次の週 →」ボタンで過去の記録も見られます（最大4週間前まで）。
+                </p>
+
+                <h3>4. 今週の目標を設定する</h3>
+                <p>
+                    週ログの上にある「📝 今週の目標」欄に、目標を入力します（例：朝活3回、タスク20個完了）。週ごとに保存されます。
+                </p>
+
+                <h3>5. 日別メモを追加する</h3>
+                <p>
+                    週ログの各日の右端にある📝ボタンをクリックすると、その日のメモを追加・編集できます。
+                </p>
+
+                <h3>6. ものさしパネルで進捗確認</h3>
+                <p>
+                    右側のものさしパネルで、100個達成までの進捗をビジュアルで確認できます。
+                </p>
+            </div>
+
+            <!-- バックアップ（最重要） -->
+            <div class="about-section">
+                <h2>💾 データのバックアップ（重要！）</h2>
+
+                <div class="warning-box">
+                    <h3>⚠️ 必ずバックアップを取ってください</h3>
+                    <p>
+                        このアプリはブラウザのlocalStorageにデータを保存しています。<br>
+                        <strong>ブラウザのキャッシュをクリアすると、記録が全て消えます。</strong>
+                    </p>
+                    <p>
+                        定期的にデータをバックアップすることを強くおすすめします。
+                    </p>
+                </div>
+
+                <div class="backup-steps">
+                    <h3>📥 バックアップ方法</h3>
+                    <ol>
+                        <li>画面右上の<strong>⚙️（設定）ボタン</strong>をクリック</li>
+                        <li><strong>「📥 データをダウンロード（CSV）」</strong>ボタンをクリック</li>
+                        <li>CSVファイルがダウンロードされます</li>
+                        <li>ファイルを安全な場所に保存してください（Google Drive、Dropboxなど）</li>
+                    </ol>
+
+                    <h3>📤 復元方法</h3>
+                    <ol>
+                        <li>画面右上の<strong>⚙️（設定）ボタン</strong>をクリック</li>
+                        <li><strong>「📤 データを復元」</strong>ボタンをクリック</li>
+                        <li>保存したCSVファイルを選択</li>
+                        <li>データが復元されます</li>
+                    </ol>
+
+                    <p><strong>おすすめ：週1回、バックアップを取る習慣をつけましょう！</strong></p>
+                </div>
+            </div>
+
+            <!-- データ管理 -->
+            <div class="about-section">
+                <h2>🗂️ データ管理</h2>
+                <p>
+                    データは全てあなたのスマホ・PCのブラウザ内に保存されます（localStorage）。<br>
+                    外部サーバーには送信されません。
+                </p>
+                <p>
+                    <strong>注意：</strong>デバイス間での同期はありません。スマホとPCで別々に記録されます。
+                </p>
+            </div>
+
+            <!-- スマホアプリ化 -->
+            <div class="about-section">
+                <h2>📱 スマホアプリのように使う方法</h2>
+
+                <h3>iPhone（Safari）</h3>
+                <ol>
+                    <li>Safariでこのアプリを開く</li>
+                    <li>画面下の共有ボタン（□に↑）をタップ</li>
+                    <li>「ホーム画面に追加」をタップ</li>
+                    <li>ホーム画面にリモにゃんアイコンが追加されます</li>
+                </ol>
+
+                <h3>Android（Chrome）</h3>
+                <ol>
+                    <li>Chromeでこのアプリを開く</li>
+                    <li>画面右上のメニュー（⋮）をタップ</li>
+                    <li>「ホーム画面に追加」をタップ</li>
+                    <li>ホーム画面にリモにゃんアイコンが追加されます</li>
+                </ol>
+            </div>
+
+            <a href="index.html" class="back-link">← アプリに戻る</a>
+        </div>
+
+        <!-- フッター -->
+        <footer>
+            <div class="footer-links">
+                <a href="index.html">積み上げアプリ</a>
+                <a href="about.html">積み上げアプリについて</a>
+                <a href="https://remolabo.commmune.com/view/home" target="_blank">リモシティ</a>
+            </div>
+            <div class="footer-credit">
+                制作：remolabo
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

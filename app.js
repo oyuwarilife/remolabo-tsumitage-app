@@ -14,8 +14,7 @@ function getDefaultData() {
         lastBackupDate: null,
         lastTaskDate: null,
         consecutiveDays: 0,
-        weeklyGoals: {},
-        memos: {}
+        weeklyGoals: {}
     };
 }
 
@@ -57,7 +56,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initWeekLog();
     initMonasashi();
     initSettings();
-    initMemo();
     initCelebration();
     checkBackupReminder();
 });
@@ -341,8 +339,6 @@ function updateWeekLog() {
 
         const tasks = data.tasks[dateStr] || 0;
 
-        const hasMemo = data.memos[dateStr] && data.memos[dateStr].trim() !== '';
-
         html += `
             <div class="week-row ${isToday ? 'today' : ''}">
                 <div>${formatWeekDate(date)}</div>
@@ -353,24 +349,11 @@ function updateWeekLog() {
                     <span class="mini-stamp ${stamps.tsumitage ? 'active' : ''}">💪</span>
                 </div>
                 <div>${tasks}</div>
-                <div>
-                    <button class="memo-btn ${hasMemo ? 'has-memo' : ''}" data-date="${dateStr}" title="メモ">
-                        📝
-                    </button>
-                </div>
             </div>
         `;
     }
 
     weekRowsEl.innerHTML = html;
-
-    // メモボタンにイベントリスナーを追加
-    const memoBtns = weekRowsEl.querySelectorAll('.memo-btn');
-    memoBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            openMemoModal(btn.dataset.date);
-        });
-    });
 }
 
 function formatWeekDate(date) {
@@ -425,89 +408,6 @@ function getMonasashiColor(count) {
     if (count <= 60) return '#f8bbd0'; // パステルピンク
     if (count <= 80) return '#e1bee7'; // ラベンダー
     return '#d1c4e9'; // パステルパープル
-}
-
-// ========================================
-// メモモーダル
-// ========================================
-
-let currentMemoDate = null;
-
-function initMemo() {
-    const memoModal = document.getElementById('memoModal');
-    const closeBtn = memoModal.querySelector('.close-btn');
-    const saveMemoBtn = document.getElementById('saveMemoBtn');
-    const deleteMemoBtn = document.getElementById('deleteMemoBtn');
-
-    closeBtn.addEventListener('click', () => {
-        closeMemoModal();
-    });
-
-    memoModal.addEventListener('click', (e) => {
-        if (e.target === memoModal) {
-            closeMemoModal();
-        }
-    });
-
-    saveMemoBtn.addEventListener('click', () => {
-        saveMemo();
-    });
-
-    deleteMemoBtn.addEventListener('click', () => {
-        deleteMemo();
-    });
-}
-
-function openMemoModal(dateStr) {
-    const memoModal = document.getElementById('memoModal');
-    const memoDateEl = document.getElementById('memoDate');
-    const memoTextarea = document.getElementById('memoTextarea');
-
-    currentMemoDate = dateStr;
-
-    // 日付を表示
-    const date = new Date(dateStr);
-    memoDateEl.textContent = formatWeekDate(date) + 'のメモ';
-
-    // 既存のメモを読み込み
-    memoTextarea.value = data.memos[dateStr] || '';
-
-    memoModal.classList.add('show');
-    memoTextarea.focus();
-}
-
-function closeMemoModal() {
-    const memoModal = document.getElementById('memoModal');
-    memoModal.classList.remove('show');
-    currentMemoDate = null;
-}
-
-function saveMemo() {
-    if (!currentMemoDate) return;
-
-    const memoTextarea = document.getElementById('memoTextarea');
-    const memoText = memoTextarea.value.trim();
-
-    if (memoText) {
-        data.memos[currentMemoDate] = memoText;
-    } else {
-        delete data.memos[currentMemoDate];
-    }
-
-    saveData(data);
-    updateWeekLog();
-    closeMemoModal();
-}
-
-function deleteMemo() {
-    if (!currentMemoDate) return;
-
-    if (confirm('このメモを削除しますか？')) {
-        delete data.memos[currentMemoDate];
-        saveData(data);
-        updateWeekLog();
-        closeMemoModal();
-    }
 }
 
 // ========================================
