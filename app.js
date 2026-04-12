@@ -199,25 +199,6 @@ function initTaskButton() {
 
         // 最終記録日を更新
         data.lastTaskDate = today;
-
-        // 連続記録の特別メッセージ
-        if (data.consecutiveDays === 3) {
-            setTimeout(() => {
-                showTaskMessage('3日連続！すごいにゃ🎉');
-            }, 500);
-        } else if (data.consecutiveDays === 7) {
-            setTimeout(() => {
-                showTaskMessage('1週間達成！継続の力にゃ✨');
-            }, 500);
-        } else if (data.consecutiveDays === 14) {
-            setTimeout(() => {
-                showTaskMessage('2週間連続！素晴らしいにゃ🌟');
-            }, 500);
-        } else if (data.consecutiveDays === 30) {
-            setTimeout(() => {
-                showTaskMessage('1ヶ月達成！習慣化できてるにゃ👏');
-            }, 500);
-        }
     }
 
     function getYesterday() {
