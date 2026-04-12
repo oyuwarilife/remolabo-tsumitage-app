@@ -57,6 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initMonasashi();
     initSettings();
     initCelebration();
+    initWeeklySummary();
     checkBackupReminder();
 });
 
@@ -143,6 +144,10 @@ function initTaskButton() {
         updateMonasashi();
         updateWeekLog();
 
+        // 週間タスク数のマイルストーンチェック（案2）
+        const weekData = getWeekData();
+        checkTaskMilestone(weekData.weekTasks);
+
         // ボタンアニメーション
         taskBtn.style.transform = 'scale(0.95)';
         setTimeout(() => {
@@ -211,6 +216,7 @@ function initWeekLog() {
             currentWeekOffset--;
             updateWeekLog();
             loadWeeklyGoals();
+            checkPastWeekView(); // 案3
         }
     });
 
@@ -904,6 +910,236 @@ function getShareText(milestone) {
     } else {
         return `リモラボで${milestone}回達成したにゃ${'🎉'.repeat(times)}\n継続は力にゃ！\n#リモラボ`;
     }
+}
+
+// ========================================
+// ========================================
+// 週間サマリー
+// ========================================
+
+function initWeeklySummary() {
+    const promptModal = document.getElementById('summaryPrompt');
+    const summaryModal = document.getElementById('weeklySummaryModal');
+    const viewBtn = document.getElementById('viewSummaryBtn');
+    const skipBtn = document.getElementById('skipSummaryBtn');
+    const closeBtn = summaryModal.querySelector('.close-btn');
+    const shareThreadsBtn = document.getElementById('shareThreadsSummaryBtn');
+    const shareXBtn = document.getElementById('shareXSummaryBtn');
+
+    viewBtn.addEventListener('click', () => {
+        promptModal.style.display = 'none';
+        showWeeklySummary();
+    });
+
+    skipBtn.addEventListener('click', () => {
+        promptModal.style.display = 'none';
+    });
+
+    closeBtn.addEventListener('click', () => {
+        summaryModal.style.display = 'none';
+    });
+
+    shareThreadsBtn.addEventListener('click', () => {
+        const text = getShareText();
+        window.open(`https://threads.net/intent/post?text=${encodeURIComponent(text)}`, '_blank');
+    });
+
+    shareXBtn.addEventListener('click', () => {
+        const text = getShareText();
+        window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, '_blank');
+    });
+
+    // 初回アクセス時チェック（案4）
+    checkDailyPrompt();
+}
+
+// 週間サマリーを表示
+function showWeeklySummary() {
+    const modal = document.getElementById('weeklySummaryModal');
+    const weekData = getWeekData();
+
+    // タイトル・日付
+    document.getElementById('summaryWeekTitle').textContent = weekData.title;
+    document.getElementById('summaryWeekDate').textContent = weekData.dateRange;
+
+    // 統計
+    document.getElementById('weekTasks').textContent = `${weekData.weekTasks}個`;
+    document.getElementById('totalTasks').textContent = `${data.totalTasks}個`;
+    document.getElementById('streakDays').textContent = `${data.consecutiveDays}日`;
+
+    // 参加記録
+    document.getElementById('morningCount').textContent = weekData.stamps.morning;
+    document.getElementById('lunchCount').textContent = weekData.stamps.lunch;
+    document.getElementById('nightCount').textContent = weekData.stamps.night;
+    document.getElementById('tsumitageCount').textContent = weekData.stamps.tsumitage;
+
+    // 今週の目標
+    renderSummaryGoals(weekData.goals);
+
+    // グラフ描画
+    drawWeeklyChart(weekData.dailyTasks);
+
+    modal.style.display = 'flex';
+}
+
+// 週間データを取得
+function getWeekData() {
+    const today = new Date();
+    const dayOfWeek = today.getDay();
+    const diff = (dayOfWeek === 0 ? -6 : 1) - dayOfWeek;
+    const monday = new Date(today);
+    monday.setDate(today.getDate() + diff + (currentWeekOffset * 7));
+
+    const dates = [];
+    const dailyTasks = [];
+    const stamps = { morning: 0, lunch: 0, night: 0, tsumitage: 0 };
+    let weekTasks = 0;
+
+    for (let i = 0; i < 7; i++) {
+        const date = new Date(monday);
+        date.setDate(monday.getDate() + i);
+        const dateStr = formatDate(date);
+        dates.push(dateStr);
+
+        // タスク数
+        const tasks = data.tasks[dateStr] || 0;
+        dailyTasks.push(tasks);
+        weekTasks += tasks;
+
+        // スタンプ
+        if (data.stamps[dateStr]) {
+            if (data.stamps[dateStr].morning) stamps.morning++;
+            if (data.stamps[dateStr].lunch) stamps.lunch++;
+            if (data.stamps[dateStr].night) stamps.night++;
+            if (data.stamps[dateStr].tsumitage) stamps.tsumitage++;
+        }
+    }
+
+    // 週のタイトル
+    const title = currentWeekOffset === 0 ? '今週の記録' :
+                  currentWeekOffset === -1 ? '先週の記録' :
+                  `${Math.abs(currentWeekOffset)}週間前の記録`;
+
+    // 日付範囲
+    const startDate = formatDateJp(new Date(dates[0]));
+    const endDate = formatDateJp(new Date(dates[6]));
+    const dateRange = `${startDate} 〜 ${endDate}`;
+
+    // 今週の目標
+    const weekKey = getWeekKey();
+    const goals = data.weeklyGoals[weekKey] || [];
+
+    return { title, dateRange, dates, dailyTasks, weekTasks, stamps, goals };
+}
+
+// 日付を日本語表記に変換
+function formatDateJp(date) {
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    return `${year}年${month}月${day}日`;
+}
+
+// 今週の目標を表示
+function renderSummaryGoals(goals) {
+    const container = document.getElementById('summaryGoals');
+
+    if (!goals || goals.length === 0 || (goals.length === 1 && !goals[0])) {
+        container.style.display = 'none';
+        return;
+    }
+
+    container.style.display = 'block';
+    container.innerHTML = '<h3>📝 今週の目標</h3><ul>' +
+        goals.filter(g => g).map(g => `<li>${g}</li>`).join('') +
+        '</ul>';
+}
+
+// グラフ描画（棒グラフ）
+function drawWeeklyChart(dailyTasks) {
+    const canvas = document.getElementById('weeklyChart');
+    const ctx = canvas.getContext('2d');
+    const width = canvas.width;
+    const height = canvas.height;
+
+    // キャンバスクリア
+    ctx.clearRect(0, 0, width, height);
+
+    const days = ['月', '火', '水', '木', '金', '土', '日'];
+    const barWidth = 40;
+    const gap = 10;
+    const startX = (width - (barWidth + gap) * 7 + gap) / 2;
+    const maxTasks = Math.max(...dailyTasks, 1);
+    const maxHeight = height - 50;
+
+    dailyTasks.forEach((tasks, i) => {
+        const x = startX + (barWidth + gap) * i;
+        const barHeight = (tasks / maxTasks) * maxHeight;
+        const y = height - barHeight - 30;
+
+        // グラデーション
+        const gradient = ctx.createLinearGradient(x, y, x, y + barHeight);
+        gradient.addColorStop(0, '#ffd54f');
+        gradient.addColorStop(1, '#ff6f00');
+
+        // 棒グラフ
+        ctx.fillStyle = gradient;
+        ctx.fillRect(x, y, barWidth, barHeight);
+
+        // 数値
+        ctx.fillStyle = '#5d4037';
+        ctx.font = 'bold 14px "M PLUS Rounded 1c"';
+        ctx.textAlign = 'center';
+        ctx.fillText(tasks, x + barWidth / 2, y - 5);
+
+        // 曜日
+        ctx.fillStyle = '#5d4037';
+        ctx.font = '12px "M PLUS Rounded 1c"';
+        ctx.fillText(days[i], x + barWidth / 2, height - 10);
+    });
+}
+
+// SNS共有テキスト
+function getShareText() {
+    const weekData = getWeekData();
+    return `リモラボ 今週の記録🎉\n\n📊 タスク: ${weekData.weekTasks}個\n⭐ 朝活: ${weekData.stamps.morning}回\n🍙 昼活: ${weekData.stamps.lunch}回\n⭐ 夜活: ${weekData.stamps.night}回\n💪 積み上げ: ${weekData.stamps.tsumitage}回\n\n#リモラボ #積み上げタイム`;
+}
+
+// ポップアップ表示（案2: タスク達成時）
+function checkTaskMilestone(weekTasks) {
+    if (weekTasks === 10 || weekTasks === 20 || weekTasks === 30) {
+        showSummaryPrompt(`今週${weekTasks}個達成！記録を見ますか？`, '');
+    }
+}
+
+// ポップアップ表示（案3: 過去週を見たとき）
+function checkPastWeekView() {
+    if (currentWeekOffset < 0) {
+        const weeksAgo = Math.abs(currentWeekOffset);
+        const title = weeksAgo === 1 ? '先週の記録をまとめて見ますか？' : `${weeksAgo}週間前の記録をまとめて見ますか？`;
+        showSummaryPrompt(title, '');
+    }
+}
+
+// ポップアップ表示（案4: 初回アクセス時）
+function checkDailyPrompt() {
+    const today = getToday();
+    const lastPrompt = localStorage.getItem('lastSummaryPrompt');
+
+    if (lastPrompt !== today) {
+        localStorage.setItem('lastSummaryPrompt', today);
+        setTimeout(() => {
+            showSummaryPrompt('今週の記録を確認しますか？', '今週の進捗を振り返ってみましょう！');
+        }, 2000);
+    }
+}
+
+// ポップアップ表示
+function showSummaryPrompt(title, message) {
+    const modal = document.getElementById('summaryPrompt');
+    document.getElementById('promptTitle').textContent = title;
+    document.getElementById('promptMessage').textContent = message;
+    modal.style.display = 'flex';
 }
 
 // ========================================

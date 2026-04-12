@@ -185,6 +185,73 @@
         <div class="confetti" id="confetti"></div>
     </div>
 
+    <!-- 週間サマリー確認ポップアップ -->
+    <div id="summaryPrompt" class="modal" style="display: none;">
+        <div class="modal-content prompt-content">
+            <h3 id="promptTitle">今週の記録を確認しますか？</h3>
+            <p id="promptMessage"></p>
+            <div class="prompt-buttons">
+                <button id="viewSummaryBtn" class="btn-primary">📊 今週の記録を見る</button>
+                <button id="skipSummaryBtn" class="btn-secondary">後で</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 週間サマリー画面 -->
+    <div id="weeklySummaryModal" class="modal" style="display: none;">
+        <div class="modal-content summary-content">
+            <button class="close-btn">&times;</button>
+
+            <div class="summary-header">
+                <img src="assets/remonyan.png" alt="リモにゃん" class="summary-logo">
+                <h2 id="summaryWeekTitle">今週の記録</h2>
+                <p id="summaryWeekDate" class="summary-date"></p>
+            </div>
+
+            <div class="summary-stats">
+                <div class="stat-item highlight">
+                    <div class="stat-label">今週のタスク</div>
+                    <div class="stat-value" id="weekTasks">0個</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">累計タスク</div>
+                    <div class="stat-value" id="totalTasks">0個</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">連続記録</div>
+                    <div class="stat-value" id="streakDays">0日</div>
+                </div>
+            </div>
+
+            <div class="summary-graph">
+                <h3>📊 日別タスク数</h3>
+                <canvas id="weeklyChart" width="400" height="200"></canvas>
+            </div>
+
+            <div class="summary-stamps">
+                <h3>⭐ 参加記録</h3>
+                <div class="stamp-summary">
+                    <div class="stamp-count">☀️ 朝活: <strong id="morningCount">0</strong>回</div>
+                    <div class="stamp-count">🍙 昼活: <strong id="lunchCount">0</strong>回</div>
+                    <div class="stamp-count">⭐ 夜活: <strong id="nightCount">0</strong>回</div>
+                    <div class="stamp-count">💪 積み上げ: <strong id="tsumitageCount">0</strong>回</div>
+                </div>
+            </div>
+
+            <div class="summary-goals" id="summaryGoals">
+                <!-- JavaScriptで生成 -->
+            </div>
+
+            <div class="summary-share">
+                <p class="share-message">📸 スクショを撮ってSNSでシェアしよう！</p>
+                <div class="summary-buttons">
+                    <button id="shareThreadsSummaryBtn" class="btn-social threads">Threads共有</button>
+                    <button id="shareXSummaryBtn" class="btn-social x">X共有</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="app.js"></script>
 </body>
 </html>
