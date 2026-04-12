@@ -248,8 +248,8 @@ function updateWeekLog() {
                 <div class="week-stamps">
                     <span class="mini-stamp ${stamps.morning ? 'active' : ''}">☀️</span>
                     <span class="mini-stamp ${stamps.lunch ? 'active' : ''}">🍙</span>
-                    <span class="mini-stamp ${stamps.night ? 'active' : ''}">🌙</span>
-                    <span class="mini-stamp ${stamps.tsumitage ? 'active' : ''}">⏱️</span>
+                    <span class="mini-stamp ${stamps.night ? 'active' : ''}">⭐</span>
+                    <span class="mini-stamp ${stamps.tsumitage ? 'active' : ''}">💪</span>
                 </div>
                 <div>${tasks}</div>
             </div>
