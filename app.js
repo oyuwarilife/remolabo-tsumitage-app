@@ -310,8 +310,11 @@ function addGoal() {
 
 // 目標を削除
 function removeGoal(index) {
-    const weekKey = getWeekKey();
-    const goals = data.weeklyGoals[weekKey] || [];
+    // 現在表示されている目標を取得
+    const goalInputs = document.querySelectorAll('.goal-item input');
+    const goals = Array.from(goalInputs).map(input => input.value.trim());
+
+    // 指定のindexを削除
     goals.splice(index, 1);
 
     // 最低1つの入力欄を残す
@@ -319,7 +322,6 @@ function removeGoal(index) {
         goals.push('');
     }
 
-    data.weeklyGoals[weekKey] = goals;
     renderGoals(goals);
     saveWeeklyGoals();
     updateAddGoalButton();
