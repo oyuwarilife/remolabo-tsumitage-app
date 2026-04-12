@@ -144,6 +144,20 @@ function initTaskButton() {
         const today = getToday();
         todayCountEl.textContent = data.tasks[today] || 0;
         totalCountEl.textContent = data.totalTasks;
+        updateStreak();
+    }
+
+    function updateStreak() {
+        const streakBadge = document.getElementById('streakBadge');
+        const streakCount = document.getElementById('streakCount');
+
+        // 2日以上連続している場合のみ表示
+        if (data.consecutiveDays >= 2) {
+            streakCount.textContent = data.consecutiveDays;
+            streakBadge.style.display = 'block';
+        } else {
+            streakBadge.style.display = 'none';
+        }
     }
 
     function checkConsecutiveDays() {
