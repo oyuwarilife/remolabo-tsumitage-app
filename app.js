@@ -11,7 +11,9 @@ function getDefaultData() {
         tasks: {},
         totalTasks: 0,
         achieved100: false,
-        lastBackupDate: null
+        lastBackupDate: null,
+        lastTaskDate: null,
+        consecutiveDays: 0
     };
 }
 
@@ -123,6 +125,9 @@ function initTaskButton() {
         // 累計増加
         data.totalTasks++;
 
+        // 連続記録のチェック
+        checkConsecutiveDays();
+
         // 100個単位のチェック
         const milestone = Math.floor(data.totalTasks / 100) * 100;
         const prevMilestone = Math.floor((data.totalTasks - 1) / 100) * 100;
@@ -152,8 +157,8 @@ function initTaskButton() {
         totalCountEl.textContent = data.totalTasks;
     }
 
-    function showTaskMessage() {
-        const message = messages[Math.floor(Math.random() * messages.length)];
+    function showTaskMessage(customMessage = null) {
+        const message = customMessage || messages[Math.floor(Math.random() * messages.length)];
 
         // メッセージ要素を作成
         const msgEl = document.createElement('div');
@@ -173,6 +178,51 @@ function initTaskButton() {
                 document.body.removeChild(msgEl);
             }, 300);
         }, 2000);
+    }
+
+    function checkConsecutiveDays() {
+        const today = getToday();
+        const yesterday = getYesterday();
+
+        // 昨日もタスクを完了していたかチェック
+        if (data.lastTaskDate === yesterday) {
+            // 連続記録
+            data.consecutiveDays++;
+        } else if (data.lastTaskDate === today) {
+            // 今日はすでに記録済み（連続日数は変更なし）
+            return;
+        } else {
+            // 連続記録が途切れた
+            data.consecutiveDays = 1;
+        }
+
+        // 最終記録日を更新
+        data.lastTaskDate = today;
+
+        // 連続記録の特別メッセージ
+        if (data.consecutiveDays === 3) {
+            setTimeout(() => {
+                showTaskMessage('3日連続！すごいにゃ🎉');
+            }, 500);
+        } else if (data.consecutiveDays === 7) {
+            setTimeout(() => {
+                showTaskMessage('1週間達成！継続の力にゃ✨');
+            }, 500);
+        } else if (data.consecutiveDays === 14) {
+            setTimeout(() => {
+                showTaskMessage('2週間連続！素晴らしいにゃ🌟');
+            }, 500);
+        } else if (data.consecutiveDays === 30) {
+            setTimeout(() => {
+                showTaskMessage('1ヶ月達成！習慣化できてるにゃ👏');
+            }, 500);
+        }
+    }
+
+    function getYesterday() {
+        const date = new Date();
+        date.setDate(date.getDate() - 1);
+        return formatDate(date);
     }
 }
 

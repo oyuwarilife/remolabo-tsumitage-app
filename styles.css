@@ -6,7 +6,7 @@
 }
 
 body {
-    font-family: 'Segoe UI', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+    font-family: 'M PLUS Rounded 1c', 'Segoe UI', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
     background: linear-gradient(135deg, #fff8e1 0%, #ffe082 100%);
     min-height: 100vh;
     padding: 20px;
@@ -175,25 +175,33 @@ main {
 }
 
 .task-btn {
-    background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
-    color: white;
+    background: linear-gradient(135deg, #fff9c4 0%, #ffe082 100%);
+    color: #5d4037;
     border: none;
-    border-radius: 25px;
-    padding: 15px 40px;
-    font-size: 1.2em;
-    font-weight: bold;
+    border-radius: 30px;
+    padding: 20px 50px;
+    font-size: 1.3em;
+    font-weight: 800;
     cursor: pointer;
-    transition: all 0.3s;
-    box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+    box-shadow:
+        0 8px 0 #ffd54f,
+        0 12px 25px rgba(255, 193, 7, 0.4);
+    transition: all 0.1s ease;
+    position: relative;
 }
 
 .task-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(76, 175, 80, 0.4);
+    transform: translateY(-2px);
+    box-shadow:
+        0 10px 0 #ffd54f,
+        0 14px 30px rgba(255, 193, 7, 0.5);
 }
 
 .task-btn:active {
-    transform: translateY(0);
+    transform: translateY(6px);
+    box-shadow:
+        0 2px 0 #ffd54f,
+        0 4px 10px rgba(255, 193, 7, 0.3);
 }
 
 .task-count {
