@@ -257,10 +257,14 @@ function updateMonasashi() {
         html += `<div class="monasashi-block" style="background: ${filled ? color : '#f5f5f5'}"></div>`;
     }
 
-    // 現在地ライン
+    // 現在地ライン（吹き出し風）
     if (current > 0) {
         const percentage = current / 100;
-        html += `<div class="monasashi-current" style="bottom: ${percentage * 100}%"></div>`;
+        html += `
+            <div class="monasashi-current" style="bottom: ${percentage * 100}%">
+                <span class="current-label">今ここ 🎯</span>
+            </div>
+        `;
     }
 
     barEl.innerHTML = html;

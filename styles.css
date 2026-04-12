@@ -350,12 +350,49 @@ main {
 
 .monasashi-current {
     position: absolute;
-    left: -5px;
-    right: -5px;
-    height: 3px;
-    background: #ff0000;
-    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    left: 70px;
+    height: auto;
+    background: transparent;
     z-index: 10;
+    transform: translateY(-50%);
+}
+
+.current-label {
+    display: inline-block;
+    background: linear-gradient(135deg, #ffd54f 0%, #ffb300 100%);
+    color: #5d4037;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: bold;
+    white-space: nowrap;
+    box-shadow: 0 3px 10px rgba(255, 152, 0, 0.4);
+    position: relative;
+    animation: current-float 2s ease-in-out infinite;
+}
+
+.current-label::before {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 10px solid #ffd54f;
+}
+
+@keyframes current-float {
+    0%, 100% {
+        transform: translateY(0);
+        box-shadow: 0 3px 10px rgba(255, 152, 0, 0.4);
+    }
+    50% {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(255, 152, 0, 0.5);
+    }
 }
 
 .monasashi-label {
