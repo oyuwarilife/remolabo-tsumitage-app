@@ -104,15 +104,6 @@ function initTaskButton() {
     const totalCountEl = document.getElementById('totalCount');
     const today = getToday();
 
-    // ランダムメッセージ
-    const messages = [
-        'すごいにゃ！',
-        '今日もがんばったにゃ！',
-        'えらいにゃ！',
-        'その調子にゃ！',
-        'コツコツ積み上げ、素敵にゃ！'
-    ];
-
     // 初期表示
     updateTaskCount();
 
@@ -142,9 +133,6 @@ function initTaskButton() {
         updateMonasashi();
         updateWeekLog();
 
-        // ランダムメッセージ表示
-        showTaskMessage();
-
         // ボタンアニメーション
         taskBtn.style.transform = 'scale(0.95)';
         setTimeout(() => {
@@ -156,29 +144,6 @@ function initTaskButton() {
         const today = getToday();
         todayCountEl.textContent = data.tasks[today] || 0;
         totalCountEl.textContent = data.totalTasks;
-    }
-
-    function showTaskMessage(customMessage = null) {
-        const message = customMessage || messages[Math.floor(Math.random() * messages.length)];
-
-        // メッセージ要素を作成
-        const msgEl = document.createElement('div');
-        msgEl.className = 'task-message';
-        msgEl.textContent = message;
-        document.body.appendChild(msgEl);
-
-        // フェードイン
-        setTimeout(() => {
-            msgEl.classList.add('show');
-        }, 10);
-
-        // フェードアウト
-        setTimeout(() => {
-            msgEl.classList.remove('show');
-            setTimeout(() => {
-                document.body.removeChild(msgEl);
-            }, 300);
-        }, 2000);
     }
 
     function checkConsecutiveDays() {
