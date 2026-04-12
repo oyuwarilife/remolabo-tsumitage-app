@@ -88,13 +88,13 @@
 
                     <!-- 今週の目標 -->
                     <div class="weekly-goal">
-                        <label for="goalInput">📝 今週の目標</label>
-                        <input
-                            type="text"
-                            id="goalInput"
-                            placeholder="例：朝活3回、タスク20個完了"
-                            maxlength="100"
-                        />
+                        <div class="goal-header">
+                            <label>📝 今週の目標</label>
+                            <button id="addGoalBtn" class="add-goal-btn">+ 目標を追加</button>
+                        </div>
+                        <div id="goalsContainer" class="goals-container">
+                            <!-- JavaScriptで生成 -->
+                        </div>
                     </div>
 
                     <div class="week-table">

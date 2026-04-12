@@ -204,13 +204,13 @@ function initTaskButton() {
 function initWeekLog() {
     const prevBtn = document.getElementById('prevWeekBtn');
     const nextBtn = document.getElementById('nextWeekBtn');
-    const goalInput = document.getElementById('goalInput');
+    const addGoalBtn = document.getElementById('addGoalBtn');
 
     prevBtn.addEventListener('click', () => {
         if (currentWeekOffset > -4) {
             currentWeekOffset--;
             updateWeekLog();
-            loadWeeklyGoal();
+            loadWeeklyGoals();
         }
     });
 
@@ -218,21 +218,17 @@ function initWeekLog() {
         if (currentWeekOffset < 0) {
             currentWeekOffset++;
             updateWeekLog();
-            loadWeeklyGoal();
+            loadWeeklyGoals();
         }
     });
 
-    // 週間目標の保存
-    goalInput.addEventListener('blur', () => {
-        saveWeeklyGoal();
-    });
-
-    goalInput.addEventListener('change', () => {
-        saveWeeklyGoal();
+    // 目標を追加
+    addGoalBtn.addEventListener('click', () => {
+        addGoal();
     });
 
     updateWeekLog();
-    loadWeeklyGoal();
+    loadWeeklyGoals();
 }
 
 // 週キーを生成（例: "2026-W15"）
@@ -254,18 +250,113 @@ function getWeekKey() {
 }
 
 // 週間目標を保存
-function saveWeeklyGoal() {
-    const goalInput = document.getElementById('goalInput');
+function saveWeeklyGoals() {
     const weekKey = getWeekKey();
-    data.weeklyGoals[weekKey] = goalInput.value;
+    const goalInputs = document.querySelectorAll('.goal-item input');
+    const goals = Array.from(goalInputs).map(input => input.value.trim()).filter(g => g);
+    data.weeklyGoals[weekKey] = goals;
     saveData(data);
 }
 
 // 週間目標を読み込み
-function loadWeeklyGoal() {
-    const goalInput = document.getElementById('goalInput');
+function loadWeeklyGoals() {
     const weekKey = getWeekKey();
-    goalInput.value = data.weeklyGoals[weekKey] || '';
+    let goals = data.weeklyGoals[weekKey];
+
+    // データ移行: 文字列から配列に変換
+    if (typeof goals === 'string') {
+        goals = goals ? [goals] : [];
+        data.weeklyGoals[weekKey] = goals;
+        saveData(data);
+    }
+
+    // 目標がない場合は空の配列
+    if (!Array.isArray(goals)) {
+        goals = [];
+    }
+
+    // 最低1つの入力欄を表示
+    if (goals.length === 0) {
+        goals = [''];
+    }
+
+    renderGoals(goals);
+}
+
+// 目標を追加
+function addGoal() {
+    const weekKey = getWeekKey();
+    const goals = data.weeklyGoals[weekKey] || [];
+
+    // 最大5個まで
+    if (goals.length >= 5) {
+        return;
+    }
+
+    goals.push('');
+    data.weeklyGoals[weekKey] = goals;
+    renderGoals(goals);
+    updateAddGoalButton();
+}
+
+// 目標を削除
+function removeGoal(index) {
+    const weekKey = getWeekKey();
+    const goals = data.weeklyGoals[weekKey] || [];
+    goals.splice(index, 1);
+
+    // 最低1つの入力欄を残す
+    if (goals.length === 0) {
+        goals.push('');
+    }
+
+    data.weeklyGoals[weekKey] = goals;
+    renderGoals(goals);
+    saveWeeklyGoals();
+    updateAddGoalButton();
+}
+
+// 目標を描画
+function renderGoals(goals) {
+    const container = document.getElementById('goalsContainer');
+    container.innerHTML = '';
+
+    goals.forEach((goal, index) => {
+        const item = document.createElement('div');
+        item.className = 'goal-item';
+
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.value = goal;
+        input.placeholder = index === 0 ? '例：朝活3回、タスク20個完了' : '目標を入力';
+        input.maxLength = 100;
+
+        input.addEventListener('blur', saveWeeklyGoals);
+        input.addEventListener('change', saveWeeklyGoals);
+
+        item.appendChild(input);
+
+        // 削除ボタン（1つ目以外）
+        if (goals.length > 1) {
+            const removeBtn = document.createElement('button');
+            removeBtn.className = 'remove-goal-btn';
+            removeBtn.textContent = '×';
+            removeBtn.addEventListener('click', () => removeGoal(index));
+            item.appendChild(removeBtn);
+        }
+
+        container.appendChild(item);
+    });
+
+    updateAddGoalButton();
+}
+
+// 「+ 目標を追加」ボタンの状態更新
+function updateAddGoalButton() {
+    const addBtn = document.getElementById('addGoalBtn');
+    const weekKey = getWeekKey();
+    const goals = data.weeklyGoals[weekKey] || [];
+    addBtn.disabled = goals.length >= 5;
 }
 
 function updateWeekLog() {

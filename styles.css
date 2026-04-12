@@ -477,15 +477,60 @@ main {
     margin-bottom: 20px;
 }
 
-.weekly-goal label {
-    display: block;
-    font-weight: bold;
-    color: #5d4037;
-    margin-bottom: 8px;
+.goal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
 }
 
-.weekly-goal input {
-    width: 100%;
+.goal-header label {
+    font-weight: bold;
+    color: #5d4037;
+    margin: 0;
+}
+
+.add-goal-btn {
+    background: linear-gradient(135deg, #ffd54f 0%, #ffb300 100%);
+    color: #5d4037;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 2px 8px rgba(255, 179, 0, 0.3);
+}
+
+.add-goal-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 179, 0, 0.4);
+}
+
+.add-goal-btn:active {
+    transform: translateY(0);
+}
+
+.add-goal-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.goals-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.goal-item {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.goal-item input {
+    flex: 1;
     padding: 12px;
     border: 2px solid #ffe082;
     border-radius: 10px;
@@ -494,9 +539,31 @@ main {
     transition: border-color 0.2s;
 }
 
-.weekly-goal input:focus {
+.goal-item input:focus {
     outline: none;
     border-color: #ffb300;
+}
+
+.remove-goal-btn {
+    background: #ff5252;
+    color: white;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: all 0.3s;
+    flex-shrink: 0;
+}
+
+.remove-goal-btn:hover {
+    background: #d32f2f;
+    transform: scale(1.1);
+}
+
+.remove-goal-btn:active {
+    transform: scale(0.95);
 }
 
 /* 注意書き */
