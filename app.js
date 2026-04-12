@@ -88,6 +88,16 @@ function initStamps() {
             const isActive = btn.classList.contains('active');
             data.stamps[today][type] = !isActive;
             btn.classList.toggle('active');
+
+            // 押した瞬間のアニメーション（activeになる時のみ）
+            if (!isActive) {
+                const hanamaru = btn.querySelector('.hanamaru');
+                hanamaru.classList.add('animate');
+                setTimeout(() => {
+                    hanamaru.classList.remove('animate');
+                }, 600);
+            }
+
             saveData(data);
             updateWeekLog();
         });

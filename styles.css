@@ -127,46 +127,43 @@ main {
     font-weight: bold;
 }
 
-.stamp-badge {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    background: #4caf50;
-    color: white;
-    font-size: 0.7em;
-    padding: 2px 8px;
-    border-radius: 10px;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.stamp-btn.active .stamp-badge {
-    opacity: 1;
-}
-
-/* 花丸エフェクト */
+/* 花丸エフェクト（手書き風） */
 .hanamaru {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 80px;
-    height: 80px;
-    border: 4px solid #ff5252;
-    border-radius: 50%;
+    width: 90px;
+    height: 90px;
     opacity: 0;
-    transition: opacity 0.5s;
     pointer-events: none;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M 50,10 C 65,12 80,20 88,35 C 92,45 93,58 88,68 C 82,80 70,88 55,92 C 42,94 28,92 18,85 C 10,78 5,68 4,55 C 3,42 6,28 15,18 C 24,9 37,8 50,10 Z" fill="none" stroke="%23ff5252" stroke-width="4" stroke-linecap="round"/></svg>');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .stamp-btn.active .hanamaru {
     opacity: 0.8;
-    animation: hanamaru-pulse 1s ease-in-out;
 }
 
-@keyframes hanamaru-pulse {
-    0%, 100% { transform: translate(-50%, -50%) scale(0.8); }
-    50% { transform: translate(-50%, -50%) scale(1.1); }
+/* 押した瞬間のアニメーション（1回だけ） */
+.hanamaru.animate {
+    animation: hanamaru-draw 0.6s ease-out;
+}
+
+@keyframes hanamaru-draw {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5) rotate(-10deg);
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.15) rotate(5deg);
+    }
+    100% {
+        opacity: 0.8;
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    }
 }
 
 /* タスクセクション */
