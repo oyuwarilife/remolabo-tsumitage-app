@@ -259,8 +259,10 @@ function getWeekKey() {
 function saveWeeklyGoals() {
     const weekKey = getWeekKey();
     const goalInputs = document.querySelectorAll('.goal-item input');
-    const goals = Array.from(goalInputs).map(input => input.value.trim()).filter(g => g);
-    data.weeklyGoals[weekKey] = goals;
+    const goals = Array.from(goalInputs).map(input => input.value.trim());
+    // 空でない目標のみ保存（ただし最低1つの空欄は保持）
+    const filteredGoals = goals.filter(g => g);
+    data.weeklyGoals[weekKey] = filteredGoals.length > 0 ? filteredGoals : [''];
     saveData(data);
 }
 
@@ -291,16 +293,17 @@ function loadWeeklyGoals() {
 
 // 目標を追加
 function addGoal() {
-    const weekKey = getWeekKey();
-    const goals = data.weeklyGoals[weekKey] || [];
+    // 現在表示されている目標を取得
+    const goalInputs = document.querySelectorAll('.goal-item input');
+    const goals = Array.from(goalInputs).map(input => input.value.trim());
 
     // 最大5個まで
     if (goals.length >= 5) {
         return;
     }
 
+    // 新しい空欄を追加
     goals.push('');
-    data.weeklyGoals[weekKey] = goals;
     renderGoals(goals);
     updateAddGoalButton();
 }
