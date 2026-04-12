@@ -624,6 +624,30 @@ main {
     }
 }
 
+/* タスク完了メッセージ */
+.task-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    background: linear-gradient(135deg, #ffd54f 0%, #ffb300 100%);
+    color: #5d4037;
+    padding: 20px 40px;
+    border-radius: 30px;
+    font-size: 1.5em;
+    font-weight: bold;
+    box-shadow: 0 10px 30px rgba(255, 152, 0, 0.4);
+    z-index: 2000;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.task-message.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
 /* レスポンシブ */
 @media (max-width: 768px) {
     .main-layout {

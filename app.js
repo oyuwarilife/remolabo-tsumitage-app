@@ -101,6 +101,15 @@ function initTaskButton() {
     const totalCountEl = document.getElementById('totalCount');
     const today = getToday();
 
+    // ランダムメッセージ
+    const messages = [
+        'すごいにゃ！',
+        '今日もがんばったにゃ！',
+        'えらいにゃ！',
+        'その調子にゃ！',
+        'コツコツ積み上げ、素敵にゃ！'
+    ];
+
     // 初期表示
     updateTaskCount();
 
@@ -127,6 +136,9 @@ function initTaskButton() {
         updateMonasashi();
         updateWeekLog();
 
+        // ランダムメッセージ表示
+        showTaskMessage();
+
         // ボタンアニメーション
         taskBtn.style.transform = 'scale(0.95)';
         setTimeout(() => {
@@ -138,6 +150,29 @@ function initTaskButton() {
         const today = getToday();
         todayCountEl.textContent = data.tasks[today] || 0;
         totalCountEl.textContent = data.totalTasks;
+    }
+
+    function showTaskMessage() {
+        const message = messages[Math.floor(Math.random() * messages.length)];
+
+        // メッセージ要素を作成
+        const msgEl = document.createElement('div');
+        msgEl.className = 'task-message';
+        msgEl.textContent = message;
+        document.body.appendChild(msgEl);
+
+        // フェードイン
+        setTimeout(() => {
+            msgEl.classList.add('show');
+        }, 10);
+
+        // フェードアウト
+        setTimeout(() => {
+            msgEl.classList.remove('show');
+            setTimeout(() => {
+                document.body.removeChild(msgEl);
+            }, 300);
+        }, 2000);
     }
 }
 
@@ -448,7 +483,6 @@ function initCelebration() {
     const saveImageBtn = document.getElementById('saveImageBtn');
     const shareThreadsBtn = document.getElementById('shareThreadsBtn');
     const shareXBtn = document.getElementById('shareXBtn');
-    const shareLINEBtn = document.getElementById('shareLINEBtn');
 
     closeBtn.addEventListener('click', () => {
         modal.classList.remove('show');
@@ -482,13 +516,6 @@ function initCelebration() {
         const milestone = Math.floor(data.totalTasks / 100) * 100;
         const text = getShareText(milestone);
         const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
-        window.open(url, '_blank');
-    });
-
-    shareLINEBtn.addEventListener('click', () => {
-        const milestone = Math.floor(data.totalTasks / 100) * 100;
-        const text = getShareText(milestone);
-        const url = `https://line.me/R/msg/text/?${encodeURIComponent(text)}`;
         window.open(url, '_blank');
     });
 }
@@ -695,13 +722,13 @@ function getShareText(milestone) {
     const times = milestone / 100;
 
     if (times === 1) {
-        return `リモラボで100回達成したにゃ🎉\nコツコツ積み上げって楽しいにゃ！\n#リモラボ #積み上げタイム #100回達成`;
+        return `リモラボで100回達成したにゃ🎉\nコツコツ積み上げって楽しいにゃ！\n#リモラボ`;
     } else if (times === 2) {
-        return `リモラボで200回達成したにゃ🎉🎉\n積み上げマスターになったにゃ！\n#リモラボ #積み上げタイム #200回達成`;
+        return `リモラボで200回達成したにゃ🎉🎉\n積み上げマスターになったにゃ！\n#リモラボ`;
     } else if (times === 3) {
-        return `リモラボで300回達成したにゃ🎉🎉🎉\nリモにゃんも応援してるにゃ！\n#リモラボ #積み上げタイム #300回達成`;
+        return `リモラボで300回達成したにゃ🎉🎉🎉\nリモにゃんも応援してるにゃ！\n#リモラボ`;
     } else {
-        return `リモラボで${milestone}回達成したにゃ${'🎉'.repeat(times)}\n継続は力にゃ！\n#リモラボ #積み上げタイム #${milestone}回達成`;
+        return `リモラボで${milestone}回達成したにゃ${'🎉'.repeat(times)}\n継続は力にゃ！\n#リモラボ`;
     }
 }
 
