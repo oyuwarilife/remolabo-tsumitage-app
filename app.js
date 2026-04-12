@@ -13,7 +13,9 @@ function getDefaultData() {
         achieved100: false,
         lastBackupDate: null,
         lastTaskDate: null,
-        consecutiveDays: 0
+        consecutiveDays: 0,
+        weeklyGoals: {},
+        memos: {}
     };
 }
 
@@ -55,6 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initWeekLog();
     initMonasashi();
     initSettings();
+    initMemo();
     initCelebration();
     checkBackupReminder();
 });
@@ -233,11 +236,13 @@ function initTaskButton() {
 function initWeekLog() {
     const prevBtn = document.getElementById('prevWeekBtn');
     const nextBtn = document.getElementById('nextWeekBtn');
+    const goalInput = document.getElementById('goalInput');
 
     prevBtn.addEventListener('click', () => {
         if (currentWeekOffset > -4) {
             currentWeekOffset--;
             updateWeekLog();
+            loadWeeklyGoal();
         }
     });
 
@@ -245,10 +250,54 @@ function initWeekLog() {
         if (currentWeekOffset < 0) {
             currentWeekOffset++;
             updateWeekLog();
+            loadWeeklyGoal();
         }
     });
 
+    // 週間目標の保存
+    goalInput.addEventListener('blur', () => {
+        saveWeeklyGoal();
+    });
+
+    goalInput.addEventListener('change', () => {
+        saveWeeklyGoal();
+    });
+
     updateWeekLog();
+    loadWeeklyGoal();
+}
+
+// 週キーを生成（例: "2026-W15"）
+function getWeekKey() {
+    const today = new Date();
+    const dayOfWeek = today.getDay();
+    const diff = (dayOfWeek === 0 ? -6 : 1) - dayOfWeek;
+    const monday = new Date(today);
+    monday.setDate(today.getDate() + diff + (currentWeekOffset * 7));
+
+    const year = monday.getFullYear();
+
+    // ISO週番号を計算
+    const janFirst = new Date(year, 0, 1);
+    const daysSinceJan = Math.floor((monday - janFirst) / 86400000);
+    const weekNum = Math.ceil((daysSinceJan + janFirst.getDay() + 1) / 7);
+
+    return `${year}-W${String(weekNum).padStart(2, '0')}`;
+}
+
+// 週間目標を保存
+function saveWeeklyGoal() {
+    const goalInput = document.getElementById('goalInput');
+    const weekKey = getWeekKey();
+    data.weeklyGoals[weekKey] = goalInput.value;
+    saveData(data);
+}
+
+// 週間目標を読み込み
+function loadWeeklyGoal() {
+    const goalInput = document.getElementById('goalInput');
+    const weekKey = getWeekKey();
+    goalInput.value = data.weeklyGoals[weekKey] || '';
 }
 
 function updateWeekLog() {
@@ -292,6 +341,8 @@ function updateWeekLog() {
 
         const tasks = data.tasks[dateStr] || 0;
 
+        const hasMemo = data.memos[dateStr] && data.memos[dateStr].trim() !== '';
+
         html += `
             <div class="week-row ${isToday ? 'today' : ''}">
                 <div>${formatWeekDate(date)}</div>
@@ -302,11 +353,24 @@ function updateWeekLog() {
                     <span class="mini-stamp ${stamps.tsumitage ? 'active' : ''}">💪</span>
                 </div>
                 <div>${tasks}</div>
+                <div>
+                    <button class="memo-btn ${hasMemo ? 'has-memo' : ''}" data-date="${dateStr}" title="メモ">
+                        📝
+                    </button>
+                </div>
             </div>
         `;
     }
 
     weekRowsEl.innerHTML = html;
+
+    // メモボタンにイベントリスナーを追加
+    const memoBtns = weekRowsEl.querySelectorAll('.memo-btn');
+    memoBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            openMemoModal(btn.dataset.date);
+        });
+    });
 }
 
 function formatWeekDate(date) {
@@ -361,6 +425,89 @@ function getMonasashiColor(count) {
     if (count <= 60) return '#f8bbd0'; // パステルピンク
     if (count <= 80) return '#e1bee7'; // ラベンダー
     return '#d1c4e9'; // パステルパープル
+}
+
+// ========================================
+// メモモーダル
+// ========================================
+
+let currentMemoDate = null;
+
+function initMemo() {
+    const memoModal = document.getElementById('memoModal');
+    const closeBtn = memoModal.querySelector('.close-btn');
+    const saveMemoBtn = document.getElementById('saveMemoBtn');
+    const deleteMemoBtn = document.getElementById('deleteMemoBtn');
+
+    closeBtn.addEventListener('click', () => {
+        closeMemoModal();
+    });
+
+    memoModal.addEventListener('click', (e) => {
+        if (e.target === memoModal) {
+            closeMemoModal();
+        }
+    });
+
+    saveMemoBtn.addEventListener('click', () => {
+        saveMemo();
+    });
+
+    deleteMemoBtn.addEventListener('click', () => {
+        deleteMemo();
+    });
+}
+
+function openMemoModal(dateStr) {
+    const memoModal = document.getElementById('memoModal');
+    const memoDateEl = document.getElementById('memoDate');
+    const memoTextarea = document.getElementById('memoTextarea');
+
+    currentMemoDate = dateStr;
+
+    // 日付を表示
+    const date = new Date(dateStr);
+    memoDateEl.textContent = formatWeekDate(date) + 'のメモ';
+
+    // 既存のメモを読み込み
+    memoTextarea.value = data.memos[dateStr] || '';
+
+    memoModal.classList.add('show');
+    memoTextarea.focus();
+}
+
+function closeMemoModal() {
+    const memoModal = document.getElementById('memoModal');
+    memoModal.classList.remove('show');
+    currentMemoDate = null;
+}
+
+function saveMemo() {
+    if (!currentMemoDate) return;
+
+    const memoTextarea = document.getElementById('memoTextarea');
+    const memoText = memoTextarea.value.trim();
+
+    if (memoText) {
+        data.memos[currentMemoDate] = memoText;
+    } else {
+        delete data.memos[currentMemoDate];
+    }
+
+    saveData(data);
+    updateWeekLog();
+    closeMemoModal();
+}
+
+function deleteMemo() {
+    if (!currentMemoDate) return;
+
+    if (confirm('このメモを削除しますか？')) {
+        delete data.memos[currentMemoDate];
+        saveData(data);
+        updateWeekLog();
+        closeMemoModal();
+    }
 }
 
 // ========================================
