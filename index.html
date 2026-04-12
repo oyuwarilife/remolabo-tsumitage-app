@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>リモラボ_積み上げアプリ</title>
+
+    <!-- PWA設定 -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="assets/remonyan.png">
+    <meta name="theme-color" content="#ffd54f">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="積み上げ">
+    <link rel="apple-touch-icon" href="assets/remonyan.png">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- ヘッダー -->
+        <header>
+            <div class="header-content">
+                <img src="assets/remonyan.png" alt="リモにゃん" class="header-logo">
+                <h1>リモラボ 積み上げ記録</h1>
+                <button id="settingsBtn" class="icon-btn" title="設定">⚙️</button>
+            </div>
+        </header>
+
+        <div class="main-layout">
+            <!-- メインコンテンツ -->
+            <main>
+                <!-- 今日の操作パネル -->
+                <section class="today-panel">
+                    <h2>今日の記録</h2>
+
+                    <!-- 参加スタンプ -->
+                    <div class="stamps-container">
+                        <button class="stamp-btn" data-type="morning">
+                            <span class="stamp-icon">☀️</span>
+                            <span class="stamp-label">朝活</span>
+                            <span class="stamp-badge">済</span>
+                            <div class="hanamaru"></div>
+                        </button>
+                        <button class="stamp-btn" data-type="lunch">
+                            <span class="stamp-icon">🍙</span>
+                            <span class="stamp-label">昼活</span>
+                            <span class="stamp-badge">済</span>
+                            <div class="hanamaru"></div>
+                        </button>
+                        <button class="stamp-btn" data-type="night">
+                            <span class="stamp-icon">🌙</span>
+                            <span class="stamp-label">夜活</span>
+                            <span class="stamp-badge">済</span>
+                            <div class="hanamaru"></div>
+                        </button>
+                        <button class="stamp-btn" data-type="tsumitage">
+                            <span class="stamp-icon">⏱️</span>
+                            <span class="stamp-label">積み上げ</span>
+                            <span class="stamp-badge">済</span>
+                            <div class="hanamaru"></div>
+                        </button>
+                    </div>
+
+                    <!-- タスク完了ボタン -->
+                    <div class="task-section">
+                        <button id="taskCompleteBtn" class="task-btn">✅ タスク完了！</button>
+                        <div class="task-count">
+                            <span>今日: <strong id="todayCount">0</strong></span>
+                            <span>累計: <strong id="totalCount">0</strong></span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 週ログ -->
+                <section class="week-log">
+                    <div class="week-nav">
+                        <button id="prevWeekBtn">← 前の週</button>
+                        <h2 id="weekTitle">今週の記録</h2>
+                        <button id="nextWeekBtn">次の週 →</button>
+                    </div>
+
+                    <div class="week-table">
+                        <div class="week-header">
+                            <div>日付</div>
+                            <div>参加記録</div>
+                            <div>タスク</div>
+                        </div>
+                        <div id="weekRows" class="week-body">
+                            <!-- JavaScriptで生成 -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 注意書き -->
+                <div class="notice">
+                    ⚠️ 注意：ブラウザのキャッシュをクリアすると記録が消えます。定期的にデータをバックアップすることをおすすめします。
+                </div>
+            </main>
+
+            <!-- ものさしパネル -->
+            <aside class="monasashi-panel">
+                <h3>累計タスク</h3>
+                <div class="monasashi-bar" id="monasashiBar">
+                    <!-- JavaScriptで生成 -->
+                </div>
+                <div class="monasashi-label">
+                    <span id="monasashiCount">0</span> / 100
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- 設定モーダル -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>⚙️ 設定</h2>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h3>データ管理</h3>
+                <div class="settings-section">
+                    <button id="downloadBtn" class="btn-primary">📥 データをダウンロード（CSV）</button>
+                    <button id="uploadBtn" class="btn-primary">📤 データを復元</button>
+                    <input type="file" id="fileInput" accept=".csv" style="display: none;">
+                    <button id="deleteAllBtn" class="btn-danger">🗑️ 全データ削除</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- お祝い画面 -->
+    <div id="celebrationModal" class="modal celebration">
+        <div class="modal-content celebration-content">
+            <button class="close-btn celebration-close">&times;</button>
+
+            <div class="celebration-circle">
+                <canvas id="celebrationCanvas" width="300" height="300"></canvas>
+                <img src="assets/remonyan.png" alt="リモにゃん" class="celebration-logo">
+            </div>
+
+            <h2 class="celebration-title" id="celebrationTitle">100回達成！</h2>
+            <p class="celebration-message" id="celebrationMessage">おめでとうにゃ🎉<br>コツコツ積み上げ、すごいにゃ！</p>
+
+            <div class="celebration-buttons">
+                <button id="saveImageBtn" class="btn-primary">📸 画像を保存</button>
+                <button id="shareThreadsBtn" class="btn-social threads">Threads共有</button>
+                <button id="shareXBtn" class="btn-social x">X共有</button>
+                <button id="shareLINEBtn" class="btn-social line">LINE共有</button>
+            </div>
+        </div>
+        <div class="confetti" id="confetti"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

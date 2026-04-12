@@ -1,0 +1,24 @@
+{
+  "name": "リモラボ_積み上げアプリ",
+  "short_name": "積み上げ",
+  "description": "リモラボの朝活・昼活・夜活・積み上げタイムの参加記録＋タスク完了数を蓄積するアプリ",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#fff8e1",
+  "theme_color": "#ffd54f",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "assets/remonyan.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/remonyan.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
