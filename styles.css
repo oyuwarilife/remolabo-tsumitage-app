@@ -68,11 +68,12 @@ header h1 {
 }
 
 .nav-link {
-    background: linear-gradient(135deg, #ff6f00 0%, #ffb300 100%);
-    color: white;
+    background: linear-gradient(135deg, #ffd54f 0%, #ffb300 100%);
+    color: #5d4037;
     text-decoration: none;
     padding: 8px 20px;
     border-radius: 20px;
+    border: 2px solid white;
     font-weight: bold;
     font-size: 0.9em;
     transition: all 0.2s;
@@ -80,7 +81,7 @@ header h1 {
 
 .nav-link:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(255, 111, 0, 0.3);
+    box-shadow: 0 4px 10px rgba(255, 213, 79, 0.3);
 }
 
 
@@ -1097,11 +1098,11 @@ footer {
 
 /* 積み上げを見るボタン */
 .stats-btn {
-    background: linear-gradient(135deg, #4caf50 0%, #66bb6a 100%);
-    color: white;
+    background: linear-gradient(135deg, #ffd54f 0%, #ffb300 100%);
+    color: #5d4037;
     text-decoration: none;
     padding: 8px 20px;
-    border: none;
+    border: 2px solid white;
     border-radius: 20px;
     font-weight: bold;
     font-size: 0.9em;
@@ -1111,7 +1112,7 @@ footer {
 
 .stats-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+    box-shadow: 0 4px 10px rgba(255, 213, 79, 0.3);
 }
 
 /* 積み上げ統計画面 */
