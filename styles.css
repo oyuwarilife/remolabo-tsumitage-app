@@ -1192,66 +1192,100 @@ footer {
 
     /* 週間サマリー画面 */
     .summary-content {
-        padding: 15px;
+        padding: 10px;
     }
 
     .summary-header {
-        margin-bottom: 10px;
-        padding-bottom: 10px;
+        margin-bottom: 6px;
+        padding-bottom: 6px;
     }
 
     .summary-logo {
-        width: 60px;
-        height: 60px;
+        width: 50px;
+        height: 50px;
+        margin-bottom: 5px;
     }
 
     .summary-header h2 {
-        font-size: 1.5em;
+        font-size: 1.3em;
+        margin-bottom: 3px;
+    }
+
+    .summary-date {
+        font-size: 0.85em;
     }
 
     .summary-stats {
         grid-template-columns: 1fr;
-        gap: 8px;
-        margin-bottom: 10px;
+        gap: 5px;
+        margin-bottom: 8px;
     }
 
     .stat-item {
-        padding: 12px;
+        padding: 8px;
     }
 
     .stat-label {
-        font-size: 0.85em;
+        font-size: 0.75em;
+        margin-bottom: 3px;
     }
 
     .stat-value {
-        font-size: 1.5em;
+        font-size: 1.3em;
     }
 
     .summary-graph,
     .summary-stamps,
     .summary-goals {
-        padding: 12px;
-        margin-bottom: 10px;
+        padding: 8px;
+        margin-bottom: 6px;
     }
 
     .summary-graph h3,
     .summary-stamps h3,
     .summary-goals h3 {
-        font-size: 1em;
-        margin-bottom: 10px;
+        font-size: 0.9em;
+        margin-bottom: 6px;
+    }
+
+    #weeklyChart {
+        max-height: 150px;
     }
 
     .summary-share {
-        padding-top: 10px;
+        padding-top: 6px;
     }
 
     .share-message {
-        font-size: 1em;
-        margin-bottom: 10px;
+        font-size: 0.9em;
+        margin-bottom: 8px;
+    }
+
+    .summary-buttons {
+        gap: 8px;
+    }
+
+    .summary-buttons .btn-social {
+        padding: 8px 15px;
+        font-size: 0.85em;
     }
 
     .stamp-summary {
         grid-template-columns: 1fr;
+        gap: 6px;
+    }
+
+    .stamp-count {
+        font-size: 0.85em;
+    }
+
+    .stamp-count strong {
+        font-size: 1em;
+    }
+
+    .summary-goals li {
+        padding: 5px 0;
+        font-size: 0.85em;
     }
 
     /* フッター */
