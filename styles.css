@@ -873,8 +873,8 @@ main {
 
 /* フッター */
 footer {
-    background: linear-gradient(135deg, #5d4037 0%, #3e2723 100%);
-    color: #fff;
+    background: #fffef7;
+    color: #3e2723;
     padding: 40px 20px;
     text-align: center;
     margin-top: 50px;
@@ -890,26 +890,21 @@ footer {
 }
 
 .footer-links a {
-    color: #ffd54f;
+    color: #5d4037;
     text-decoration: none;
     font-weight: bold;
-    padding: 10px 20px;
-    border-radius: 20px;
-    background: rgba(255, 213, 79, 0.1);
     transition: all 0.2s;
 }
 
 .footer-links a:hover {
-    color: #fff;
-    background: rgba(255, 213, 79, 0.2);
-    transform: translateY(-2px);
+    color: #ffd54f;
 }
 
 .footer-credit {
     font-size: 0.9em;
-    color: #bcaaa4;
+    color: #8d6e63;
     padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid #e0e0e0;
 }
 
 .footer-logo {
