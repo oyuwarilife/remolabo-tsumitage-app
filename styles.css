@@ -16,7 +16,7 @@ button {
 body {
     font-family: 'M PLUS Rounded 1c', 'Segoe UI', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
     background: linear-gradient(135deg, #fff8e1 0%, #ffe082 100%);
-    color: #5d4037;
+    color: #3e2723;
     min-height: 100vh;
     padding: 20px;
     /* スクロール時のパフォーマンス向上 */
@@ -53,7 +53,7 @@ header {
 }
 
 header h1 {
-    color: #5d4037;
+    color: #3e2723;
     font-size: 1.8em;
     font-weight: bold;
     margin: 0;
@@ -68,8 +68,8 @@ header h1 {
 }
 
 .nav-link {
-    background: linear-gradient(135deg, #ffd54f 0%, #ffb300 100%);
-    color: #5d4037;
+    background: linear-gradient(135deg, #ffb300 0%, #ff8f00 100%);
+    color: white;
     text-decoration: none;
     padding: 8px 20px;
     border-radius: 20px;
@@ -77,6 +77,7 @@ header h1 {
     font-weight: bold;
     font-size: 0.9em;
     transition: all 0.2s;
+    box-shadow: 0 2px 8px rgba(255, 143, 0, 0.3);
 }
 
 .nav-link:hover {
@@ -124,7 +125,7 @@ main {
 }
 
 .today-panel h2 {
-    color: #5d4037;
+    color: #3e2723;
     margin-bottom: 15px;
     font-size: 1.3em;
 }
@@ -223,7 +224,7 @@ main {
 
 .task-btn {
     background: linear-gradient(135deg, #fff9c4 0%, #ffd54f 50%, #ffb300 100%);
-    color: #5d4037;
+    color: #3e2723;
     border: 3px solid #fff;
     border-radius: 30px;
     padding: 18px 45px;
@@ -331,7 +332,7 @@ main {
 }
 
 #weekTitle {
-    color: #5d4037;
+    color: #3e2723;
     font-size: 1.2em;
 }
 
@@ -413,7 +414,7 @@ main {
 }
 
 .remonyan-panel h3 {
-    color: #5d4037;
+    color: #3e2723;
     margin-bottom: 15px;
     font-size: 1.1em;
 }
@@ -502,13 +503,13 @@ main {
 
 .goal-header label {
     font-weight: bold;
-    color: #5d4037;
+    color: #3e2723;
     margin: 0;
 }
 
 .add-goal-btn {
     background: linear-gradient(135deg, #ffd54f 0%, #ffb300 100%);
-    color: #5d4037;
+    color: #3e2723;
     border: none;
     padding: 8px 16px;
     border-radius: 20px;
@@ -776,7 +777,7 @@ main {
 
 .celebration-message {
     font-size: 1.3em;
-    color: #5d4037;
+    color: #3e2723;
     margin: 20px 0;
     line-height: 1.6;
 }
@@ -853,7 +854,7 @@ main {
     left: 50%;
     transform: translate(-50%, -50%) scale(0.8);
     background: linear-gradient(135deg, #ffd54f 0%, #ffb300 100%);
-    color: #5d4037;
+    color: #3e2723;
     padding: 20px 40px;
     border-radius: 30px;
     font-size: 1.5em;
@@ -928,13 +929,13 @@ footer {
 }
 
 .prompt-content h3 {
-    color: #5d4037;
+    color: #3e2723;
     font-size: 1.4em;
     margin-bottom: 15px;
 }
 
 .prompt-content p {
-    color: #5d4037;
+    color: #3e2723;
     margin-bottom: 25px;
     font-size: 1.1em;
 }
@@ -948,7 +949,7 @@ footer {
 
 .btn-secondary {
     background: #e0e0e0;
-    color: #5d4037;
+    color: #3e2723;
     border: none;
     padding: 12px 30px;
     border-radius: 25px;
@@ -992,7 +993,7 @@ footer {
 }
 
 .summary-date {
-    color: #5d4037;
+    color: #3e2723;
     font-size: 1em;
 }
 
@@ -1020,7 +1021,7 @@ footer {
 
 .stat-label {
     font-size: 0.9em;
-    color: #5d4037;
+    color: #3e2723;
     margin-bottom: 5px;
 }
 
@@ -1041,7 +1042,7 @@ footer {
 }
 
 .summary-graph h3 {
-    color: #5d4037;
+    color: #3e2723;
     font-size: 1.2em;
     margin-bottom: 10px;
 }
@@ -1057,7 +1058,7 @@ footer {
 }
 
 .summary-stamps h3 {
-    color: #5d4037;
+    color: #3e2723;
     font-size: 1.2em;
     margin-bottom: 10px;
 }
@@ -1069,7 +1070,7 @@ footer {
 }
 
 .stamp-count {
-    color: #5d4037;
+    color: #3e2723;
     font-size: 1em;
 }
 
@@ -1089,7 +1090,7 @@ footer {
 }
 
 .summary-goals h3 {
-    color: #5d4037;
+    color: #3e2723;
     font-size: 1.2em;
     margin-bottom: 15px;
 }
@@ -1100,7 +1101,7 @@ footer {
 }
 
 .summary-goals li {
-    color: #5d4037;
+    color: #3e2723;
     padding: 8px 0;
     border-bottom: 1px solid #ffe082;
 }
@@ -1145,8 +1146,8 @@ footer {
 
 /* 積み上げを見るボタン */
 .stats-btn {
-    background: linear-gradient(135deg, #ffd54f 0%, #ffb300 100%);
-    color: #5d4037;
+    background: linear-gradient(135deg, #ffb300 0%, #ff8f00 100%);
+    color: white;
     text-decoration: none;
     padding: 8px 20px;
     border: 2px solid white;
@@ -1155,6 +1156,7 @@ footer {
     font-size: 0.9em;
     cursor: pointer;
     transition: all 0.2s;
+    box-shadow: 0 2px 8px rgba(255, 143, 0, 0.3);
 }
 
 .stats-btn:hover {
@@ -1245,7 +1247,7 @@ footer {
 }
 
 .calendar-section h3 {
-    color: #5d4037;
+    color: #3e2723;
     font-size: 1.2em;
     margin-bottom: 10px;
 }
@@ -1290,22 +1292,22 @@ footer {
 
 .calendar-day.level-1 {
     background: #fff9c4;
-    color: #5d4037;
+    color: #3e2723;
 }
 
 .calendar-day.level-2 {
     background: #ffe082;
-    color: #5d4037;
+    color: #3e2723;
 }
 
 .calendar-day.level-3 {
     background: #ffd54f;
-    color: #5d4037;
+    color: #3e2723;
 }
 
 .calendar-day.level-4 {
     background: #ffb300;
-    color: #5d4037;
+    color: #3e2723;
 }
 
 .calendar-day.level-5 {
@@ -1323,7 +1325,7 @@ footer {
 }
 
 .achievements-section h3 {
-    color: #5d4037;
+    color: #3e2723;
     font-size: 1.2em;
     margin-bottom: 10px;
 }
@@ -1364,7 +1366,7 @@ footer {
 .achievement-name {
     font-size: 0.9em;
     font-weight: bold;
-    color: #5d4037;
+    color: #3e2723;
     text-align: center;
 }
 
