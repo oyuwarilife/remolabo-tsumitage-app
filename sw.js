@@ -1,6 +1,6 @@
 // Service Worker for PWA
 
-const CACHE_NAME = 'remolabo-v65';
+const CACHE_NAME = 'remolabo-v66';
 const urlsToCache = [
     './',
     './index.html',
@@ -20,6 +20,7 @@ const urlsToCache = [
     './assets/night.png',
     './assets/tsumitage.png',
     './assets/tsumitage-image.png',
+    './assets/tsumitage-v2.png',
     './assets/remo-pdca.png',
     './assets/logo.png'
 ];
