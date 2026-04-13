@@ -1196,8 +1196,8 @@ function renderStats() {
     document.getElementById('avgTasksStats').textContent = stats.avgTasks.toFixed(1);
     document.getElementById('totalStampsStats').textContent = stats.totalStamps + '回';
 
-    // 月間カレンダーを生成
-    renderMonthlyCalendar();
+    // 月間カレンダーを生成（削除済み）
+    // renderMonthlyCalendar();
 
     // 実績をチェックして表示
     checkAchievements();
