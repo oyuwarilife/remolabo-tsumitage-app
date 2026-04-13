@@ -74,6 +74,7 @@ let data = loadData();
 let currentWeekOffset = 0; // 0=今週, -1=先週, -2=先々週...
 
 document.addEventListener('DOMContentLoaded', () => {
+    initTheme();
     initStamps();
     initTaskButton();
     initWeekLog();
@@ -1063,6 +1064,61 @@ function showSummaryPrompt(title, message) {
     document.getElementById('promptTitle').textContent = title;
     document.getElementById('promptMessage').textContent = message;
     modal.style.display = 'flex';
+}
+
+// ========================================
+// ダークモード
+// ========================================
+
+function initTheme() {
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = themeToggle.querySelector('.theme-icon');
+    const html = document.documentElement;
+
+    // 保存されているテーマ設定を読み込む
+    const savedTheme = localStorage.getItem('theme');
+
+    // システム設定を確認
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    // 初期テーマを設定
+    if (savedTheme) {
+        // ユーザーが手動設定している場合はそれを優先
+        html.setAttribute('data-theme', savedTheme);
+        updateIcon(savedTheme);
+    } else if (prefersDark) {
+        // システム設定がダークモードの場合
+        html.setAttribute('data-theme', 'dark');
+        updateIcon('dark');
+    } else {
+        // ライトモード
+        updateIcon('light');
+    }
+
+    // ボタンクリックでテーマ切り替え
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateIcon(newTheme);
+    });
+
+    // アイコン更新
+    function updateIcon(theme) {
+        themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+    }
+
+    // システム設定変更を監視
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        // ユーザーが手動設定していない場合のみ自動切り替え
+        if (!localStorage.getItem('theme')) {
+            const newTheme = e.matches ? 'dark' : 'light';
+            html.setAttribute('data-theme', newTheme);
+            updateIcon(newTheme);
+        }
+    });
 }
 
 // ========================================

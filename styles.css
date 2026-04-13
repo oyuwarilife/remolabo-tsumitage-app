@@ -5,6 +5,53 @@
     box-sizing: border-box;
 }
 
+/* カラースキーム（ライトモード） */
+:root {
+    --bg-gradient-start: #fff8e1;
+    --bg-gradient-end: #ffe082;
+    --container-bg: #fffef7;
+    --text-color: var(--text-color);
+    --text-secondary: #8d6e63;
+    --accent-color: #ff6f00;
+    --accent-light: #ffb300;
+    --border-color: #ffe082;
+    --border-color-dark: #ffd54f;
+    --card-bg: white;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+/* ダークモード */
+[data-theme="dark"] {
+    --bg-gradient-start: #1a1a1a;
+    --bg-gradient-end: #2d2d2d;
+    --container-bg: #2d2d2d;
+    --text-color: #e0e0e0;
+    --text-secondary: #b0b0b0;
+    --accent-color: #ffb366;
+    --accent-light: #ffd699;
+    --border-color: #4a4a4a;
+    --border-color-dark: #5a5a5a;
+    --card-bg: #3a3a3a;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+}
+
+/* システム設定に従う（ユーザーが手動設定していない場合） */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme]) {
+        --bg-gradient-start: #1a1a1a;
+        --bg-gradient-end: #2d2d2d;
+        --container-bg: #2d2d2d;
+        --text-color: #e0e0e0;
+        --text-secondary: #b0b0b0;
+        --accent-color: #ffb366;
+        --accent-light: #ffd699;
+        --border-color: #4a4a4a;
+        --border-color-dark: #5a5a5a;
+        --card-bg: #3a3a3a;
+        --shadow-color: rgba(0, 0, 0, 0.3);
+    }
+}
+
 /* モバイル最適化 */
 button {
     touch-action: manipulation; /* タップ時の300msディレイを削減 */
@@ -13,27 +60,31 @@ button {
 
 body {
     font-family: 'M PLUS Rounded 1c', 'Segoe UI', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
-    background: linear-gradient(135deg, #fff8e1 0%, #ffe082 100%);
+    background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+    color: var(--text-color);
     min-height: 100vh;
     padding: 20px;
     /* スクロール時のパフォーマンス向上 */
     -webkit-overflow-scrolling: touch;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    background: #fffef7;
+    background: var(--container-bg);
     border-radius: 20px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 40px var(--shadow-color);
     overflow: hidden;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* ヘッダー */
 header {
-    background: linear-gradient(135deg, #ffd54f 0%, #ffb300 100%);
+    background: linear-gradient(135deg, var(--border-color-dark) 0%, var(--accent-light) 100%);
     padding: 20px;
-    border-bottom: 3px solid #ff8f00;
+    border-bottom: 3px solid var(--accent-color);
+    transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .header-content {
@@ -46,13 +97,14 @@ header {
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background: white;
+    background: var(--card-bg);
     padding: 5px;
+    transition: background 0.3s ease;
 }
 
 header h1 {
     flex: 1;
-    color: #5d4037;
+    color: var(--text-color);
     font-size: 1.8em;
     font-weight: bold;
 }
@@ -60,11 +112,13 @@ header h1 {
 .header-nav {
     display: flex;
     justify-content: center;
+    align-items: center;
+    gap: 10px;
     padding: 10px 0 0 0;
 }
 
 .nav-link {
-    background: linear-gradient(135deg, #ff6f00 0%, #ff8f00 100%);
+    background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-light) 100%);
     color: white;
     text-decoration: none;
     padding: 8px 20px;
@@ -79,8 +133,33 @@ header h1 {
     box-shadow: 0 4px 10px rgba(255, 111, 0, 0.3);
 }
 
+.theme-toggle {
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+    border-color: var(--accent-color);
+}
+
+.theme-icon {
+    display: block;
+    line-height: 1;
+}
+
 .icon-btn {
-    background: white;
+    background: var(--card-bg);
+    transition: background 0.3s ease;
     border: none;
     border-radius: 50%;
     width: 40px;
@@ -107,15 +186,17 @@ main {
 
 /* 今日の操作パネル */
 .today-panel {
-    background: white;
-    border: 2px solid #ffe082;
+    background: var(--card-bg);
+    transition: background 0.3s ease;
+    border: 2px solid var(--border-color);
+    transition: border-color 0.3s ease;
     border-radius: 15px;
     padding: 20px;
     margin-bottom: 20px;
 }
 
 .today-panel h2 {
-    color: #5d4037;
+    color: var(--text-color);
     margin-bottom: 15px;
     font-size: 1.3em;
 }
@@ -130,7 +211,8 @@ main {
 
 .stamp-btn {
     position: relative;
-    background: white;
+    background: var(--card-bg);
+    transition: background 0.3s ease;
     border: 3px solid #e0e0e0;
     border-radius: 15px;
     padding: 15px;
@@ -213,7 +295,7 @@ main {
 
 .task-btn {
     background: linear-gradient(135deg, #fff9c4 0%, #ffd54f 50%, #ffb300 100%);
-    color: #5d4037;
+    color: var(--text-color);
     border: 3px solid #fff;
     border-radius: 30px;
     padding: 18px 45px;
@@ -283,8 +365,10 @@ main {
 
 /* 週ログ */
 .week-log {
-    background: white;
-    border: 2px solid #ffe082;
+    background: var(--card-bg);
+    transition: background 0.3s ease;
+    border: 2px solid var(--border-color);
+    transition: border-color 0.3s ease;
     border-radius: 15px;
     padding: 20px;
     margin-bottom: 20px;
@@ -319,7 +403,7 @@ main {
 }
 
 #weekTitle {
-    color: #5d4037;
+    color: var(--text-color);
     font-size: 1.2em;
 }
 
@@ -391,15 +475,17 @@ main {
 /* リモにゃん成長パネル */
 .remonyan-panel {
     width: 200px;
-    background: white;
-    border: 2px solid #ffe082;
+    background: var(--card-bg);
+    transition: background 0.3s ease;
+    border: 2px solid var(--border-color);
+    transition: border-color 0.3s ease;
     border-radius: 15px;
     padding: 20px;
     text-align: center;
 }
 
 .remonyan-panel h3 {
-    color: #5d4037;
+    color: var(--text-color);
     margin-bottom: 15px;
     font-size: 1.1em;
 }
@@ -488,13 +574,13 @@ main {
 
 .goal-header label {
     font-weight: bold;
-    color: #5d4037;
+    color: var(--text-color);
     margin: 0;
 }
 
 .add-goal-btn {
     background: linear-gradient(135deg, #ffd54f 0%, #ffb300 100%);
-    color: #5d4037;
+    color: var(--text-color);
     border: none;
     padding: 8px 16px;
     border-radius: 20px;
@@ -534,7 +620,8 @@ main {
 .goal-item input {
     flex: 1;
     padding: 12px;
-    border: 2px solid #ffe082;
+    border: 2px solid var(--border-color);
+    transition: border-color 0.3s ease;
     border-radius: 10px;
     font-size: 1em;
     font-family: 'M PLUS Rounded 1c', sans-serif;
@@ -598,7 +685,8 @@ main {
 }
 
 .modal-content {
-    background: white;
+    background: var(--card-bg);
+    transition: background 0.3s ease;
     border-radius: 20px;
     padding: 30px;
     max-width: 500px;
@@ -720,7 +808,7 @@ main {
 
 .celebration-message {
     font-size: 1.3em;
-    color: #5d4037;
+    color: var(--text-color);
     margin: 20px 0;
     line-height: 1.6;
 }
@@ -797,7 +885,7 @@ main {
     left: 50%;
     transform: translate(-50%, -50%) scale(0.8);
     background: linear-gradient(135deg, #ffd54f 0%, #ffb300 100%);
-    color: #5d4037;
+    color: var(--text-color);
     padding: 20px 40px;
     border-radius: 30px;
     font-size: 1.5em;
@@ -865,13 +953,13 @@ footer {
 }
 
 .prompt-content h3 {
-    color: #5d4037;
+    color: var(--text-color);
     font-size: 1.4em;
     margin-bottom: 15px;
 }
 
 .prompt-content p {
-    color: #5d4037;
+    color: var(--text-color);
     margin-bottom: 25px;
     font-size: 1.1em;
 }
@@ -885,7 +973,7 @@ footer {
 
 .btn-secondary {
     background: #e0e0e0;
-    color: #5d4037;
+    color: var(--text-color);
     border: none;
     padding: 12px 30px;
     border-radius: 25px;
@@ -929,7 +1017,7 @@ footer {
 }
 
 .summary-date {
-    color: #5d4037;
+    color: var(--text-color);
     font-size: 1em;
 }
 
@@ -941,11 +1029,13 @@ footer {
 }
 
 .stat-item {
-    background: white;
+    background: var(--card-bg);
+    transition: background 0.3s ease;
     padding: 15px;
     border-radius: 15px;
     text-align: center;
-    border: 2px solid #ffe082;
+    border: 2px solid var(--border-color);
+    transition: border-color 0.3s ease;
 }
 
 .stat-item.highlight {
@@ -955,7 +1045,7 @@ footer {
 
 .stat-label {
     font-size: 0.9em;
-    color: #5d4037;
+    color: var(--text-color);
     margin-bottom: 5px;
 }
 
@@ -966,29 +1056,33 @@ footer {
 }
 
 .summary-graph {
-    background: white;
+    background: var(--card-bg);
+    transition: background 0.3s ease;
     padding: 15px;
     border-radius: 15px;
     margin-bottom: 15px;
-    border: 2px solid #ffe082;
+    border: 2px solid var(--border-color);
+    transition: border-color 0.3s ease;
 }
 
 .summary-graph h3 {
-    color: #5d4037;
+    color: var(--text-color);
     font-size: 1.2em;
     margin-bottom: 15px;
 }
 
 .summary-stamps {
-    background: white;
+    background: var(--card-bg);
+    transition: background 0.3s ease;
     padding: 15px;
     border-radius: 15px;
     margin-bottom: 15px;
-    border: 2px solid #ffe082;
+    border: 2px solid var(--border-color);
+    transition: border-color 0.3s ease;
 }
 
 .summary-stamps h3 {
-    color: #5d4037;
+    color: var(--text-color);
     font-size: 1.2em;
     margin-bottom: 15px;
 }
@@ -1000,7 +1094,7 @@ footer {
 }
 
 .stamp-count {
-    color: #5d4037;
+    color: var(--text-color);
     font-size: 1em;
 }
 
@@ -1010,15 +1104,17 @@ footer {
 }
 
 .summary-goals {
-    background: white;
+    background: var(--card-bg);
+    transition: background 0.3s ease;
     padding: 15px;
     border-radius: 15px;
     margin-bottom: 15px;
-    border: 2px solid #ffe082;
+    border: 2px solid var(--border-color);
+    transition: border-color 0.3s ease;
 }
 
 .summary-goals h3 {
-    color: #5d4037;
+    color: var(--text-color);
     font-size: 1.2em;
     margin-bottom: 15px;
 }
@@ -1029,9 +1125,9 @@ footer {
 }
 
 .summary-goals li {
-    color: #5d4037;
+    color: var(--text-color);
     padding: 8px 0;
-    border-bottom: 1px solid #ffe082;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .summary-goals li:last-child {
