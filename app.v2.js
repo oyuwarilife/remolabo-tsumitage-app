@@ -680,8 +680,8 @@ function drawCelebrationCircle() {
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // 7色のセグメント
-    const colors = ['#ff5252', '#4caf50', '#9c27b0', '#ffd54f', '#2196f3', '#00bcd4', '#ff9800'];
+    // 7色のセグメント（パステル調）
+    const colors = ['#ffb3ba', '#bae1b3', '#d4a5d8', '#fff4ba', '#a0c4e5', '#bae1e7', '#ffd4a3'];
     const segmentAngle = (2 * Math.PI) / colors.length;
 
     colors.forEach((color, i) => {
@@ -718,7 +718,7 @@ function createConfetti() {
     const confettiEl = document.getElementById('confetti');
     confettiEl.innerHTML = '';
 
-    const colors = ['#ff5252', '#4caf50', '#ffd54f', '#2196f3', '#ff9800'];
+    const colors = ['#ffb3ba', '#bae1b3', '#fff4ba', '#a0c4e5', '#ffd4a3'];
 
     for (let i = 0; i < 50; i++) {
         const piece = document.createElement('div');
