@@ -41,24 +41,22 @@ header {
 
 .header-content {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
+    text-align: center;
 }
 
 .header-logo {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: white;
-    padding: 5px;
-    transition: background 0.3s ease;
+    width: 200px;
+    height: auto;
 }
 
 header h1 {
-    flex: 1;
     color: #5d4037;
     font-size: 1.8em;
     font-weight: bold;
+    margin: 0;
 }
 
 .header-nav {

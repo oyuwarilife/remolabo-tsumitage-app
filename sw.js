@@ -1,6 +1,6 @@
 // Service Worker for PWA
 
-const CACHE_NAME = 'remolabo-v53';
+const CACHE_NAME = 'remolabo-v54';
 const urlsToCache = [
     './',
     './index.html',
@@ -18,7 +18,9 @@ const urlsToCache = [
     './assets/morning.png',
     './assets/lunch.png',
     './assets/night.png',
-    './assets/tsumitage.png'
+    './assets/tsumitage.png',
+    './assets/tsumitage-image.png',
+    './assets/remo-pdca.png'
 ];
 
 // インストール
