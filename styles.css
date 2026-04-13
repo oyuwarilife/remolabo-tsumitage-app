@@ -1230,17 +1230,17 @@ footer {
 /* 月間カレンダー */
 .calendar-section {
     background: white;
-    padding: 20px;
+    padding: 12px;
     border-radius: 15px;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
     border: 2px solid #ffe082;
     transition: all 0.3s ease;
 }
 
 .calendar-section h3 {
     color: #5d4037;
-    font-size: 1.3em;
-    margin-bottom: 15px;
+    font-size: 1.2em;
+    margin-bottom: 10px;
 }
 
 .monthly-calendar {
@@ -1309,22 +1309,22 @@ footer {
 /* 実績コレクション */
 .achievements-section {
     background: white;
-    padding: 20px;
+    padding: 12px;
     border-radius: 15px;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
     border: 2px solid #ffe082;
 }
 
 .achievements-section h3 {
     color: #5d4037;
-    font-size: 1.3em;
-    margin-bottom: 15px;
+    font-size: 1.2em;
+    margin-bottom: 10px;
 }
 
 .achievements-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    gap: 15px;
+    gap: 10px;
 }
 
 .achievement-item {
