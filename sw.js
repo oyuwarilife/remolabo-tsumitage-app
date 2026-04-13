@@ -1,12 +1,12 @@
 // Service Worker for PWA
 
-const CACHE_NAME = 'remolabo-v25';
+const CACHE_NAME = 'remolabo-v42';
 const urlsToCache = [
     './',
     './index.html',
     './about.html',
     './styles.css',
-    './app.js',
+    './app.v2.js',
     './manifest.json',
     './assets/remonyan.png',
     './assets/remonyan-1.png',
@@ -28,6 +28,10 @@ self.addEventListener('install', (event) => {
             .then((cache) => {
                 return cache.addAll(urlsToCache);
             })
+            .then(() => {
+                // 新しいService Workerを即座にアクティブ化
+                return self.skipWaiting();
+            })
     );
 });
 
@@ -42,6 +46,9 @@ self.addEventListener('activate', (event) => {
                     }
                 })
             );
+        }).then(() => {
+            // すべてのクライアントを即座に制御
+            return self.clients.claim();
         })
     );
 });

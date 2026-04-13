@@ -28,7 +28,6 @@
             <div class="header-content">
                 <img src="assets/remonyan.png" alt="リモにゃん" class="header-logo">
                 <h1>リモラボ 積み上げ記録</h1>
-                <button id="settingsBtn" class="icon-btn" title="設定">⚙️</button>
             </div>
         </header>
 
@@ -111,7 +110,7 @@
 
                 <!-- 注意書き -->
                 <div class="notice">
-                    ⚠️ 注意：ブラウザのキャッシュをクリアすると記録が消えます。定期的にデータをバックアップすることをおすすめします。
+                    ⚠️ 注意：ブラウザのキャッシュをクリアすると記録が消えます。大切な記録はスクリーンショットで保存しておきましょう！
                 </div>
             </main>
 
@@ -121,32 +120,13 @@
                 <div class="remonyan-container">
                     <img id="remonyanImage" src="assets/remonyan-1.png" alt="リモにゃん" class="remonyan-growth">
                 </div>
-                <div class="remonyan-count">
-                    <span id="remonyanTotalCount">0</span> / 100
-                </div>
                 <div class="monasashi-bar" id="monasashiBar">
                     <!-- JavaScriptで生成 -->
                 </div>
-            </aside>
-        </div>
-    </div>
-
-    <!-- 設定モーダル -->
-    <div id="settingsModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>⚙️ 設定</h2>
-                <button class="close-btn">&times;</button>
-            </div>
-            <div class="modal-body">
-                <h3>データ管理</h3>
-                <div class="settings-section">
-                    <button id="downloadBtn" class="btn-primary">📥 データをダウンロード（CSV）</button>
-                    <button id="uploadBtn" class="btn-primary">📤 データを復元</button>
-                    <input type="file" id="fileInput" accept=".csv" style="display: none;">
-                    <button id="deleteAllBtn" class="btn-danger">🗑️ 全データ削除</button>
+                <div class="remonyan-count">
+                    <span id="remonyanTotalCount">0</span> / 100
                 </div>
-            </div>
+            </aside>
         </div>
     </div>
 
@@ -177,7 +157,6 @@
             <p class="celebration-message" id="celebrationMessage">おめでとうにゃ🎉<br>コツコツ積み上げ、すごいにゃ！</p>
 
             <div class="celebration-buttons">
-                <button id="saveImageBtn" class="btn-primary">📸 画像を保存</button>
                 <button id="shareThreadsBtn" class="btn-social threads">Threads共有</button>
                 <button id="shareXBtn" class="btn-social x">X共有</button>
             </div>
@@ -252,6 +231,6 @@
         </div>
     </div>
 
-    <script src="app.js"></script>
+    <script src="app.v2.js"></script>
 </body>
 </html>

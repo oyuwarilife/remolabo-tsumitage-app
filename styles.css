@@ -5,11 +5,19 @@
     box-sizing: border-box;
 }
 
+/* モバイル最適化 */
+button {
+    touch-action: manipulation; /* タップ時の300msディレイを削減 */
+    -webkit-tap-highlight-color: rgba(255, 213, 79, 0.3); /* タップ時のハイライト色 */
+}
+
 body {
     font-family: 'M PLUS Rounded 1c', 'Segoe UI', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
     background: linear-gradient(135deg, #fff8e1 0%, #ffe082 100%);
     min-height: 100vh;
     padding: 20px;
+    /* スクロール時のパフォーマンス向上 */
+    -webkit-overflow-scrolling: touch;
 }
 
 .container {
@@ -395,10 +403,10 @@ main {
 }
 
 .remonyan-count {
-    font-size: 2em;
+    font-size: 1.5em;
     font-weight: bold;
     color: #ff6f00;
-    margin: 15px 0;
+    margin: 15px 0 0 0;
 }
 
 /* ものさしバー */
@@ -426,50 +434,18 @@ main {
 
 .monasashi-current {
     position: absolute;
-    left: 65px;
-    height: auto;
-    background: transparent;
+    left: 0; /* バーの左端に揃える */
+    width: 100%; /* バーの幅に合わせる */
+    height: 3px;
+    background: #ff3333; /* 赤いライン */
+    box-shadow: 0 1px 3px rgba(255, 51, 51, 0.5);
     z-index: 10;
-    transform: translateY(-50%);
     pointer-events: none;
 }
 
-.current-label {
-    display: inline-block;
-    background: linear-gradient(135deg, #ffd54f 0%, #ffb300 100%);
-    color: #5d4037;
-    padding: 8px 15px;
-    border-radius: 20px;
-    font-size: 0.85em;
-    font-weight: bold;
-    white-space: nowrap;
-    box-shadow: 0 3px 10px rgba(255, 152, 0, 0.4);
-    position: relative;
-    animation: current-float 2s ease-in-out infinite;
-}
-
-.current-label::before {
-    content: '';
-    position: absolute;
-    left: -8px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 0;
-    height: 0;
-    border-top: 8px solid transparent;
-    border-bottom: 8px solid transparent;
-    border-right: 10px solid #ffd54f;
-}
-
-@keyframes current-float {
-    0%, 100% {
-        transform: translateY(0);
-        box-shadow: 0 3px 10px rgba(255, 152, 0, 0.4);
-    }
-    50% {
-        transform: translateY(-5px);
-        box-shadow: 0 5px 15px rgba(255, 152, 0, 0.5);
-    }
+/* 数字は非表示 */
+.monasashi-number {
+    display: none;
 }
 
 /* 今週の目標 */
@@ -907,14 +883,14 @@ footer {
     max-width: 600px;
     background: linear-gradient(135deg, #fff9c4 0%, #fffde7 100%);
     border: 3px solid #ffd54f;
-    max-height: 90vh;
-    overflow-y: auto;
+    max-height: none; /* スクショしやすいように高さ制限なし */
+    overflow-y: visible;
 }
 
 .summary-header {
     text-align: center;
-    margin-bottom: 25px;
-    padding-bottom: 20px;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
     border-bottom: 2px solid #ffd54f;
 }
 
@@ -938,8 +914,8 @@ footer {
 .summary-stats {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
-    margin-bottom: 25px;
+    gap: 10px;
+    margin-bottom: 15px;
 }
 
 .stat-item {
@@ -969,9 +945,9 @@ footer {
 
 .summary-graph {
     background: white;
-    padding: 20px;
+    padding: 15px;
     border-radius: 15px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     border: 2px solid #ffe082;
 }
 
@@ -983,9 +959,9 @@ footer {
 
 .summary-stamps {
     background: white;
-    padding: 20px;
+    padding: 15px;
     border-radius: 15px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     border: 2px solid #ffe082;
 }
 
@@ -1013,9 +989,9 @@ footer {
 
 .summary-goals {
     background: white;
-    padding: 20px;
+    padding: 15px;
     border-radius: 15px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     border: 2px solid #ffe082;
 }
 
@@ -1049,7 +1025,7 @@ footer {
 
 .summary-share {
     text-align: center;
-    padding-top: 20px;
+    padding-top: 15px;
     border-top: 2px solid #ffd54f;
 }
 
@@ -1069,10 +1045,34 @@ footer {
 
 /* レスポンシブ */
 @media (max-width: 768px) {
-    .main-layout {
-        flex-direction: column;
+    /* ボディのパディング縮小 */
+    body {
+        padding: 10px;
     }
 
+    /* ヘッダータイトルのフォントサイズ縮小 */
+    header h1 {
+        font-size: 1.3em;
+    }
+
+    header {
+        padding: 15px;
+    }
+
+    /* メインレイアウト */
+    .main-layout {
+        flex-direction: column;
+        padding: 15px;
+        gap: 15px;
+    }
+
+    /* パネルのパディング縮小 */
+    .today-panel,
+    .week-log {
+        padding: 15px;
+    }
+
+    /* リモにゃんパネル */
     .monasashi-panel {
         width: 100%;
     }
@@ -1083,17 +1083,220 @@ footer {
         flex-direction: row;
     }
 
+    /* スタンプを2列に */
     .stamps-container {
         grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
     }
 
+    /* スタンプアイコンとラベルを縮小 */
+    .stamp-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .stamp-label {
+        font-size: 0.85em;
+    }
+
+    .stamp-btn {
+        padding: 12px;
+    }
+
+    /* タスクボタンのサイズ調整 */
+    .task-btn {
+        padding: 15px 35px;
+        font-size: 1.1em;
+    }
+
+    /* 週ナビゲーションの調整 */
+    .week-nav button {
+        padding: 6px 12px;
+        font-size: 0.85em;
+    }
+
+    /* 週タイトルの改行防止とサイズ調整 */
+    #weekTitle {
+        font-size: 1em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* 週テーブルの調整 */
     .week-header,
     .week-row {
-        grid-template-columns: 100px 1fr 60px;
-        font-size: 0.9em;
+        grid-template-columns: 90px 1fr 55px;
+        font-size: 0.85em;
+        padding: 8px;
+    }
+
+    /* 今週の目標セクション */
+    .weekly-goal {
+        padding: 12px;
+    }
+
+    .goal-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .add-goal-btn {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .goal-item input {
+        padding: 10px;
+        font-size: 0.95em;
+    }
+
+    /* モーダルのパディング縮小 */
+    .modal-content {
+        padding: 20px;
+        width: 95%;
+    }
+
+    /* お祝い画面の調整 */
+    .celebration-content {
+        padding: 20px;
+    }
+
+    .celebration-circle {
+        width: 250px;
+        height: 250px;
+    }
+
+    #celebrationCanvas {
+        width: 250px;
+        height: 250px;
+    }
+
+    .celebration-logo {
+        width: 120px;
+        height: 120px;
+    }
+
+    .celebration-title {
+        font-size: 2em;
+    }
+
+    .celebration-message {
+        font-size: 1.1em;
     }
 
     .celebration-buttons {
         grid-template-columns: 1fr;
+    }
+
+    /* 週間サマリー画面 */
+    .summary-content {
+        padding: 15px;
+    }
+
+    .summary-header {
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+    }
+
+    .summary-logo {
+        width: 60px;
+        height: 60px;
+    }
+
+    .summary-header h2 {
+        font-size: 1.5em;
+    }
+
+    .summary-stats {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        margin-bottom: 10px;
+    }
+
+    .stat-item {
+        padding: 12px;
+    }
+
+    .stat-label {
+        font-size: 0.85em;
+    }
+
+    .stat-value {
+        font-size: 1.5em;
+    }
+
+    .summary-graph,
+    .summary-stamps,
+    .summary-goals {
+        padding: 12px;
+        margin-bottom: 10px;
+    }
+
+    .summary-graph h3,
+    .summary-stamps h3,
+    .summary-goals h3 {
+        font-size: 1em;
+        margin-bottom: 10px;
+    }
+
+    .summary-share {
+        padding-top: 10px;
+    }
+
+    .share-message {
+        font-size: 1em;
+        margin-bottom: 10px;
+    }
+
+    .stamp-summary {
+        grid-template-columns: 1fr;
+    }
+
+    /* フッター */
+    footer {
+        padding: 30px 15px;
+    }
+
+    .footer-links {
+        gap: 15px;
+    }
+
+    .footer-links a {
+        padding: 8px 15px;
+        font-size: 0.9em;
+    }
+}
+
+/* 超小型デバイス（360px以下） */
+@media (max-width: 360px) {
+    header h1 {
+        font-size: 1.1em;
+    }
+
+    .header-logo {
+        width: 50px;
+        height: 50px;
+    }
+
+    .task-btn {
+        padding: 12px 25px;
+        font-size: 1em;
+    }
+
+    #weekTitle {
+        font-size: 0.9em;
+    }
+
+    .week-nav button {
+        padding: 5px 10px;
+        font-size: 0.8em;
+    }
+
+    .week-header,
+    .week-row {
+        grid-template-columns: 80px 1fr 50px;
+        font-size: 0.8em;
     }
 }

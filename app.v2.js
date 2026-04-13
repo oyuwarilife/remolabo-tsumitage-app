@@ -793,11 +793,6 @@ function initWeeklySummary() {
         summaryModal.style.display = 'none';
     });
 
-    const copyDataBtn = document.getElementById('copyDataBtn');
-    copyDataBtn.addEventListener('click', () => {
-        copyAllData();
-    });
-
     shareThreadsBtn.addEventListener('click', () => {
         const text = getWeeklySummaryShareText();
         window.open(`https://threads.net/intent/post?text=${encodeURIComponent(text)}`, '_blank');
@@ -965,34 +960,6 @@ function getWeeklySummaryShareText() {
 }
 
 // データをクリップボードにコピー
-function copyAllData() {
-    try {
-        const jsonData = JSON.stringify(data, null, 2);
-        navigator.clipboard.writeText(jsonData).then(() => {
-            alert('✅ データをコピーしました！\n\nメモアプリやGoogle Keepに貼り付けて保存してください。');
-        }).catch(() => {
-            // クリップボードAPIが使えない場合はテキストエリアを使う（非推奨だが互換性のため）
-            const textarea = document.createElement('textarea');
-            textarea.value = jsonData;
-            textarea.style.position = 'fixed';
-            textarea.style.opacity = '0';
-            document.body.appendChild(textarea);
-            textarea.select();
-            try {
-                document.execCommand('copy');
-                alert('✅ データをコピーしました！\n\nメモアプリやGoogle Keepに貼り付けて保存してください。');
-            } catch {
-                alert('❌ データのコピーに失敗しました。手動でコピーしてください。');
-            } finally {
-                document.body.removeChild(textarea);
-            }
-        });
-    } catch (error) {
-        alert('❌ データのコピーに失敗しました。');
-        console.error(error);
-    }
-}
-
 // ポップアップ表示（案2: タスク達成時）
 function checkTaskMilestone(weekTasks) {
     if (weekTasks === 10 || weekTasks === 20 || weekTasks === 30) {
