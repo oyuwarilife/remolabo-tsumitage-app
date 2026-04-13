@@ -14,7 +14,8 @@ function getDefaultData() {
         lastBackupDate: null,
         lastTaskDate: null,
         consecutiveDays: 0,
-        weeklyGoals: {}
+        weeklyGoals: {},
+        achievements: {}
     };
 }
 
@@ -141,6 +142,7 @@ function initStamps() {
 
             saveData(data);
             updateWeekLog();
+            checkAchievements();
         });
     });
 
@@ -233,6 +235,7 @@ function initTaskButton() {
         updateTaskCount();
         updateMonasashi();
         updateWeekLog();
+        checkAchievements();
 
         // 週間タスク数のマイルストーンチェック（案2）
         const weekData = getWeekData();
@@ -426,16 +429,28 @@ function renderGoals(goals) {
         const item = document.createElement('div');
         item.className = 'goal-item';
 
+        // Input と削除ボタンのコンテナ
+        const inputContainer = document.createElement('div');
+        inputContainer.style.display = 'flex';
+        inputContainer.style.gap = '8px';
+        inputContainer.style.alignItems = 'center';
+
         const input = document.createElement('input');
         input.type = 'text';
         input.value = goal;
         input.placeholder = index === 0 ? '例：朝活3回、タスク20個完了' : '目標を入力';
         input.maxLength = 100;
 
-        input.addEventListener('blur', saveWeeklyGoals);
-        input.addEventListener('change', saveWeeklyGoals);
+        input.addEventListener('blur', () => {
+            saveWeeklyGoals();
+            renderGoals(getWeeklyGoals());
+        });
+        input.addEventListener('change', () => {
+            saveWeeklyGoals();
+            renderGoals(getWeeklyGoals());
+        });
 
-        item.appendChild(input);
+        inputContainer.appendChild(input);
 
         // 削除ボタン（1つ目以外）
         if (goals.length > 1) {
@@ -443,13 +458,75 @@ function renderGoals(goals) {
             removeBtn.className = 'remove-goal-btn';
             removeBtn.textContent = '×';
             removeBtn.addEventListener('click', () => removeGoal(index));
-            item.appendChild(removeBtn);
+            inputContainer.appendChild(removeBtn);
+        }
+
+        item.appendChild(inputContainer);
+
+        // 達成状況を追加
+        if (goal && goal.trim()) {
+            const progress = calculateGoalProgress(goal);
+            if (progress) {
+                const progressEl = document.createElement('div');
+                progressEl.className = 'goal-progress';
+
+                const progressBar = document.createElement('div');
+                progressBar.className = 'goal-progress-bar';
+
+                const progressFill = document.createElement('div');
+                progressFill.className = 'goal-progress-fill';
+                const percentage = Math.min(100, Math.round((progress.current / progress.target) * 100));
+                progressFill.style.width = percentage + '%';
+
+                if (percentage >= 100) {
+                    progressFill.classList.add('completed');
+                }
+
+                progressBar.appendChild(progressFill);
+
+                const progressText = document.createElement('div');
+                progressText.className = 'goal-progress-text';
+                progressText.textContent = `${progress.current} / ${progress.target} (${percentage}%)`;
+
+                progressEl.appendChild(progressBar);
+                progressEl.appendChild(progressText);
+                item.appendChild(progressEl);
+            }
         }
 
         container.appendChild(item);
     });
 
     updateAddGoalButton();
+}
+
+// 目標の達成状況を計算
+function calculateGoalProgress(goalText) {
+    const weekData = getWeekData();
+
+    // 数字を抽出
+    const numberMatch = goalText.match(/(\d+)/);
+    if (!numberMatch) return null;
+
+    const target = parseInt(numberMatch[1]);
+    let current = 0;
+
+    // キーワードで判定
+    if (goalText.includes('朝活')) {
+        current = weekData.stamps.morning;
+    } else if (goalText.includes('昼活')) {
+        current = weekData.stamps.lunch;
+    } else if (goalText.includes('夜活')) {
+        current = weekData.stamps.night;
+    } else if (goalText.includes('積み上げ')) {
+        current = weekData.stamps.tsumitage;
+    } else if (goalText.includes('タスク')) {
+        current = weekData.weekTasks;
+    } else {
+        return null;
+    }
+
+    return { current, target };
 }
 
 // 「+ 目標を追加」ボタンの状態更新
@@ -1121,6 +1198,10 @@ function renderStats() {
 
     // 月間カレンダーを生成
     renderMonthlyCalendar();
+
+    // 実績をチェックして表示
+    checkAchievements();
+    renderAchievements();
 }
 
 // 統計を計算
@@ -1272,6 +1353,113 @@ function getStatsShareText() {
     const month = today.getMonth() + 1;
 
     return `リモラボ ${month}月の積み上げ記録📊\n\n📊 累計タスク: ${stats.totalTasks}個\n🔥 最長連続: ${stats.maxStreak}日\n📅 平均: ${stats.avgTasks.toFixed(1)}個/日\n⭐ 参加回数: ${stats.totalStamps}回\n\n#リモラボ #積み上げタイム`;
+}
+
+// ========================================
+// バッジ・実績システム
+// ========================================
+
+// 実績の定義
+const ACHIEVEMENTS = [
+    // 連続記録系
+    { id: 'streak_3', name: '3日連続', icon: '🔥', condition: () => calculateMaxStreak() >= 3 },
+    { id: 'streak_7', name: '1週間連続', icon: '🔥', condition: () => calculateMaxStreak() >= 7 },
+    { id: 'streak_14', name: '2週間連続', icon: '🔥', condition: () => calculateMaxStreak() >= 14 },
+    { id: 'streak_30', name: '1ヶ月連続', icon: '🔥', condition: () => calculateMaxStreak() >= 30 },
+
+    // 累計タスク系
+    { id: 'task_first', name: '初回達成', icon: '🎉', condition: () => data.totalTasks >= 1 },
+    { id: 'task_50', name: 'タスク50個', icon: '📊', condition: () => data.totalTasks >= 50 },
+    { id: 'task_100', name: 'タスク100個', icon: '📊', condition: () => data.totalTasks >= 100 },
+    { id: 'task_300', name: 'タスク300個', icon: '📊', condition: () => data.totalTasks >= 300 },
+    { id: 'task_500', name: 'タスク500個', icon: '📊', condition: () => data.totalTasks >= 500 },
+
+    // 参加回数系
+    { id: 'stamp_first', name: '初参加', icon: '⭐', condition: () => calculateTotalStamps() >= 1 },
+    { id: 'morning_10', name: '朝活10回', icon: '🌞', condition: () => countStampType('morning') >= 10 },
+    { id: 'lunch_10', name: '昼活10回', icon: '🍙', condition: () => countStampType('lunch') >= 10 },
+    { id: 'night_10', name: '夜活10回', icon: '⭐', condition: () => countStampType('night') >= 10 },
+    { id: 'tsumitage_10', name: '積み上げ10回', icon: '💪', condition: () => countStampType('tsumitage') >= 10 },
+
+    // 月間達成系
+    { id: 'month_50', name: '月間50タスク', icon: '🎯', condition: () => getMonthlyTasks() >= 50 },
+    { id: 'month_100', name: '月間100タスク', icon: '🎯', condition: () => getMonthlyTasks() >= 100 },
+    { id: 'month_150', name: '月間150タスク', icon: '🎯', condition: () => getMonthlyTasks() >= 150 }
+];
+
+// スタンプの種類別カウント
+function countStampType(type) {
+    let count = 0;
+    Object.keys(data.stamps).forEach(dateStr => {
+        if (data.stamps[dateStr][type]) count++;
+    });
+    return count;
+}
+
+// 今月のタスク数を取得
+function getMonthlyTasks() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth();
+
+    let count = 0;
+    Object.keys(data.tasks).forEach(dateStr => {
+        const date = new Date(dateStr);
+        if (date.getFullYear() === year && date.getMonth() === month) {
+            count += data.tasks[dateStr];
+        }
+    });
+    return count;
+}
+
+// 実績をチェックして更新
+function checkAchievements() {
+    if (!data.achievements) {
+        data.achievements = {};
+    }
+
+    const newAchievements = [];
+
+    ACHIEVEMENTS.forEach(achievement => {
+        if (!data.achievements[achievement.id] && achievement.condition()) {
+            data.achievements[achievement.id] = {
+                unlocked: true,
+                unlockedAt: new Date().toISOString()
+            };
+            newAchievements.push(achievement);
+        }
+    });
+
+    if (newAchievements.length > 0) {
+        saveData(data);
+    }
+
+    return newAchievements;
+}
+
+// 実績コレクションを表示
+function renderAchievements() {
+    const container = document.getElementById('achievementsContainer');
+    if (!container) return;
+
+    container.innerHTML = '';
+
+    ACHIEVEMENTS.forEach(achievement => {
+        const achievementEl = document.createElement('div');
+        achievementEl.className = 'achievement-item';
+
+        const unlocked = data.achievements && data.achievements[achievement.id];
+        if (!unlocked) {
+            achievementEl.classList.add('locked');
+        }
+
+        achievementEl.innerHTML = `
+            <div class="achievement-icon">${unlocked ? achievement.icon : '🔒'}</div>
+            <div class="achievement-name">${achievement.name}</div>
+        `;
+
+        container.appendChild(achievementEl);
+    });
 }
 
 // ========================================
