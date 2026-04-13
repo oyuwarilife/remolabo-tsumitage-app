@@ -31,6 +31,7 @@
             </div>
             <nav class="header-nav">
                 <a href="about.html" class="nav-link">📖 このアプリの使い方</a>
+                <button id="statsBtn" class="stats-btn">📊 積み上げを見る</button>
                 <button id="themeToggle" class="theme-toggle" aria-label="ダークモード切り替え">
                     <span class="theme-icon">🌙</span>
                 </button>
@@ -232,6 +233,68 @@
                 <div class="summary-buttons">
                     <button id="shareThreadsSummaryBtn" class="btn-social threads">Threads共有</button>
                     <button id="shareXSummaryBtn" class="btn-social x">X共有</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 積み上げ統計画面 -->
+    <div id="statsModal" class="modal" style="display: none;">
+        <div class="modal-content stats-content">
+            <button class="close-btn">&times;</button>
+
+            <div class="stats-header">
+                <img src="assets/remo-pdca.png" alt="リモPDCA" class="stats-logo">
+                <h2>あなたの積み上げ記録</h2>
+            </div>
+
+            <!-- 累計統計 -->
+            <div class="stats-summary">
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-info">
+                        <div class="stat-label">総タスク数</div>
+                        <div class="stat-number" id="totalTasksStats">0</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🔥</div>
+                    <div class="stat-info">
+                        <div class="stat-label">最長連続記録</div>
+                        <div class="stat-number" id="maxStreakStats">0日</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📅</div>
+                    <div class="stat-info">
+                        <div class="stat-label">平均タスク数/日</div>
+                        <div class="stat-number" id="avgTasksStats">0</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⭐</div>
+                    <div class="stat-info">
+                        <div class="stat-label">総参加回数</div>
+                        <div class="stat-number" id="totalStampsStats">0回</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 月間カレンダー -->
+            <div class="calendar-section">
+                <h3>📅 今月の積み上げカレンダー</h3>
+                <div id="monthlyCalendar" class="monthly-calendar">
+                    <!-- JavaScriptで生成 -->
+                </div>
+            </div>
+
+            <!-- シェアボタン -->
+            <div class="stats-share">
+                <p class="share-message">📸 スクショを撮ってSNSでシェアしよう！</p>
+                <p class="hashtag-text">#リモラボ</p>
+                <div class="summary-buttons">
+                    <button id="shareThreadsStatsBtn" class="btn-social threads">Threads共有</button>
+                    <button id="shareXStatsBtn" class="btn-social x">X共有</button>
                 </div>
             </div>
         </div>

@@ -81,6 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initMonasashi();
     initCelebration();
     initWeeklySummary();
+    initStats();
 });
 
 // ========================================
@@ -1064,6 +1065,214 @@ function showSummaryPrompt(title, message) {
     document.getElementById('promptTitle').textContent = title;
     document.getElementById('promptMessage').textContent = message;
     modal.style.display = 'flex';
+}
+
+// ========================================
+// 積み上げ統計
+// ========================================
+
+function initStats() {
+    const statsBtn = document.getElementById('statsBtn');
+    const statsModal = document.getElementById('statsModal');
+    const closeBtn = statsModal.querySelector('.close-btn');
+
+    // 統計ボタンクリック
+    statsBtn.addEventListener('click', () => {
+        renderStats();
+        statsModal.style.display = 'flex';
+    });
+
+    // モーダルを閉じる
+    closeBtn.addEventListener('click', () => {
+        statsModal.style.display = 'none';
+    });
+
+    // モーダル外クリックで閉じる
+    statsModal.addEventListener('click', (e) => {
+        if (e.target === statsModal) {
+            statsModal.style.display = 'none';
+        }
+    });
+
+    // Threadsシェアボタン
+    document.getElementById('shareThreadsStatsBtn').addEventListener('click', () => {
+        const text = getStatsShareText();
+        const url = `https://threads.net/intent/post?text=${encodeURIComponent(text)}`;
+        window.open(url, '_blank');
+    });
+
+    // Xシェアボタン
+    document.getElementById('shareXStatsBtn').addEventListener('click', () => {
+        const text = getStatsShareText();
+        const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
+        window.open(url, '_blank');
+    });
+}
+
+// 統計を描画
+function renderStats() {
+    // 累計統計を計算
+    const stats = calculateStats();
+
+    // 統計カードに表示
+    document.getElementById('totalTasksStats').textContent = stats.totalTasks + '個';
+    document.getElementById('maxStreakStats').textContent = stats.maxStreak + '日';
+    document.getElementById('avgTasksStats').textContent = stats.avgTasks.toFixed(1);
+    document.getElementById('totalStampsStats').textContent = stats.totalStamps + '回';
+
+    // 月間カレンダーを生成
+    renderMonthlyCalendar();
+}
+
+// 統計を計算
+function calculateStats() {
+    // 総タスク数
+    const totalTasks = data.totalTasks || 0;
+
+    // 最長連続記録を計算
+    const maxStreak = calculateMaxStreak();
+
+    // 平均タスク数/日を計算
+    const avgTasks = calculateAvgTasks();
+
+    // 総参加回数を計算
+    const totalStamps = calculateTotalStamps();
+
+    return { totalTasks, maxStreak, avgTasks, totalStamps };
+}
+
+// 最長連続記録を計算
+function calculateMaxStreak() {
+    const dates = Object.keys(data.tasks).sort();
+    if (dates.length === 0) return 0;
+
+    let maxStreak = 0;
+    let currentStreak = 0;
+    let prevDate = null;
+
+    dates.forEach(dateStr => {
+        if (data.tasks[dateStr] > 0) {
+            if (prevDate) {
+                const date = new Date(dateStr);
+                const prev = new Date(prevDate);
+                const diffDays = Math.floor((date - prev) / (1000 * 60 * 60 * 24));
+
+                if (diffDays === 1) {
+                    currentStreak++;
+                } else {
+                    maxStreak = Math.max(maxStreak, currentStreak);
+                    currentStreak = 1;
+                }
+            } else {
+                currentStreak = 1;
+            }
+            prevDate = dateStr;
+        }
+    });
+
+    return Math.max(maxStreak, currentStreak);
+}
+
+// 平均タスク数/日を計算
+function calculateAvgTasks() {
+    const dates = Object.keys(data.tasks);
+    if (dates.length === 0) return 0;
+
+    const totalDays = dates.filter(d => data.tasks[d] > 0).length;
+    if (totalDays === 0) return 0;
+
+    return data.totalTasks / totalDays;
+}
+
+// 総参加回数を計算
+function calculateTotalStamps() {
+    let total = 0;
+    Object.keys(data.stamps).forEach(dateStr => {
+        const dayStamps = data.stamps[dateStr];
+        if (dayStamps.morning) total++;
+        if (dayStamps.lunch) total++;
+        if (dayStamps.night) total++;
+        if (dayStamps.tsumitage) total++;
+    });
+    return total;
+}
+
+// 月間カレンダーを生成
+function renderMonthlyCalendar() {
+    const calendar = document.getElementById('monthlyCalendar');
+    calendar.innerHTML = '';
+
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth();
+
+    // 今月の1日
+    const firstDay = new Date(year, month, 1);
+    // 今月の最終日
+    const lastDay = new Date(year, month + 1, 0);
+
+    // 曜日ヘッダー
+    const weekdays = ['日', '月', '火', '水', '木', '金', '土'];
+    weekdays.forEach(day => {
+        const dayEl = document.createElement('div');
+        dayEl.className = 'calendar-weekday';
+        dayEl.textContent = day;
+        calendar.appendChild(dayEl);
+    });
+
+    // 月初めの空白セル
+    const startDayOfWeek = firstDay.getDay();
+    for (let i = 0; i < startDayOfWeek; i++) {
+        const emptyEl = document.createElement('div');
+        emptyEl.className = 'calendar-day empty';
+        calendar.appendChild(emptyEl);
+    }
+
+    // 各日のセル
+    for (let day = 1; day <= lastDay.getDate(); day++) {
+        const date = new Date(year, month, day);
+        const dateStr = formatDate(date);
+        const tasks = data.tasks[dateStr] || 0;
+
+        const dayEl = document.createElement('div');
+        dayEl.className = 'calendar-day';
+
+        // タスク数に応じてレベルを設定
+        const level = getTaskLevel(tasks);
+        dayEl.classList.add(`level-${level}`);
+
+        // 今日の日付をハイライト
+        if (dateStr === getToday()) {
+            dayEl.classList.add('today');
+        }
+
+        // 日付とタスク数を表示
+        dayEl.innerHTML = `
+            <div class="calendar-date">${day}</div>
+            ${tasks > 0 ? `<div class="calendar-tasks">${tasks}</div>` : ''}
+        `;
+
+        calendar.appendChild(dayEl);
+    }
+}
+
+// タスク数からレベルを取得（0-5）
+function getTaskLevel(tasks) {
+    if (tasks === 0) return 0;
+    if (tasks === 1) return 1;
+    if (tasks <= 3) return 2;
+    if (tasks <= 5) return 3;
+    if (tasks <= 8) return 4;
+    return 5;
+}
+
+// SNS共有テキスト（統計用）
+function getStatsShareText() {
+    const stats = calculateStats();
+    const today = new Date();
+    const month = today.getMonth() + 1;
+
+    return `リモラボ ${month}月の積み上げ記録📊\n\n📊 累計タスク: ${stats.totalTasks}個\n🔥 最長連続: ${stats.maxStreak}日\n📅 平均: ${stats.avgTasks.toFixed(1)}個/日\n⭐ 参加回数: ${stats.totalStamps}回\n\n#リモラボ #積み上げタイム`;
 }
 
 // ========================================

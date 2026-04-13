@@ -1168,6 +1168,234 @@ footer {
     flex-wrap: wrap;
 }
 
+/* 積み上げを見るボタン */
+.stats-btn {
+    background: linear-gradient(135deg, #4caf50 0%, #66bb6a 100%);
+    color: white;
+    text-decoration: none;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.stats-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+}
+
+/* 積み上げ統計画面 */
+.stats-content {
+    max-width: 700px;
+    background: linear-gradient(135deg, #fff9c4 0%, #fffde7 100%);
+    border: 3px solid #ffd54f;
+    max-height: none;
+    overflow-y: visible;
+}
+
+[data-theme="dark"] .stats-content {
+    background: linear-gradient(135deg, #2d2d2d 0%, #3a3a3a 100%);
+    border-color: #5a5a5a;
+}
+
+.stats-header {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #ffd54f;
+}
+
+[data-theme="dark"] .stats-header {
+    border-bottom-color: #5a5a5a;
+}
+
+.stats-logo {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 10px;
+}
+
+.stats-header h2 {
+    color: #ff6f00;
+    font-size: 1.8em;
+    margin-bottom: 5px;
+}
+
+[data-theme="dark"] .stats-header h2 {
+    color: #ffb366;
+}
+
+/* 累計統計カード */
+.stats-summary {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.stat-card {
+    background: var(--card-bg);
+    padding: 15px;
+    border-radius: 15px;
+    border: 2px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px var(--shadow-color);
+}
+
+.stat-icon {
+    font-size: 2em;
+}
+
+.stat-info {
+    flex: 1;
+}
+
+.stat-label {
+    font-size: 0.9em;
+    color: var(--text-secondary);
+    margin-bottom: 5px;
+}
+
+.stat-number {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #ff6f00;
+}
+
+[data-theme="dark"] .stat-number {
+    color: #ffb366;
+}
+
+/* 月間カレンダー */
+.calendar-section {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    border: 2px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.calendar-section h3 {
+    color: var(--text-color);
+    font-size: 1.3em;
+    margin-bottom: 15px;
+}
+
+.monthly-calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+}
+
+.calendar-day {
+    aspect-ratio: 1;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8em;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+.calendar-day:hover {
+    transform: scale(1.1);
+}
+
+.calendar-day-label {
+    font-size: 0.7em;
+    color: var(--text-secondary);
+    font-weight: normal;
+}
+
+.calendar-day-number {
+    font-size: 1.1em;
+}
+
+/* タスク数による色分け */
+.calendar-day.level-0 {
+    background: #f5f5f5;
+    color: #9e9e9e;
+}
+
+.calendar-day.level-1 {
+    background: #fff9c4;
+    color: #5d4037;
+}
+
+.calendar-day.level-2 {
+    background: #ffe082;
+    color: #5d4037;
+}
+
+.calendar-day.level-3 {
+    background: #ffd54f;
+    color: #5d4037;
+}
+
+.calendar-day.level-4 {
+    background: #ffb300;
+    color: #5d4037;
+}
+
+.calendar-day.level-5 {
+    background: #ff6f00;
+    color: white;
+}
+
+/* ダークモード用カレンダー */
+[data-theme="dark"] .calendar-day.level-0 {
+    background: #3a3a3a;
+    color: #666;
+}
+
+[data-theme="dark"] .calendar-day.level-1 {
+    background: #4a4a2a;
+    color: #e0e0e0;
+}
+
+[data-theme="dark"] .calendar-day.level-2 {
+    background: #5a5a30;
+    color: #e0e0e0;
+}
+
+[data-theme="dark"] .calendar-day.level-3 {
+    background: #6a6a35;
+    color: #e0e0e0;
+}
+
+[data-theme="dark"] .calendar-day.level-4 {
+    background: #7a7a40;
+    color: #e0e0e0;
+}
+
+[data-theme="dark"] .calendar-day.level-5 {
+    background: #8a8a45;
+    color: #fff;
+}
+
+.stats-share {
+    text-align: center;
+    padding-top: 15px;
+    border-top: 2px solid #ffd54f;
+}
+
+[data-theme="dark"] .stats-share {
+    border-top-color: #5a5a5a;
+}
+
 /* レスポンシブ */
 @media (max-width: 768px) {
     /* ボディのパディング縮小 */
