@@ -6,51 +6,6 @@
 }
 
 /* カラースキーム（ライトモード） */
-:root {
-    --bg-gradient-start: #fff8e1;
-    --bg-gradient-end: #ffe082;
-    --container-bg: #fffef7;
-    --text-color: var(--text-color);
-    --text-secondary: #8d6e63;
-    --accent-color: #ff6f00;
-    --accent-light: #ffb300;
-    --border-color: #ffe082;
-    --border-color-dark: #ffd54f;
-    --card-bg: white;
-    --shadow-color: rgba(0, 0, 0, 0.1);
-}
-
-/* ダークモード */
-[data-theme="dark"] {
-    --bg-gradient-start: #1a1a1a;
-    --bg-gradient-end: #2d2d2d;
-    --container-bg: #2d2d2d;
-    --text-color: #e0e0e0;
-    --text-secondary: #b0b0b0;
-    --accent-color: #ffb366;
-    --accent-light: #ffd699;
-    --border-color: #4a4a4a;
-    --border-color-dark: #5a5a5a;
-    --card-bg: #3a3a3a;
-    --shadow-color: rgba(0, 0, 0, 0.3);
-}
-
-/* システム設定に従う（ユーザーが手動設定していない場合） */
-@media (prefers-color-scheme: dark) {
-    :root:not([data-theme]) {
-        --bg-gradient-start: #1a1a1a;
-        --bg-gradient-end: #2d2d2d;
-        --container-bg: #2d2d2d;
-        --text-color: #e0e0e0;
-        --text-secondary: #b0b0b0;
-        --accent-color: #ffb366;
-        --accent-light: #ffd699;
-        --border-color: #4a4a4a;
-        --border-color-dark: #5a5a5a;
-        --card-bg: #3a3a3a;
-        --shadow-color: rgba(0, 0, 0, 0.3);
-    }
-}
 
 /* モバイル最適化 */
 button {
@@ -60,31 +15,28 @@ button {
 
 body {
     font-family: 'M PLUS Rounded 1c', 'Segoe UI', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
-    background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
-    color: var(--text-color);
+    background: linear-gradient(135deg, #fff8e1 0%, #ffe082 100%);
+    color: #5d4037;
     min-height: 100vh;
     padding: 20px;
     /* スクロール時のパフォーマンス向上 */
     -webkit-overflow-scrolling: touch;
-    transition: background 0.3s ease, color 0.3s ease;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    background: var(--container-bg);
+    background: #fffef7;
     border-radius: 20px;
-    box-shadow: 0 10px 40px var(--shadow-color);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* ヘッダー */
 header {
-    background: linear-gradient(135deg, var(--border-color-dark) 0%, var(--accent-light) 100%);
+    background: linear-gradient(135deg, #ffd54f 0%, #ffb300 100%);
     padding: 20px;
-    border-bottom: 3px solid var(--accent-color);
-    transition: background 0.3s ease, border-color 0.3s ease;
+    border-bottom: 3px solid #ff6f00;
 }
 
 .header-content {
@@ -97,14 +49,14 @@ header {
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background: var(--card-bg);
+    background: white;
     padding: 5px;
     transition: background 0.3s ease;
 }
 
 header h1 {
     flex: 1;
-    color: var(--text-color);
+    color: #5d4037;
     font-size: 1.8em;
     font-weight: bold;
 }
@@ -118,7 +70,7 @@ header h1 {
 }
 
 .nav-link {
-    background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-light) 100%);
+    background: linear-gradient(135deg, #ff6f00 0%, #ffb300 100%);
     color: white;
     text-decoration: none;
     padding: 8px 20px;
@@ -133,32 +85,9 @@ header h1 {
     box-shadow: 0 4px 10px rgba(255, 111, 0, 0.3);
 }
 
-.theme-toggle {
-    background: var(--card-bg);
-    border: 2px solid var(--border-color);
-    border-radius: 50%;
-    width: 36px;
-    height: 36px;
-    font-size: 1.2em;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.theme-toggle:hover {
-    transform: scale(1.1);
-    border-color: var(--accent-color);
-}
-
-.theme-icon {
-    display: block;
-    line-height: 1;
-}
 
 .icon-btn {
-    background: var(--card-bg);
+    background: white;
     transition: background 0.3s ease;
     border: none;
     border-radius: 50%;
@@ -186,9 +115,9 @@ main {
 
 /* 今日の操作パネル */
 .today-panel {
-    background: var(--card-bg);
+    background: white;
     transition: background 0.3s ease;
-    border: 2px solid var(--border-color);
+    border: 2px solid #ffe082;
     transition: border-color 0.3s ease;
     border-radius: 15px;
     padding: 20px;
@@ -196,7 +125,7 @@ main {
 }
 
 .today-panel h2 {
-    color: var(--text-color);
+    color: #5d4037;
     margin-bottom: 15px;
     font-size: 1.3em;
 }
@@ -211,7 +140,7 @@ main {
 
 .stamp-btn {
     position: relative;
-    background: var(--card-bg);
+    background: white;
     transition: background 0.3s ease;
     border: 3px solid #e0e0e0;
     border-radius: 15px;
@@ -295,7 +224,7 @@ main {
 
 .task-btn {
     background: linear-gradient(135deg, #fff9c4 0%, #ffd54f 50%, #ffb300 100%);
-    color: var(--text-color);
+    color: #5d4037;
     border: 3px solid #fff;
     border-radius: 30px;
     padding: 18px 45px;
@@ -365,9 +294,9 @@ main {
 
 /* 週ログ */
 .week-log {
-    background: var(--card-bg);
+    background: white;
     transition: background 0.3s ease;
-    border: 2px solid var(--border-color);
+    border: 2px solid #ffe082;
     transition: border-color 0.3s ease;
     border-radius: 15px;
     padding: 20px;
@@ -403,7 +332,7 @@ main {
 }
 
 #weekTitle {
-    color: var(--text-color);
+    color: #5d4037;
     font-size: 1.2em;
 }
 
@@ -475,9 +404,9 @@ main {
 /* リモにゃん成長パネル */
 .remonyan-panel {
     width: 200px;
-    background: var(--card-bg);
+    background: white;
     transition: background 0.3s ease;
-    border: 2px solid var(--border-color);
+    border: 2px solid #ffe082;
     transition: border-color 0.3s ease;
     border-radius: 15px;
     padding: 20px;
@@ -485,7 +414,7 @@ main {
 }
 
 .remonyan-panel h3 {
-    color: var(--text-color);
+    color: #5d4037;
     margin-bottom: 15px;
     font-size: 1.1em;
 }
@@ -574,13 +503,13 @@ main {
 
 .goal-header label {
     font-weight: bold;
-    color: var(--text-color);
+    color: #5d4037;
     margin: 0;
 }
 
 .add-goal-btn {
     background: linear-gradient(135deg, #ffd54f 0%, #ffb300 100%);
-    color: var(--text-color);
+    color: #5d4037;
     border: none;
     padding: 8px 16px;
     border-radius: 20px;
@@ -620,7 +549,7 @@ main {
 .goal-item input {
     flex: 1;
     padding: 12px;
-    border: 2px solid var(--border-color);
+    border: 2px solid #ffe082;
     transition: border-color 0.3s ease;
     border-radius: 10px;
     font-size: 1em;
@@ -685,7 +614,7 @@ main {
 }
 
 .modal-content {
-    background: var(--card-bg);
+    background: white;
     transition: background 0.3s ease;
     border-radius: 20px;
     padding: 30px;
@@ -808,7 +737,7 @@ main {
 
 .celebration-message {
     font-size: 1.3em;
-    color: var(--text-color);
+    color: #5d4037;
     margin: 20px 0;
     line-height: 1.6;
 }
@@ -885,7 +814,7 @@ main {
     left: 50%;
     transform: translate(-50%, -50%) scale(0.8);
     background: linear-gradient(135deg, #ffd54f 0%, #ffb300 100%);
-    color: var(--text-color);
+    color: #5d4037;
     padding: 20px 40px;
     border-radius: 30px;
     font-size: 1.5em;
@@ -953,13 +882,13 @@ footer {
 }
 
 .prompt-content h3 {
-    color: var(--text-color);
+    color: #5d4037;
     font-size: 1.4em;
     margin-bottom: 15px;
 }
 
 .prompt-content p {
-    color: var(--text-color);
+    color: #5d4037;
     margin-bottom: 25px;
     font-size: 1.1em;
 }
@@ -973,7 +902,7 @@ footer {
 
 .btn-secondary {
     background: #e0e0e0;
-    color: var(--text-color);
+    color: #5d4037;
     border: none;
     padding: 12px 30px;
     border-radius: 25px;
@@ -1017,7 +946,7 @@ footer {
 }
 
 .summary-date {
-    color: var(--text-color);
+    color: #5d4037;
     font-size: 1em;
 }
 
@@ -1029,12 +958,12 @@ footer {
 }
 
 .stat-item {
-    background: var(--card-bg);
+    background: white;
     transition: background 0.3s ease;
     padding: 15px;
     border-radius: 15px;
     text-align: center;
-    border: 2px solid var(--border-color);
+    border: 2px solid #ffe082;
     transition: border-color 0.3s ease;
 }
 
@@ -1045,7 +974,7 @@ footer {
 
 .stat-label {
     font-size: 0.9em;
-    color: var(--text-color);
+    color: #5d4037;
     margin-bottom: 5px;
 }
 
@@ -1056,33 +985,33 @@ footer {
 }
 
 .summary-graph {
-    background: var(--card-bg);
+    background: white;
     transition: background 0.3s ease;
     padding: 15px;
     border-radius: 15px;
     margin-bottom: 15px;
-    border: 2px solid var(--border-color);
+    border: 2px solid #ffe082;
     transition: border-color 0.3s ease;
 }
 
 .summary-graph h3 {
-    color: var(--text-color);
+    color: #5d4037;
     font-size: 1.2em;
     margin-bottom: 15px;
 }
 
 .summary-stamps {
-    background: var(--card-bg);
+    background: white;
     transition: background 0.3s ease;
     padding: 15px;
     border-radius: 15px;
     margin-bottom: 15px;
-    border: 2px solid var(--border-color);
+    border: 2px solid #ffe082;
     transition: border-color 0.3s ease;
 }
 
 .summary-stamps h3 {
-    color: var(--text-color);
+    color: #5d4037;
     font-size: 1.2em;
     margin-bottom: 15px;
 }
@@ -1094,7 +1023,7 @@ footer {
 }
 
 .stamp-count {
-    color: var(--text-color);
+    color: #5d4037;
     font-size: 1em;
 }
 
@@ -1104,17 +1033,17 @@ footer {
 }
 
 .summary-goals {
-    background: var(--card-bg);
+    background: white;
     transition: background 0.3s ease;
     padding: 15px;
     border-radius: 15px;
     margin-bottom: 15px;
-    border: 2px solid var(--border-color);
+    border: 2px solid #ffe082;
     transition: border-color 0.3s ease;
 }
 
 .summary-goals h3 {
-    color: var(--text-color);
+    color: #5d4037;
     font-size: 1.2em;
     margin-bottom: 15px;
 }
@@ -1125,9 +1054,9 @@ footer {
 }
 
 .summary-goals li {
-    color: var(--text-color);
+    color: #5d4037;
     padding: 8px 0;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid #ffe082;
 }
 
 .summary-goals li:last-child {
@@ -1196,20 +1125,11 @@ footer {
     overflow-y: visible;
 }
 
-[data-theme="dark"] .stats-content {
-    background: linear-gradient(135deg, #2d2d2d 0%, #3a3a3a 100%);
-    border-color: #5a5a5a;
-}
-
 .stats-header {
     text-align: center;
     margin-bottom: 20px;
     padding-bottom: 15px;
     border-bottom: 2px solid #ffd54f;
-}
-
-[data-theme="dark"] .stats-header {
-    border-bottom-color: #5a5a5a;
 }
 
 .stats-logo {
@@ -1224,10 +1144,6 @@ footer {
     margin-bottom: 5px;
 }
 
-[data-theme="dark"] .stats-header h2 {
-    color: #ffb366;
-}
-
 /* 累計統計カード */
 .stats-summary {
     display: grid;
@@ -1237,10 +1153,10 @@ footer {
 }
 
 .stat-card {
-    background: var(--card-bg);
+    background: white;
     padding: 15px;
     border-radius: 15px;
-    border: 2px solid var(--border-color);
+    border: 2px solid #ffe082;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -1249,7 +1165,7 @@ footer {
 
 .stat-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 10px var(--shadow-color);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .stat-icon {
@@ -1262,7 +1178,7 @@ footer {
 
 .stat-label {
     font-size: 0.9em;
-    color: var(--text-secondary);
+    color: #8d6e63;
     margin-bottom: 5px;
 }
 
@@ -1272,22 +1188,18 @@ footer {
     color: #ff6f00;
 }
 
-[data-theme="dark"] .stat-number {
-    color: #ffb366;
-}
-
 /* 月間カレンダー */
 .calendar-section {
-    background: var(--card-bg);
+    background: white;
     padding: 20px;
     border-radius: 15px;
     margin-bottom: 20px;
-    border: 2px solid var(--border-color);
+    border: 2px solid #ffe082;
     transition: all 0.3s ease;
 }
 
 .calendar-section h3 {
-    color: var(--text-color);
+    color: #5d4037;
     font-size: 1.3em;
     margin-bottom: 15px;
 }
@@ -1316,7 +1228,7 @@ footer {
 
 .calendar-day-label {
     font-size: 0.7em;
-    color: var(--text-secondary);
+    color: #8d6e63;
     font-weight: normal;
 }
 
@@ -1355,45 +1267,10 @@ footer {
     color: white;
 }
 
-/* ダークモード用カレンダー */
-[data-theme="dark"] .calendar-day.level-0 {
-    background: #3a3a3a;
-    color: #666;
-}
-
-[data-theme="dark"] .calendar-day.level-1 {
-    background: #4a4a2a;
-    color: #e0e0e0;
-}
-
-[data-theme="dark"] .calendar-day.level-2 {
-    background: #5a5a30;
-    color: #e0e0e0;
-}
-
-[data-theme="dark"] .calendar-day.level-3 {
-    background: #6a6a35;
-    color: #e0e0e0;
-}
-
-[data-theme="dark"] .calendar-day.level-4 {
-    background: #7a7a40;
-    color: #e0e0e0;
-}
-
-[data-theme="dark"] .calendar-day.level-5 {
-    background: #8a8a45;
-    color: #fff;
-}
-
 .stats-share {
     text-align: center;
     padding-top: 15px;
     border-top: 2px solid #ffd54f;
-}
-
-[data-theme="dark"] .stats-share {
-    border-top-color: #5a5a5a;
 }
 
 /* レスポンシブ */
