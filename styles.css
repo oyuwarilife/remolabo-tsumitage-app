@@ -993,7 +993,7 @@ footer {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .stat-item {
@@ -1026,9 +1026,9 @@ footer {
 .summary-graph {
     background: white;
     transition: background 0.3s ease;
-    padding: 15px;
+    padding: 10px;
     border-radius: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     border: 2px solid #ffe082;
     transition: border-color 0.3s ease;
 }
@@ -1036,15 +1036,15 @@ footer {
 .summary-graph h3 {
     color: #5d4037;
     font-size: 1.2em;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .summary-stamps {
     background: white;
     transition: background 0.3s ease;
-    padding: 15px;
+    padding: 10px;
     border-radius: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     border: 2px solid #ffe082;
     transition: border-color 0.3s ease;
 }
@@ -1052,7 +1052,7 @@ footer {
 .summary-stamps h3 {
     color: #5d4037;
     font-size: 1.2em;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .stamp-summary {
