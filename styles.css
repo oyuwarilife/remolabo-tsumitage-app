@@ -1175,20 +1175,20 @@ footer {
 
 .stats-header {
     text-align: center;
-    margin-bottom: 20px;
-    padding-bottom: 15px;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
     border-bottom: 2px solid #ffd54f;
 }
 
 .stats-logo {
-    width: 120px;
-    height: 120px;
-    margin-bottom: 10px;
+    width: 80px;
+    height: 80px;
+    margin-bottom: 8px;
 }
 
 .stats-header h2 {
     color: #ff6f00;
-    font-size: 1.8em;
+    font-size: 1.5em;
     margin-bottom: 5px;
 }
 
@@ -1196,18 +1196,18 @@ footer {
 .stats-summary {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-    margin-bottom: 20px;
+    gap: 10px;
+    margin-bottom: 15px;
 }
 
 .stat-card {
     background: white;
-    padding: 15px;
-    border-radius: 15px;
+    padding: 10px;
+    border-radius: 12px;
     border: 2px solid #ffe082;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     transition: all 0.3s ease;
 }
 
@@ -1217,7 +1217,7 @@ footer {
 }
 
 .stat-icon {
-    font-size: 2em;
+    font-size: 1.6em;
 }
 
 .stat-info {
@@ -1225,13 +1225,13 @@ footer {
 }
 
 .stat-label {
-    font-size: 0.9em;
+    font-size: 0.85em;
     color: #8d6e63;
-    margin-bottom: 5px;
+    margin-bottom: 3px;
 }
 
 .stat-number {
-    font-size: 1.8em;
+    font-size: 1.5em;
     font-weight: bold;
     color: #ff6f00;
 }
@@ -1239,17 +1239,17 @@ footer {
 /* 月間カレンダー */
 .calendar-section {
     background: white;
-    padding: 12px;
-    border-radius: 15px;
-    margin-bottom: 12px;
+    padding: 10px;
+    border-radius: 12px;
+    margin-bottom: 10px;
     border: 2px solid #ffe082;
     transition: all 0.3s ease;
 }
 
 .calendar-section h3 {
     color: #3e2723;
-    font-size: 1.2em;
-    margin-bottom: 10px;
+    font-size: 1.1em;
+    margin-bottom: 8px;
 }
 
 .monthly-calendar {
@@ -1318,31 +1318,31 @@ footer {
 /* 実績コレクション */
 .achievements-section {
     background: white;
-    padding: 12px;
-    border-radius: 15px;
-    margin-bottom: 12px;
+    padding: 10px;
+    border-radius: 12px;
+    margin-bottom: 10px;
     border: 2px solid #ffe082;
 }
 
 .achievements-section h3 {
     color: #3e2723;
-    font-size: 1.2em;
-    margin-bottom: 10px;
+    font-size: 1.1em;
+    margin-bottom: 8px;
 }
 
 .achievements-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
+    gap: 8px;
 }
 
 .achievement-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 15px;
+    padding: 10px;
     background: linear-gradient(135deg, #fff9c4 0%, #fffde7 100%);
-    border-radius: 10px;
+    border-radius: 8px;
     border: 2px solid #ffd54f;
     transition: all 0.2s;
 }
@@ -1406,6 +1406,10 @@ footer {
     }
 
     /* リモにゃんパネル */
+    .remonyan-panel {
+        width: 100%;
+    }
+
     .monasashi-panel {
         width: 100%;
     }
