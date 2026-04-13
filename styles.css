@@ -1133,7 +1133,7 @@ footer {
     /* 週テーブルの調整 */
     .week-header,
     .week-row {
-        grid-template-columns: 90px 1fr 55px;
+        grid-template-columns: 85px 1fr 65px;
         font-size: 0.85em;
         padding: 8px;
     }
@@ -1343,7 +1343,7 @@ footer {
 
     .week-header,
     .week-row {
-        grid-template-columns: 80px 1fr 50px;
+        grid-template-columns: 75px 1fr 60px;
         font-size: 0.8em;
     }
 }
