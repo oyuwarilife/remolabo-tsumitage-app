@@ -118,12 +118,80 @@ function initStamps() {
                 setTimeout(() => {
                     hanamaru.classList.remove('animate');
                 }, 600);
+
+                // 累計タスク増加
+                data.totalTasks++;
+
+                // 連続記録のチェック
+                checkConsecutiveDaysForStamp();
+
+                // 100個単位のチェック
+                const milestone = Math.floor(data.totalTasks / 100) * 100;
+                const prevMilestone = Math.floor((data.totalTasks - 1) / 100) * 100;
+
+                if (milestone > prevMilestone && milestone > 0) {
+                    showCelebration(milestone);
+                }
+
+                // リモにゃんとメモリバーを更新
+                updateMonasashi();
+                updateTaskCountDisplay();
             }
 
             saveData(data);
             updateWeekLog();
         });
     });
+
+    // スタンプ用の連続記録チェック関数
+    function checkConsecutiveDaysForStamp() {
+        const today = getToday();
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        const yesterdayStr = formatDate(yesterday);
+
+        // 今日が初めての記録の場合
+        if (!data.lastTaskDate) {
+            data.lastTaskDate = today;
+            data.consecutiveDays = 1;
+            return;
+        }
+
+        // 今日既に記録がある場合は何もしない
+        if (data.lastTaskDate === today) {
+            return;
+        }
+
+        // 昨日に記録があれば連続
+        if (data.lastTaskDate === yesterdayStr) {
+            data.consecutiveDays++;
+        } else {
+            // 連続が途切れた
+            data.consecutiveDays = 1;
+        }
+
+        data.lastTaskDate = today;
+    }
+
+    // タスクカウント表示更新用の関数
+    function updateTaskCountDisplay() {
+        const todayCountEl = document.getElementById('todayCount');
+        const totalCountEl = document.getElementById('totalCount');
+        const today = getToday();
+
+        todayCountEl.textContent = data.tasks[today] || 0;
+        totalCountEl.textContent = data.totalTasks;
+
+        // 連続記録バッジの更新
+        const streakBadge = document.getElementById('streakBadge');
+        const streakCount = document.getElementById('streakCount');
+        if (data.consecutiveDays >= 2) {
+            streakCount.textContent = data.consecutiveDays;
+            streakBadge.style.display = 'block';
+        } else {
+            streakBadge.style.display = 'none';
+        }
+    }
 }
 
 // ========================================
