@@ -1024,7 +1024,7 @@ function drawWeeklyChart(dailyTasks) {
 // SNS共有テキスト（週間サマリー用）
 function getWeeklySummaryShareText() {
     const weekData = getWeekData();
-    return `リモラボ 今週の記録🎉\n\n📊 タスク: ${weekData.weekTasks}個\n⭐ 朝活: ${weekData.stamps.morning}回\n🍙 昼活: ${weekData.stamps.lunch}回\n⭐ 夜活: ${weekData.stamps.night}回\n💪 積み上げ: ${weekData.stamps.tsumitage}回\n\n#リモラボ #積み上げタイム`;
+    return `リモラボ 今週の記録🎉\n\n📊 タスク: ${weekData.weekTasks}個\n🌞 朝活: ${weekData.stamps.morning}回\n🍙 昼活: ${weekData.stamps.lunch}回\n⭐ 夜活: ${weekData.stamps.night}回\n💪 積み上げ: ${weekData.stamps.tsumitage}回\n\n#リモラボ #積み上げタイム`;
 }
 
 // データをクリップボードにコピー
