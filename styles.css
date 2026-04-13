@@ -1468,12 +1468,13 @@ footer {
 
     .add-goal-btn {
         width: 100%;
-        padding: 10px;
+        padding: 12px;
+        font-size: 1em;
     }
 
     .goal-item input {
-        padding: 10px;
-        font-size: 0.95em;
+        padding: 12px;
+        font-size: 1em;
     }
 
     /* モーダルのパディング縮小 */
