@@ -143,22 +143,6 @@ MIT License - 詳細は [LICENSE](LICENSE) を参照してください。
 
 ---
 
-## 📝 開発経緯
-
-リモラボのこもりんさんから「積み上げタイムで、積み上がってることがわかるものが欲しい」との要望を受けて開発しました。
-
-ポモ活スタンプシート（[katsu-celebration](https://github.com/oyuwarilife/katsu-celebration)）をベースに、タスク完了数の記録機能と、ものさしパネルを追加。
-
----
-
-## 🙏 謝辞
-
-- **リモラボコミュニティ**: このアプリを使ってくれる全ての方々に感謝
-- **こもりんさん**: 要望をいただき、ありがとうございます
-- **リモにゃん**: かわいいキャラクターをありがとう
-
----
-
 ## 📞 お問い合わせ
 
 バグ報告・機能要望は [Issues](https://github.com/oyuwarilife/remolabo-tsumitage-app/issues) までお願いします。
