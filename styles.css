@@ -1036,6 +1036,13 @@ footer {
     margin-bottom: 15px;
 }
 
+.hashtag-text {
+    color: #ff6f00;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
 .summary-buttons {
     display: flex;
     gap: 15px;
@@ -1192,100 +1199,106 @@ footer {
 
     /* 週間サマリー画面 */
     .summary-content {
-        padding: 10px;
-    }
-
-    .summary-header {
-        margin-bottom: 6px;
-        padding-bottom: 6px;
-    }
-
-    .summary-logo {
-        width: 50px;
-        height: 50px;
-        margin-bottom: 5px;
-    }
-
-    .summary-header h2 {
-        font-size: 1.3em;
-        margin-bottom: 3px;
-    }
-
-    .summary-date {
-        font-size: 0.85em;
-    }
-
-    .summary-stats {
-        grid-template-columns: 1fr;
-        gap: 5px;
-        margin-bottom: 8px;
-    }
-
-    .stat-item {
         padding: 8px;
     }
 
-    .stat-label {
-        font-size: 0.75em;
+    .summary-header {
+        margin-bottom: 4px;
+        padding-bottom: 4px;
+    }
+
+    .summary-logo {
+        width: 40px;
+        height: 40px;
         margin-bottom: 3px;
     }
 
+    .summary-header h2 {
+        font-size: 1.1em;
+        margin-bottom: 2px;
+    }
+
+    .summary-date {
+        font-size: 0.75em;
+    }
+
+    .summary-stats {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 4px;
+        margin-bottom: 6px;
+    }
+
+    .stat-item {
+        padding: 6px 4px;
+    }
+
+    .stat-label {
+        font-size: 0.65em;
+        margin-bottom: 2px;
+    }
+
     .stat-value {
-        font-size: 1.3em;
+        font-size: 1.1em;
     }
 
     .summary-graph,
     .summary-stamps,
     .summary-goals {
-        padding: 8px;
-        margin-bottom: 6px;
+        padding: 6px;
+        margin-bottom: 4px;
     }
 
     .summary-graph h3,
     .summary-stamps h3,
     .summary-goals h3 {
-        font-size: 0.9em;
-        margin-bottom: 6px;
+        font-size: 0.8em;
+        margin-bottom: 4px;
     }
 
     #weeklyChart {
-        max-height: 150px;
+        max-height: 100px;
     }
 
     .summary-share {
-        padding-top: 6px;
+        padding-top: 4px;
+        border-top: 1px solid #ffd54f;
     }
 
     .share-message {
-        font-size: 0.9em;
-        margin-bottom: 8px;
+        font-size: 0.8em;
+        margin-bottom: 4px;
+    }
+
+    .hashtag-text {
+        font-size: 1em;
+        margin: 4px 0;
     }
 
     .summary-buttons {
-        gap: 8px;
-    }
-
-    .summary-buttons .btn-social {
-        padding: 8px 15px;
-        font-size: 0.85em;
-    }
-
-    .stamp-summary {
-        grid-template-columns: 1fr;
         gap: 6px;
     }
 
+    .summary-buttons .btn-social {
+        padding: 6px 12px;
+        font-size: 0.75em;
+    }
+
+    .stamp-summary {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 4px;
+    }
+
     .stamp-count {
-        font-size: 0.85em;
+        font-size: 0.75em;
     }
 
     .stamp-count strong {
-        font-size: 1em;
+        font-size: 0.9em;
     }
 
     .summary-goals li {
-        padding: 5px 0;
-        font-size: 0.85em;
+        padding: 3px 0;
+        font-size: 0.75em;
     }
 
     /* フッター */
