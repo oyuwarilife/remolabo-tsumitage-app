@@ -102,6 +102,10 @@ function initStamps() {
 
     stampBtns.forEach(btn => {
         const type = btn.dataset.type;
+
+        // タスク完了ボタンは除外（スタンプロジックを適用しない）
+        if (type === 'task') return;
+
         if (data.stamps[today][type]) {
             btn.classList.add('active');
         }

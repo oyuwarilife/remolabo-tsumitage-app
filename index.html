@@ -42,8 +42,8 @@
                 <section class="today-panel">
                     <h2>今日の記録</h2>
 
-                    <!-- 参加スタンプ -->
-                    <div class="stamps-container">
+                    <!-- 参加スタンプ（上段3つ） -->
+                    <div class="stamps-container-top">
                         <button class="stamp-btn" data-type="morning">
                             <img src="assets/morning.png" alt="朝活" class="stamp-icon">
                             <span class="stamp-label">朝活</span>
@@ -59,24 +59,30 @@
                             <span class="stamp-label">夜活</span>
                             <div class="hanamaru"></div>
                         </button>
+                    </div>
+
+                    <!-- 積み上げ・タスク完了（下段2つ） -->
+                    <div class="stamps-container-bottom">
                         <button class="stamp-btn" data-type="tsumitage">
-                            <img src="assets/tsumitage.png" alt="積み上げ" class="stamp-icon">
-                            <span class="stamp-label">積み上げ</span>
+                            <img src="assets/tsumitage.png" alt="積み上げタイム" class="stamp-icon">
+                            <span class="stamp-label">積み上げ<br>タイム</span>
+                            <div class="hanamaru"></div>
+                        </button>
+                        <button class="stamp-btn" id="taskCompleteBtn" data-type="task">
+                            <img src="assets/nikukyu.png" alt="タスク完了" class="stamp-icon">
+                            <span class="stamp-label">タスク<br>完了</span>
                             <div class="hanamaru"></div>
                         </button>
                     </div>
 
-                    <!-- タスク完了ボタン -->
-                    <div class="task-section">
-                        <div class="task-button-row">
-                            <button id="taskCompleteBtn" class="task-btn">タスク完了！</button>
-                            <div class="streak-badge" id="streakBadge" style="display: none;">
-                                🔥 <span id="streakCount">0</span>日連続
-                            </div>
-                        </div>
+                    <!-- タスクカウント・連続記録バッジ -->
+                    <div class="task-info">
                         <div class="task-count">
                             <span>今日: <strong id="todayCount">0</strong></span>
                             <span>累計: <strong id="totalCount">0</strong></span>
+                        </div>
+                        <div class="streak-badge" id="streakBadge" style="display: none;">
+                            🔥 <span id="streakCount">0</span>日連続
                         </div>
                     </div>
                 </section>
