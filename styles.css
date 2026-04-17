@@ -1403,6 +1403,15 @@ footer {
         border-radius: 20px;
     }
 
+    .monasashi-block {
+        width: 1%;
+        height: 100%;
+    }
+
+    .monasashi-current {
+        display: none;
+    }
+
     /* スタンプを上下2行に */
     .stamps-container-top {
         grid-template-columns: repeat(3, 1fr);
