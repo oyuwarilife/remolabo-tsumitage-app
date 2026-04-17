@@ -1337,18 +1337,10 @@ footer {
     text-align: center;
 }
 
-.stats-remonyan {
+.stats-share-message {
     text-align: center;
-    padding-top: 10px;
+    padding: 15px 10px;
     border-top: 2px solid #ffd54f;
-}
-
-.stats-remonyan-img {
-    width: 120px;
-    height: 120px;
-    object-fit: contain;
-    margin: 10px auto;
-    display: block;
 }
 
 /* レスポンシブ */
@@ -1688,24 +1680,18 @@ footer {
         font-size: 0.65em;
     }
 
-    .stats-remonyan {
-        padding-top: 6px;
-    }
-
-    .stats-remonyan-img {
-        width: 60px;
-        height: 60px;
-        margin: 6px auto;
+    .stats-share-message {
+        padding: 10px 8px;
     }
 
     .share-message {
-        font-size: 0.75em;
-        margin: 4px 0;
+        font-size: 0.85em;
+        margin: 5px 0;
     }
 
     .hashtag-text {
-        font-size: 0.8em;
-        margin: 2px 0;
+        font-size: 0.9em;
+        margin: 3px 0;
     }
 }
 
