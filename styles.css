@@ -148,7 +148,7 @@ main {
     margin-bottom: 15px;
 }
 
-.stamp-btn {
+.stamp-btn, .task-btn {
     position: relative;
     background: white;
     transition: background 0.3s ease;
@@ -163,7 +163,7 @@ main {
     gap: 8px;
 }
 
-.stamp-btn:hover {
+.stamp-btn:hover, .task-btn:hover {
     transform: translateY(-5px);
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
@@ -1434,7 +1434,7 @@ footer {
         line-height: 1.2;
     }
 
-    .stamp-btn {
+    .stamp-btn, .task-btn {
         padding: 12px;
     }
 
