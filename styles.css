@@ -1391,8 +1391,12 @@ footer {
         flex-direction: row;
     }
 
-    /* スタンプを2列に */
-    .stamps-container-top,
+    /* スタンプを上下2行に */
+    .stamps-container-top {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+
     .stamps-container-bottom {
         grid-template-columns: repeat(2, 1fr);
         gap: 10px;
