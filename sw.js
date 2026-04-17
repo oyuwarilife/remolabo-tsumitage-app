@@ -1,6 +1,6 @@
 // Service Worker for PWA
 
-const CACHE_NAME = 'remolabo-v78';
+const CACHE_NAME = 'remolabo-v79';
 const urlsToCache = [
     './',
     './index.html',

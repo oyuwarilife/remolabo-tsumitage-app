@@ -1343,6 +1343,13 @@ footer {
     border-top: 2px solid #ffd54f;
 }
 
+.stats-logo-footer {
+    width: 120px;
+    height: auto;
+    margin: 10px auto;
+    display: block;
+}
+
 /* レスポンシブ */
 @media (max-width: 768px) {
     /* ボディのパディング縮小 */
@@ -1465,8 +1472,12 @@ footer {
 
     /* モーダルのパディング縮小 */
     .modal-content {
-        padding: 20px;
+        padding: 15px;
         width: 95%;
+    }
+
+    .stats-content {
+        padding: 15px;
     }
 
     /* お祝い画面の調整 */
@@ -1621,49 +1632,51 @@ footer {
 
     /* 統計画面のコンパクト化（強化版） */
     .stats-header {
-        margin-bottom: 8px;
+        margin-bottom: 6px;
+        padding-bottom: 6px;
     }
 
     .stats-header h2 {
-        font-size: 1.2em;
-        margin: 5px 0;
+        font-size: 1.1em;
+        margin: 3px 0;
     }
 
     .stats-logo {
-        width: 50px;
-        height: 50px;
+        width: 45px;
+        height: 45px;
+        margin-bottom: 3px;
     }
 
     .stats-summary {
-        gap: 6px;
-        padding: 8px;
-        margin-bottom: 8px;
+        gap: 5px;
+        padding: 0;
+        margin-bottom: 6px;
     }
 
     .stat-card {
-        padding: 6px;
+        padding: 5px;
     }
 
     .stat-icon {
-        font-size: 1em;
+        font-size: 0.95em;
     }
 
     .stat-label {
-        font-size: 0.65em;
+        font-size: 0.6em;
     }
 
     .stat-number {
-        font-size: 1.1em;
+        font-size: 1em;
     }
 
     .achievements-section {
-        padding: 6px;
-        margin-bottom: 6px;
+        padding: 0;
+        margin-bottom: 5px;
     }
 
     .achievements-section h3 {
-        font-size: 0.8em;
-        margin-bottom: 6px;
+        font-size: 0.75em;
+        margin-bottom: 5px;
     }
 
     .achievements-container {
@@ -1672,30 +1685,30 @@ footer {
     }
 
     .achievement-item {
-        padding: 4px;
+        padding: 3px;
     }
 
     .achievement-icon {
-        font-size: 1.1em;
-        margin-bottom: 2px;
+        font-size: 1em;
+        margin-bottom: 1px;
     }
 
     .achievement-name {
-        font-size: 0.65em;
+        font-size: 0.6em;
     }
 
     .stats-share-message {
-        padding: 10px 8px;
+        padding: 6px 8px;
     }
 
     .share-message {
-        font-size: 0.85em;
-        margin: 5px 0;
+        font-size: 0.8em;
+        margin: 3px 0;
     }
 
-    .hashtag-text {
-        font-size: 0.9em;
-        margin: 3px 0;
+    .stats-logo-footer {
+        width: 80px;
+        margin: 5px auto;
     }
 }
 
