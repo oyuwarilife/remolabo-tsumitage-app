@@ -660,7 +660,7 @@ function updateMonasashi() {
     const barEl = document.getElementById('monasashiBar');
 
     // 100個単位での余り（0-100）
-    const current = data.totalTasks % 100;
+    const current = getTotalTasks() % 100;
 
     // 累計タスク数を表示
     countEl.textContent = current;
@@ -801,14 +801,14 @@ function initCelebration() {
     });
 
     shareThreadsBtn.addEventListener('click', () => {
-        const milestone = Math.floor(data.totalTasks / 100) * 100;
+        const milestone = Math.floor(getTotalTasks() / 100) * 100;
         const text = getCelebrationShareText(milestone);
         const url = `https://threads.net/intent/post?text=${encodeURIComponent(text)}`;
         window.open(url, '_blank');
     });
 
     shareXBtn.addEventListener('click', () => {
-        const milestone = Math.floor(data.totalTasks / 100) * 100;
+        const milestone = Math.floor(getTotalTasks() / 100) * 100;
         const text = getCelebrationShareText(milestone);
         const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
         window.open(url, '_blank');
@@ -985,7 +985,7 @@ function generateCelebrationImage() {
         ctx.drawImage(img, centerX - 150, centerY - 150, 300, 300);
 
         // タイトル
-        const milestone = Math.floor(data.totalTasks / 100) * 100;
+        const milestone = Math.floor(getTotalTasks() / 100) * 100;
         ctx.fillStyle = '#ff6f00';
         ctx.font = 'bold 80px sans-serif';
         ctx.textAlign = 'center';
