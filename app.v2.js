@@ -9,9 +9,6 @@ function getDefaultData() {
     return {
         stamps: {},
         tasks: {},
-        totalTasks: 0,
-        achieved100: false,
-        lastBackupDate: null,
         lastTaskDate: null,
         consecutiveDays: 0,
         weeklyGoals: {},
@@ -26,12 +23,30 @@ function loadData() {
         if (!stored) return getDefaultData();
 
         const parsed = JSON.parse(stored);
-        // データ構造の検証
-        if (!parsed.stamps || !parsed.tasks) {
+        if (!parsed || typeof parsed !== 'object' || !parsed.stamps || !parsed.tasks) {
             console.warn('Invalid data structure, using default');
             return getDefaultData();
         }
-        return parsed;
+
+        const normalized = {
+            stamps: parsed.stamps && typeof parsed.stamps === 'object' ? parsed.stamps : {},
+            tasks: parsed.tasks && typeof parsed.tasks === 'object' ? parsed.tasks : {},
+            lastTaskDate: typeof parsed.lastTaskDate === 'string' ? parsed.lastTaskDate : null,
+            consecutiveDays: Number.isFinite(parsed.consecutiveDays) ? parsed.consecutiveDays : 0,
+            weeklyGoals: parsed.weeklyGoals && typeof parsed.weeklyGoals === 'object' ? parsed.weeklyGoals : {},
+            achievements: parsed.achievements && typeof parsed.achievements === 'object' ? parsed.achievements : {}
+        };
+
+        Object.keys(normalized.weeklyGoals).forEach((key) => {
+            const goals = normalized.weeklyGoals[key];
+            if (typeof goals === 'string') {
+                normalized.weeklyGoals[key] = goals ? [goals] : [''];
+            } else if (!Array.isArray(goals) || goals.length === 0) {
+                normalized.weeklyGoals[key] = [''];
+            }
+        });
+
+        return normalized;
     } catch (error) {
         console.error('Failed to load data:', error);
         alert('⚠️ データの読み込みに失敗しました。初期状態から開始します。');
@@ -65,6 +80,26 @@ function formatDate(date) {
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
+}
+
+// 総タスク数を計算
+function getTotalTasks() {
+    return Object.values(data.tasks).reduce((sum, count) => {
+        return sum + (Number(count) || 0);
+    }, 0);
+}
+
+// 総参加回数を計算
+function getTotalStamps() {
+    let total = 0;
+    Object.values(data.stamps).forEach((dayStamps) => {
+        if (!dayStamps) return;
+        if (dayStamps.morning) total++;
+        if (dayStamps.lunch) total++;
+        if (dayStamps.night) total++;
+        if (dayStamps.tsumitage) total++;
+    });
+    return total;
 }
 
 // ========================================
@@ -124,19 +159,8 @@ function initStamps() {
                 // キラキラパーティクル
                 createStampParticles(btn, type);
 
-                // 累計タスク増加
-                data.totalTasks++;
-
                 // 連続記録のチェック
                 checkConsecutiveDaysForStamp();
-
-                // 100個単位のチェック
-                const milestone = Math.floor(data.totalTasks / 100) * 100;
-                const prevMilestone = Math.floor((data.totalTasks - 1) / 100) * 100;
-
-                if (milestone > prevMilestone && milestone > 0) {
-                    showCelebration(milestone);
-                }
 
                 // リモにゃんとメモリバーを更新
                 updateMonasashi();
@@ -186,7 +210,7 @@ function initStamps() {
         const today = getToday();
 
         todayCountEl.textContent = data.tasks[today] || 0;
-        totalCountEl.textContent = data.totalTasks;
+        totalCountEl.textContent = getTotalTasks();
 
         // 連続記録バッジの更新
         const streakBadge = document.getElementById('streakBadge');
@@ -218,17 +242,17 @@ function initTaskButton() {
         if (!data.tasks[today]) {
             data.tasks[today] = 0;
         }
-        data.tasks[today]++;
 
-        // 累計増加
-        data.totalTasks++;
+        const prevTotal = getTotalTasks();
+        data.tasks[today]++;
 
         // 連続記録のチェック
         checkConsecutiveDays();
 
         // 100個単位のチェック
-        const milestone = Math.floor(data.totalTasks / 100) * 100;
-        const prevMilestone = Math.floor((data.totalTasks - 1) / 100) * 100;
+        const nextTotal = getTotalTasks();
+        const milestone = Math.floor(nextTotal / 100) * 100;
+        const prevMilestone = Math.floor(prevTotal / 100) * 100;
 
         if (milestone > prevMilestone && milestone > 0) {
             showCelebration(milestone);
@@ -254,7 +278,7 @@ function initTaskButton() {
     function updateTaskCount() {
         const today = getToday();
         todayCountEl.textContent = data.tasks[today] || 0;
-        totalCountEl.textContent = data.totalTasks;
+        totalCountEl.textContent = getTotalTasks();
         updateStreak();
     }
 
@@ -340,15 +364,21 @@ function getWeekKey() {
     const diff = (dayOfWeek === 0 ? -6 : 1) - dayOfWeek;
     const monday = new Date(today);
     monday.setDate(today.getDate() + diff + (currentWeekOffset * 7));
+    monday.setHours(0, 0, 0, 0);
 
-    const year = monday.getFullYear();
+    const thursday = new Date(monday);
+    thursday.setDate(monday.getDate() + 3);
+    const isoYear = thursday.getFullYear();
 
-    // ISO週番号を計算
-    const janFirst = new Date(year, 0, 1);
-    const daysSinceJan = Math.floor((monday - janFirst) / 86400000);
-    const weekNum = Math.ceil((daysSinceJan + janFirst.getDay() + 1) / 7);
+    const jan4 = new Date(isoYear, 0, 4);
+    const jan4Day = jan4.getDay() || 7;
+    const week1Monday = new Date(jan4);
+    week1Monday.setDate(jan4.getDate() - jan4Day + 1);
+    week1Monday.setHours(0, 0, 0, 0);
 
-    return `${year}-W${String(weekNum).padStart(2, '0')}`;
+    const weekNum = Math.floor((monday - week1Monday) / 86400000 / 7) + 1;
+
+    return `${isoYear}-W${String(weekNum).padStart(2, '0')}`;
 }
 
 // 週間目標を保存
@@ -385,6 +415,16 @@ function loadWeeklyGoals() {
     }
 
     renderGoals(goals);
+}
+
+// 週間目標を取得
+function getWeeklyGoals() {
+    const weekKey = getWeekKey();
+    const goals = data.weeklyGoals[weekKey];
+    if (!Array.isArray(goals) || goals.length === 0) {
+        return [''];
+    }
+    return goals;
 }
 
 // 目標を追加
@@ -1039,7 +1079,7 @@ function showWeeklySummary() {
 
     // 統計
     document.getElementById('weekTasks').textContent = `${weekData.weekTasks}個`;
-    document.getElementById('totalTasks').textContent = `${data.totalTasks}個`;
+    document.getElementById('totalTasks').textContent = `${getTotalTasks()}個`;
     document.getElementById('streakDays').textContent = `${data.consecutiveDays}日`;
 
     // 参加記録
@@ -1226,6 +1266,8 @@ function initStats() {
     const statsBtn = document.getElementById('statsBtn');
     const statsModal = document.getElementById('statsModal');
     const closeBtn = statsModal.querySelector('.close-btn');
+    const shareThreadsStatsBtn = document.getElementById('shareThreadsStatsBtn');
+    const shareXStatsBtn = document.getElementById('shareXStatsBtn');
 
     // 統計ボタンクリック
     statsBtn.addEventListener('click', () => {
@@ -1246,18 +1288,22 @@ function initStats() {
     });
 
     // Threadsシェアボタン
-    document.getElementById('shareThreadsStatsBtn').addEventListener('click', () => {
-        const text = getStatsShareText();
-        const url = `https://threads.net/intent/post?text=${encodeURIComponent(text)}`;
-        window.open(url, '_blank');
-    });
+    if (shareThreadsStatsBtn) {
+        shareThreadsStatsBtn.addEventListener('click', () => {
+            const text = getStatsShareText();
+            const url = `https://threads.net/intent/post?text=${encodeURIComponent(text)}`;
+            window.open(url, '_blank');
+        });
+    }
 
     // Xシェアボタン
-    document.getElementById('shareXStatsBtn').addEventListener('click', () => {
-        const text = getStatsShareText();
-        const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
-        window.open(url, '_blank');
-    });
+    if (shareXStatsBtn) {
+        shareXStatsBtn.addEventListener('click', () => {
+            const text = getStatsShareText();
+            const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
+            window.open(url, '_blank');
+        });
+    }
 }
 
 // 統計を描画
@@ -1282,7 +1328,7 @@ function renderStats() {
 // 統計を計算
 function calculateStats() {
     // 総タスク数
-    const totalTasks = data.totalTasks || 0;
+    const totalTasks = getTotalTasks();
 
     // 最長連続記録を計算
     const maxStreak = calculateMaxStreak();
@@ -1291,7 +1337,7 @@ function calculateStats() {
     const avgTasks = calculateAvgTasks();
 
     // 総参加回数を計算
-    const totalStamps = calculateTotalStamps();
+    const totalStamps = getTotalStamps();
 
     return { totalTasks, maxStreak, avgTasks, totalStamps };
 }
@@ -1336,20 +1382,12 @@ function calculateAvgTasks() {
     const totalDays = dates.filter(d => data.tasks[d] > 0).length;
     if (totalDays === 0) return 0;
 
-    return data.totalTasks / totalDays;
+    return getTotalTasks() / totalDays;
 }
 
 // 総参加回数を計算
 function calculateTotalStamps() {
-    let total = 0;
-    Object.keys(data.stamps).forEach(dateStr => {
-        const dayStamps = data.stamps[dateStr];
-        if (dayStamps.morning) total++;
-        if (dayStamps.lunch) total++;
-        if (dayStamps.night) total++;
-        if (dayStamps.tsumitage) total++;
-    });
-    return total;
+    return getTotalStamps();
 }
 
 // 月間カレンダーを生成
@@ -1443,14 +1481,14 @@ const ACHIEVEMENTS = [
     { id: 'streak_30', name: '1ヶ月連続', icon: '🔥', condition: () => calculateMaxStreak() >= 30 },
 
     // 累計タスク系
-    { id: 'task_first', name: '初回達成', icon: '🎉', condition: () => data.totalTasks >= 1 },
-    { id: 'task_50', name: 'タスク50個', icon: '📊', condition: () => data.totalTasks >= 50 },
-    { id: 'task_100', name: 'タスク100個', icon: '📊', condition: () => data.totalTasks >= 100 },
-    { id: 'task_300', name: 'タスク300個', icon: '📊', condition: () => data.totalTasks >= 300 },
-    { id: 'task_500', name: 'タスク500個', icon: '📊', condition: () => data.totalTasks >= 500 },
+    { id: 'task_first', name: '初回達成', icon: '🎉', condition: () => getTotalTasks() >= 1 },
+    { id: 'task_50', name: 'タスク50個', icon: '📊', condition: () => getTotalTasks() >= 50 },
+    { id: 'task_100', name: 'タスク100個', icon: '📊', condition: () => getTotalTasks() >= 100 },
+    { id: 'task_300', name: 'タスク300個', icon: '📊', condition: () => getTotalTasks() >= 300 },
+    { id: 'task_500', name: 'タスク500個', icon: '📊', condition: () => getTotalTasks() >= 500 },
 
     // 参加回数系
-    { id: 'stamp_first', name: '初参加', icon: '⭐', condition: () => calculateTotalStamps() >= 1 },
+    { id: 'stamp_first', name: '初参加', icon: '⭐', condition: () => getTotalStamps() >= 1 },
     { id: 'morning_10', name: '朝活10回', icon: '🌞', condition: () => countStampType('morning') >= 10 },
     { id: 'lunch_10', name: '昼活10回', icon: '🍙', condition: () => countStampType('lunch') >= 10 },
     { id: 'night_10', name: '夜活10回', icon: '⭐', condition: () => countStampType('night') >= 10 },
