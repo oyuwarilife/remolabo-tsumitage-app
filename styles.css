@@ -1337,10 +1337,18 @@ footer {
     text-align: center;
 }
 
-.stats-share {
+.stats-remonyan {
     text-align: center;
-    padding-top: 15px;
+    padding-top: 10px;
     border-top: 2px solid #ffd54f;
+}
+
+.stats-remonyan-img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    margin: 10px auto;
+    display: block;
 }
 
 /* レスポンシブ */
@@ -1615,49 +1623,89 @@ footer {
         font-size: 0.9em;
     }
 
-    /* 統計画面のコンパクト化 */
-    .stats-container {
-        gap: 10px;
+    /* 統計画面のコンパクト化（強化版） */
+    .stats-header {
+        margin-bottom: 8px;
+    }
+
+    .stats-header h2 {
+        font-size: 1.2em;
+        margin: 5px 0;
+    }
+
+    .stats-logo {
+        width: 50px;
+        height: 50px;
+    }
+
+    .stats-summary {
+        gap: 6px;
+        padding: 8px;
+        margin-bottom: 8px;
     }
 
     .stat-card {
-        padding: 10px;
+        padding: 6px;
     }
 
-    .stat-card h3 {
-        font-size: 0.9em;
-        margin-bottom: 5px;
+    .stat-icon {
+        font-size: 1em;
+    }
+
+    .stat-label {
+        font-size: 0.65em;
     }
 
     .stat-number {
-        font-size: 1.5em;
+        font-size: 1.1em;
     }
 
     .achievements-section {
-        padding: 10px;
+        padding: 6px;
+        margin-bottom: 6px;
     }
 
     .achievements-section h3 {
-        font-size: 0.9em;
-        margin-bottom: 10px;
+        font-size: 0.8em;
+        margin-bottom: 6px;
     }
 
     .achievements-container {
         grid-template-columns: repeat(3, 1fr);
-        gap: 8px;
+        gap: 4px;
     }
 
     .achievement-item {
-        padding: 8px;
+        padding: 4px;
     }
 
     .achievement-icon {
-        font-size: 1.5em;
-        margin-bottom: 4px;
+        font-size: 1.1em;
+        margin-bottom: 2px;
     }
 
     .achievement-name {
+        font-size: 0.65em;
+    }
+
+    .stats-remonyan {
+        padding-top: 6px;
+    }
+
+    .stats-remonyan-img {
+        width: 60px;
+        height: 60px;
+        margin: 6px auto;
+    }
+
+    .share-message {
         font-size: 0.75em;
+        margin: 4px 0;
+    }
+
+    .hashtag-text {
+        font-size: 0.8em;
+        margin: 2px 0;
     }
 }
 
