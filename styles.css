@@ -1400,7 +1400,7 @@ footer {
         flex-direction: row;
         border: 3px solid #ff9800;
         background: #e0e0e0;
-        border-radius: 20px;
+        border-radius: 5px;
     }
 
     .monasashi-block {
