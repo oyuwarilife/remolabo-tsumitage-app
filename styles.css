@@ -1656,8 +1656,8 @@ footer {
     }
 
     .stats-logo {
-        width: 45px;
-        height: 45px;
+        width: 60px;
+        height: 60px;
         margin-bottom: 3px;
     }
 
@@ -1694,21 +1694,21 @@ footer {
     }
 
     .achievements-container {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 4px;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 3px;
     }
 
     .achievement-item {
-        padding: 3px;
+        padding: 2px;
     }
 
     .achievement-icon {
-        font-size: 1em;
+        font-size: 0.85em;
         margin-bottom: 1px;
     }
 
     .achievement-name {
-        font-size: 0.6em;
+        font-size: 0.5em;
     }
 
     .stats-share-message {
