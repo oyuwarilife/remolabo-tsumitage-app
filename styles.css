@@ -130,6 +130,14 @@ main {
     font-size: 1.3em;
 }
 
+.section-label {
+    color: #5d4037;
+    font-size: 0.95em;
+    font-weight: 600;
+    margin: 10px 0 8px 0;
+    text-align: center;
+}
+
 /* 参加スタンプ（上段3つ） */
 .stamps-container-top {
     display: grid;

@@ -1063,9 +1063,6 @@ function initWeeklySummary() {
         const text = getWeeklySummaryShareText();
         window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, '_blank');
     });
-
-    // 初回アクセス時チェック（案4）
-    checkDailyPrompt();
 }
 
 // 週間サマリーを表示
@@ -1238,18 +1235,6 @@ function checkPastWeekView() {
 }
 
 // ポップアップ表示（案4: 初回アクセス時）
-function checkDailyPrompt() {
-    const today = getToday();
-    const lastPrompt = localStorage.getItem('lastSummaryPrompt');
-
-    if (lastPrompt !== today) {
-        localStorage.setItem('lastSummaryPrompt', today);
-        setTimeout(() => {
-            showSummaryPrompt('今週の記録を確認しますか？', '今週の進捗を振り返ってみましょう！');
-        }, 2000);
-    }
-}
-
 // ポップアップ表示
 function showSummaryPrompt(title, message) {
     const modal = document.getElementById('summaryPrompt');
