@@ -658,11 +658,11 @@ function updateMonasashi() {
 }
 
 function getMonasashiColor(count) {
-    if (count <= 20) return '#fff9c4'; // 薄い黄色
-    if (count <= 40) return '#ffe0b2'; // パステルオレンジ
-    if (count <= 60) return '#f8bbd0'; // パステルピンク
-    if (count <= 80) return '#e1bee7'; // ラベンダー
-    return '#d1c4e9'; // パステルパープル
+    if (count <= 20) return '#fff176'; // 明るい黄色
+    if (count <= 40) return '#ffb74d'; // 明るいオレンジ
+    if (count <= 60) return '#f06292'; // 明るいピンク
+    if (count <= 80) return '#ba68c8'; // 明るい紫
+    return '#9575cd'; // ミディアムパープル
 }
 
 // ========================================
