@@ -691,7 +691,7 @@ function createStampParticles(button, type) {
     };
 
     const color = colors[type] || '#ffd54f';
-    const particleCount = 12;
+    const particleCount = 6;
     const buttonRect = button.getBoundingClientRect();
     const centerX = buttonRect.left + buttonRect.width / 2;
     const centerY = buttonRect.top + buttonRect.height / 2;
@@ -699,7 +699,7 @@ function createStampParticles(button, type) {
     for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
         particle.className = 'stamp-particle';
-        particle.textContent = i % 2 === 0 ? '⭐' : '✨';
+        particle.textContent = '✨';
         particle.style.color = color;
         particle.style.left = centerX + 'px';
         particle.style.top = centerY + 'px';
