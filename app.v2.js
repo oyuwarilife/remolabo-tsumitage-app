@@ -121,6 +121,9 @@ function initStamps() {
                     hanamaru.classList.remove('animate');
                 }, 600);
 
+                // キラキラパーティクル
+                createStampParticles(btn, type);
+
                 // 累計タスク増加
                 data.totalTasks++;
 
@@ -634,7 +637,15 @@ function updateMonasashi() {
         imageNumber = 2;
     }
 
-    imageEl.src = `assets/remonyan-${imageNumber}.png`;
+    // 画像を更新
+    const prevSrc = imageEl.src;
+    const newSrc = `assets/remonyan-${imageNumber}.png`;
+    imageEl.src = newSrc;
+
+    // 画像が変わった時（成長した時）にキラキラ
+    if (prevSrc && !prevSrc.includes(`remonyan-${imageNumber}.png`) && current % 20 === 0 && current > 0) {
+        createRemonyanSparkles();
+    }
 
     // ものさしバーを生成
     let html = '';
@@ -663,6 +674,70 @@ function getMonasashiColor(count) {
     if (count <= 60) return '#f06292'; // 明るいピンク
     if (count <= 80) return '#ba68c8'; // 明るい紫
     return '#9575cd'; // ミディアムパープル
+}
+
+// ========================================
+// パーティクルエフェクト
+// ========================================
+
+// スタンプ押下時のキラキラパーティクル
+function createStampParticles(button, type) {
+    const colors = {
+        morning: '#fff176',  // 黄色
+        lunch: '#ffb74d',    // オレンジ
+        night: '#ba68c8',    // 紫
+        tsumitage: '#81c784', // 緑
+        task: '#f06292'      // ピンク
+    };
+
+    const color = colors[type] || '#ffd54f';
+    const particleCount = 12;
+    const buttonRect = button.getBoundingClientRect();
+    const centerX = buttonRect.left + buttonRect.width / 2;
+    const centerY = buttonRect.top + buttonRect.height / 2;
+
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'stamp-particle';
+        particle.textContent = i % 2 === 0 ? '⭐' : '✨';
+        particle.style.color = color;
+        particle.style.left = centerX + 'px';
+        particle.style.top = centerY + 'px';
+
+        const angle = (360 / particleCount) * i;
+        const distance = 60 + Math.random() * 40;
+        const tx = Math.cos(angle * Math.PI / 180) * distance;
+        const ty = Math.sin(angle * Math.PI / 180) * distance;
+
+        particle.style.setProperty('--tx', tx + 'px');
+        particle.style.setProperty('--ty', ty + 'px');
+
+        document.body.appendChild(particle);
+
+        setTimeout(() => particle.remove(), 800);
+    }
+}
+
+// リモにゃん成長時のキラキラ
+function createRemonyanSparkles() {
+    const remonyanImage = document.getElementById('remonyanImage');
+    const rect = remonyanImage.getBoundingClientRect();
+    const particleCount = 15;
+
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'remonyan-sparkle';
+        particle.textContent = '✨';
+
+        const x = rect.left + Math.random() * rect.width;
+        const y = rect.top + Math.random() * rect.height;
+        particle.style.left = x + 'px';
+        particle.style.top = y + 'px';
+
+        document.body.appendChild(particle);
+
+        setTimeout(() => particle.remove(), 1000);
+    }
 }
 
 // ========================================

@@ -1752,3 +1752,47 @@ footer {
         font-size: 0.8em;
     }
 }
+
+/* ========================================
+   パーティクルエフェクト
+   ======================================== */
+
+/* スタンプ押下時のキラキラパーティクル */
+.stamp-particle {
+    position: fixed;
+    font-size: 1.5em;
+    pointer-events: none;
+    z-index: 9999;
+    animation: particle-burst 0.8s ease-out forwards;
+}
+
+@keyframes particle-burst {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--tx), var(--ty)) scale(0.5);
+        opacity: 0;
+    }
+}
+
+/* リモにゃん成長時のキラキラ */
+.remonyan-sparkle {
+    position: fixed;
+    font-size: 1.2em;
+    pointer-events: none;
+    z-index: 9999;
+    animation: sparkle-float 1s ease-out forwards;
+}
+
+@keyframes sparkle-float {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-50px) scale(0.5);
+        opacity: 0;
+    }
+}
