@@ -159,6 +159,12 @@ function initStamps() {
                 // キラキラパーティクル
                 createStampParticles(btn, type);
 
+                // 累計タスクカウント増加
+                if (!data.tasks[today]) {
+                    data.tasks[today] = 0;
+                }
+                data.tasks[today]++;
+
                 // 連続記録のチェック
                 checkConsecutiveDaysForStamp();
 
@@ -245,6 +251,19 @@ function initTaskButton() {
 
         const prevTotal = getTotalTasks();
         data.tasks[today]++;
+
+        // 花丸アニメーション（初回のみactiveクラスを追加、トグルなし）
+        if (!taskBtn.classList.contains('active')) {
+            taskBtn.classList.add('active');
+        }
+        const hanamaru = taskBtn.querySelector('.hanamaru');
+        hanamaru.classList.add('animate');
+        setTimeout(() => {
+            hanamaru.classList.remove('animate');
+        }, 600);
+
+        // キラキラパーティクル
+        createStampParticles(taskBtn, 'task');
 
         // 連続記録のチェック
         checkConsecutiveDays();
