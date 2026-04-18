@@ -36,10 +36,8 @@
         </header>
 
         <div class="main-layout">
-            <!-- メインコンテンツ -->
-            <main>
-                <!-- 今日の操作パネル -->
-                <section class="today-panel">
+            <!-- 今日の操作パネル -->
+            <section class="today-panel">
                     <h2>今日の記録</h2>
 
                     <h3 class="section-label">参加したら押す</h3>
@@ -89,43 +87,6 @@
                     </div>
                 </section>
 
-                <!-- 週ログ -->
-                <section class="week-log">
-                    <div class="week-nav">
-                        <button id="prevWeekBtn">← 前の週</button>
-                        <h2 id="weekTitle">今週の記録</h2>
-                        <button id="nextWeekBtn">次の週 →</button>
-                    </div>
-
-                    <!-- 今週の目標 -->
-                    <div class="weekly-goal">
-                        <div class="goal-header">
-                            <label>📝 今週の目標</label>
-                            <button id="addGoalBtn" class="add-goal-btn">+ 目標を追加</button>
-                        </div>
-                        <div id="goalsContainer" class="goals-container">
-                            <!-- JavaScriptで生成 -->
-                        </div>
-                    </div>
-
-                    <div class="week-table">
-                        <div class="week-header">
-                            <div>日付</div>
-                            <div>参加記録</div>
-                            <div>タスク</div>
-                        </div>
-                        <div id="weekRows" class="week-body">
-                            <!-- JavaScriptで生成 -->
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 注意書き -->
-                <div class="notice">
-                    ⚠️ 注意：ブラウザのキャッシュをクリアすると記録が消えてしまいますのでご了承ください。
-                </div>
-            </main>
-
             <!-- リモにゃん成長パネル -->
             <aside class="remonyan-panel">
                 <h3>次の100まで</h3>
@@ -139,6 +100,42 @@
                     <span id="remonyanTotalCount">0</span> / 100
                 </div>
             </aside>
+
+            <!-- 週ログ -->
+            <section class="week-log">
+                <div class="week-nav">
+                    <button id="prevWeekBtn">← 前の週</button>
+                    <h2 id="weekTitle">今週の記録</h2>
+                    <button id="nextWeekBtn">次の週 →</button>
+                </div>
+
+                <!-- 今週の目標 -->
+                <div class="weekly-goal">
+                    <div class="goal-header">
+                        <label>📝 今週の目標</label>
+                        <button id="addGoalBtn" class="add-goal-btn">+ 目標を追加</button>
+                    </div>
+                    <div id="goalsContainer" class="goals-container">
+                        <!-- JavaScriptで生成 -->
+                    </div>
+                </div>
+
+                <div class="week-table">
+                    <div class="week-header">
+                        <div>日付</div>
+                        <div>参加記録</div>
+                        <div>タスク</div>
+                    </div>
+                    <div id="weekRows" class="week-body">
+                        <!-- JavaScriptで生成 -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- 注意書き -->
+            <div class="notice">
+                ⚠️ 注意：ブラウザのキャッシュをクリアすると記録が消えてしまいますのでご了承ください。
+            </div>
         </div>
     </div>
 

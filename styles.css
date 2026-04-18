@@ -104,13 +104,27 @@ header h1 {
 
 /* メインレイアウト */
 .main-layout {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 300px;
     gap: 20px;
     padding: 20px;
 }
 
-main {
-    flex: 1;
+.today-panel {
+    grid-column: 1;
+}
+
+.remonyan-panel {
+    grid-column: 2;
+    grid-row: 1 / 4;
+}
+
+.week-log {
+    grid-column: 1;
+}
+
+.notice {
+    grid-column: 1;
 }
 
 /* 今日の操作パネル */
@@ -1376,9 +1390,27 @@ footer {
 
     /* メインレイアウト */
     .main-layout {
+        display: flex;
         flex-direction: column;
         padding: 15px;
         gap: 15px;
+    }
+
+    /* スマホ表示の順序: 今日→累計→今週 */
+    .today-panel {
+        order: 1;
+    }
+
+    .remonyan-panel {
+        order: 2;
+    }
+
+    .week-log {
+        order: 3;
+    }
+
+    .notice {
+        order: 4;
     }
 
     /* パネルのパディング縮小 */
