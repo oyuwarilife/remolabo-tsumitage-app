@@ -145,6 +145,8 @@ function initStamps() {
 
         btn.addEventListener('click', () => {
             const isActive = btn.classList.contains('active');
+            const wasAlreadyStampedToday = data.stamps[today][type]; // トグル前の状態を保存
+
             data.stamps[today][type] = !isActive;
             btn.classList.toggle('active');
 
@@ -159,11 +161,13 @@ function initStamps() {
                 // キラキラパーティクル
                 createStampParticles(btn, type);
 
-                // 累計タスクカウント増加
-                if (!data.tasks[today]) {
-                    data.tasks[today] = 0;
+                // 累計タスクカウント増加（今日初めて押す時のみ）
+                if (!wasAlreadyStampedToday) {
+                    if (!data.tasks[today]) {
+                        data.tasks[today] = 0;
+                    }
+                    data.tasks[today]++;
                 }
-                data.tasks[today]++;
 
                 // 連続記録のチェック
                 checkConsecutiveDaysForStamp();
